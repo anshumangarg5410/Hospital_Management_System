@@ -185,7 +185,7 @@ ul {
 .doctorCard .img {
 	width: 20%;
 	height: 180px;
-	background-image: url("./Assets/BioWaleDoctor.jpg");
+	background-image: url("../Assets/BioWaleDoctor.jpg");
 	background-position: center;
 	background-size: cover;
 	background-repeat: no-repeat;

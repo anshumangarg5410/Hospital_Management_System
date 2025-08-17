@@ -62,7 +62,7 @@ main {
 .serviceitem .icon {
   width: 30%;
   height: 100px;
-  background-image: url("./Assets/hospital_circle.png");
+  background-image: url("../Assets/hospital_circle.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
