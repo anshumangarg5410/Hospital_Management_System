@@ -5,9 +5,19 @@
 .landing {
     height: 100vh; 
     width: 100vw; 
-    background-color: black; 
-    color:white;
+    background-image: url('../Assets/inprogress.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    color:black;
+    font-weight: 1000;
+    font-family: monospace;
+    font-size: 40px;
     display: flex;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
+}
+
+.landing p {
+    margin-left: 120px;
 }
