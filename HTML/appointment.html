@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Common Appointment Page</title>
+    <link rel="stylesheet" href="../CSS/appointment.css" />
+  </head>
+  <body>
+
+    <nav>
+      <!-- Navbar will be added later -->
+    </nav>
+
+    <main>
+      <div class="container">
+
+        <!-- Left side (services) -->
+        <div class="services">
+          <h2>Hospitality Services</h2>
+          <div class="serviceitem">
+            <div class="icon"></div>
+            <p>Guidance for Treatment by <br/> Personal Medical Expert</p>
+          </div>
+          <div class="serviceitem">
+            <div class="icon"></div>
+            <p>Upto 30% Off on Prescription <br/> Medicines & OTC Drugs</p>
+          </div>
+          <div class="serviceitem">
+            <div class="icon"></div>
+            <p>Second Opinions via <br/> Video / Tele Consult</p>
+          </div>
+          <div class="serviceitem">
+            <div class="icon"></div>
+            <p>Upto 60% Off on Diagnostic <br/> Tests & Health Checkups</p>
+          </div>
+        </div>
+
+        <!-- Right side (Common Appointment Form) -->
+        <div class="formsec">
+          <h3>Book OPD Appointment</h3>
+
+          <!-- Step 1: hospital -->
+          <select class="input-field" id="hospitalSelect">
+            <option disabled selected>Select Hospital</option>
+            <option value="fortis">Fortis Hospital, Noida</option>
+            <option value="aiims">AIIMS, Delhi</option>
+            <option value="apollo">Apollo Hospital, Gurugram</option>
+          </select>
+
+          <!-- Step 2: doctors (populates based on hospital) -->
+          <select class="input-field" id="doctorSelect" disabled>
+            <option>Select Doctor</option>
+          </select>
+
+          <!-- Step 3 : Date & Time -->
+          <div class="row">
+            <input type="date" class="input-field" />
+            <select class="input-field">
+              <option disabled selected>Select Time</option>
+              <option>09:00 AM</option>
+              <option>11:00 AM</option>
+              <option>02:00 PM</option>
+              <option>05:00 PM</option>
+            </select>
+          </div>
+
+          <!-- Step 4 : Patient Details -->
+          <input type="text" class="input-field" placeholder="Enter Your Name" />
+
+          <div class="row">
+            <select class="input-field" style="flex:1.2;">
+              <option>+91 (India)</option>
+              <option>+1 (USA)</option>
+            </select>
+            <input type="text" class="input-field" placeholder="Mobile Number" style="flex:2;">
+          </div>
+
+          <input class="input-field" type="email" placeholder="Email ID" />
+
+          <div class="row">
+            <select class="input-field">
+              <option disabled selected>Select Age</option>
+              <option>18-25</option>
+              <option>26-35</option>
+              <option>36-50</option>
+              <option>50+</option>
+            </select>
+            <select class="input-field">
+              <option disabled selected>Gender</option>
+              <option>Male</option>
+              <option>Female</option>
+              <option>Other</option>
+            </select>
+          </div>
+
+          <button class="submit-btn">Confirm Appointment</button>
+
+        </div>
+      </div>
+    </main>
+
+
+<script>
+  /* dynamically populate doctors based on hospital  */
+  const doctors = {
+    fortis: ["Dr. Naresh Trehan","Dr. A. P. Singh","Dr. Sunita Sharma"],
+    aiims: ["Dr. R.S. Mehta","Dr. S. Jain","Dr. Kavita Mehra"],
+    apollo: ["Dr. Raman Prakash","Dr. Hitesh Kapoor"]
+  };
+
+  const hospitalSelect = document.getElementById("hospitalSelect");
+  const doctorSelect = document.getElementById("doctorSelect");
+
+  hospitalSelect.addEventListener("change", function() {
+    const selectedHospital = this.value;
+    const docs = doctors[selectedHospital];
+
+    // enable and empty the doctor field
+    doctorSelect.innerHTML = '<option disabled selected>Select Doctor</option>';
+    doctorSelect.disabled = false;
+
+    // add doctors
+    docs.forEach(doc => {
+      const option = document.createElement("option");
+      option.text = doc;
+      option.value = doc;
+      doctorSelect.appendChild(option);
+    });
+  });
+</script>
+
+  </body>
+</html>
