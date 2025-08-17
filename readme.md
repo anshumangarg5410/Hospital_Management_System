@@ -1,4 +1,4 @@
-# 🏥 Hospital Management Website – Page Flow
+# 🏥 Hospital Management Website Page Structure
 
 ## 🔷 Navbar 
 
