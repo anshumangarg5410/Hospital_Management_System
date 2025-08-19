@@ -1,0 +1,118 @@
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+/* whole body  */
+main {
+    background-color: rgb(219, 221, 220);
+    height: 100vh;
+    width: 100vw;
+    display: flex;   
+}
+
+/* left side */
+.left {
+    background-color: red;
+    height: 100%;
+    width: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.left_panel {
+    height: 98%;
+    width: 80%;
+    background-color: pink;
+    border-radius: 10px;
+}
+
+/* right side */
+.right {
+    background-color: orange;
+    height: 100%;
+    width: 95%; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.right_panel {
+    height: 98%;
+    width: 100%;
+    background-color: pink;
+    padding: 1%;
+}
+
+.head_category {
+    background-color: brown;
+    height: 15%;
+    width: 100%;
+}
+
+.main_area {
+    background-color: chartreuse;
+    height: 85%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+ul {
+    list-style: none;
+}
+
+.right .right_panel .head_category .navarea {
+    height: 40%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: transparent;
+}
+
+.right .right_panel .head_category .navarea .nav_heading {
+    height: 100%;
+    width: 30%;
+    background-color: yellow;
+}
+
+.right .right_panel .head_category .navarea .sub_nav_menu {
+    height: 100%;
+    width: 70%;
+    background-color: red;
+}
+
+.right .right_panel .head_category .categoriy_page {
+    height: 60%;
+    width: 100%;
+    background-color: cyan;
+}
+
+.right .right_panel .head_category .categoriy_page .cat_heading {
+    height: 40%;
+    width: 100%;
+    background-color: darkgoldenrod;
+}
+
+.right .right_panel .head_category .categoriy_page .categories {
+    height: 60%;
+    width: 100%;
+    background-color: darkolivegreen;
+}
+
+.right .right_panel .main_area .chose_doctor {
+    height: 100%;
+    width: 30%;
+    background-color: mediumorchid;
+}
+
+.right .right_panel .main_area .doctor_info {
+    height: 100%;
+    width: 70%;
+    background-color:crimson;
+}
