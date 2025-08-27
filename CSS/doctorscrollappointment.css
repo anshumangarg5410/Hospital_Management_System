@@ -227,7 +227,7 @@ ul {
 }
 
 .right .right_panel .head_category .navarea .sub_nav_menu  .top_cat_ele {
-    background-color: white;
+    background-color: orange;
     height: 95%;
     width: 6%;
     display: flex;
@@ -238,27 +238,27 @@ ul {
 }
 
 .right .right_panel .head_category .navarea .sub_nav_menu  .top_cat_ele.profile {
-    background-color: white;
+    background-color: yellow;
     height: 95%;
     width: 12%;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 1.2rem;
-    border-radius: 10px;
+    border-radius: 15px; 
 }
 
 .right .right_panel .head_category .navarea .sub_nav_menu  .top_cat_ele.profile img{
     height: 100%;
     width: 100%;
-    border-radius: 10px;
+    border-radius: 1px;
 }
 
 .right .right_panel .head_category .navarea .sub_nav_menu  .top_cat_ele.profile .first{
     height: 100%;
     width: 45%;
     border-radius: 10px;
-    background-color: transparent;
+    background-color: green;
 }
 
 .right .right_panel .head_category .navarea .sub_nav_menu  .top_cat_ele.profile .scnd{
@@ -276,19 +276,20 @@ ul {
     height: 100%;
     width: 50%;
     padding: 2px;
-    border-radius: 10px;
-    background-color: white;
+    border-radius: 15px;
+    background-color: transparent;
 }
 
 .right .right_panel .head_category .navarea .sub_nav_menu  .top_cat_ele.profile ul{
     height: 100%;
     width: 100%;
     display: flex;
-    border-radius: 10px;
+    /* background-color: blue; */
+    border-radius: 15px;
 }
 
 .right .right_panel .head_category .navarea .sub_nav_menu  .top_cat_ele.input {
-    background-color: white;
+    background-color: orange;
     height: 95%;
     width: 70%;
     display: flex;
@@ -313,6 +314,6 @@ ul {
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 10px;
+    border-radius: 15px;
 
 }
