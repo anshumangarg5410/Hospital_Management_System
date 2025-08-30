@@ -231,6 +231,10 @@ body {
 	display: block;
 }
 
+li {
+    list-style: none;
+}
+
 .button-title {
 	font-size: 22px;
 	font-weight: 700;
