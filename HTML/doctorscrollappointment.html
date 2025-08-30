@@ -1,101 +1,321 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Doctors Appointment</title>
-		<link rel="stylesheet" href="../CSS/doctorscrollappointment.css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-	</head>
-	<body>
-		<main>
-			<section class="left">
-				<div class="left_panel">
-                    <ul class="left_top">
-                        <li class="img">
-                            <img class="side_panel_logo" src="../Assets/logo.png">
-                        </li>
-                        <li style="margin-top: 20px">
-                            <i class="fa-regular fa-house"></i>
-                        </li>
-                        <li><i class="fa-regular fa-house"></i></li>
-                        <li><i class="fa-regular fa-house"></i></li>
-                        <li><i class="fa-regular fa-house"></i></li>
-                        <li><i class="fa-regular fa-house"></i></li>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealthCare+ | Book Appointment</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../CSS/doctorscrollappointment.css">
+    <style>
+
+    </style>
+</head>
+<body>
+    <main class="main-container">
+        <!-- Sidebar -->
+        <section class="sidebar">
+            <li class="logo">H+</li>
+            <ul class="nav-list">
+                <li class="nav-item active"><i class="fas fa-home"></i></li>
+                <li class="nav-item"><i class="fas fa-calendar-alt"></i></li>
+                <li class="nav-item"><i class="fas fa-user-md"></i></li>
+                <li class="nav-item"><i class="fas fa-pills"></i></li>
+                <li class="nav-item"><i class="fas fa-chart-line"></i></li>
+            </ul>
+            <ul class="nav-bottom">
+                <li class="nav-item"><i class="fas fa-cog"></i></li>
+                <li class="nav-item"><i class="fas fa-question-circle"></i></li>
+            </ul>
+        </section>
+
+        <!-- Main Content -->
+        <section class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <h1 class="page-title">Book Appointment</h1>
+                <ul class="header-actions">
+                    <li class="search-container">
+                        <input type="text" class="search-input" placeholder="Search doctors or specialists...">
+                        <i class="fas fa-search search-icon"></i>
+                    </li>
+                    <li>
+                        <button class="action-btn">
+                            <i class="fas fa-bell"></i>
+                            <span class="notification-badge">3</span>
+                        </button>
+                    </li>
+                    <li><button class="action-btn"><i class="fas fa-envelope"></i></button></li>
+                    <li class="profile">
+                        <div class="profile-avatar soham"></div>
+                        <span class="profile-name">BTech Doctor</span>
+                    </li>
+                </ul>
+            </header>
+
+            <!-- Categories Section -->
+            <section class="categories-section">
+                <header class="section-header">
+                    <h2 class="section-title">Specialties</h2>
+                    <ul class="nav-arrows">
+                        <li><button class="arrow-btn" id="prevBtn" disabled><i class="fas fa-chevron-left"></i></button></li>
+                        <li><button class="arrow-btn" id="nextBtn"><i class="fas fa-chevron-right"></i></button></li>
                     </ul>
+                </header>
+                <ul class="categories-list">
+                    <li class="category-item active">All</li>
+                    <li class="category-item">Cardiology</li>
+                    <li class="category-item">Neurology</li>
+                    <li class="category-item">Pediatrics</li>
+                    <li class="category-item">Orthopedics</li>
+                    <li class="category-item">Dermatology</li>
+                    <li class="category-item">Psychiatry</li>
+                    <li class="category-item">Gynecology</li>
+                    <li class="category-item">Ophthalmology</li>
+                </ul>
+            </section>
 
-                    <ul class="left_bottom">
-                        <li><i class="fa-solid fa-circle-question"></i></li>
-                        <li style="margin-bottom: 20px;"><i class="fa-solid fa-circle-question"></i></li>
-                        
+            <!-- Main Content Area -->
+            <section class="content-area">
+                <!-- Doctors List -->
+                <section class="doctors-section">
+                    <ul class="doctors-list">
+                        <li class="doctor-item active">
+                            <header class="doctor-header">
+                                <div class="doctor-avatar soham"></div>
+                                <section class="doctor-info">
+                                    <h3>Dr. Soham Sood</h3>
+                                    <p class="doctor-specialty">Badmintinologist</p>
+                                </section>
+                            </header>
+                            <footer class="doctor-stats">
+                                <span class="rating">
+                                    <i class="fas fa-star"></i>
+                                    <span>4.9</span>
+                                </span>
+                                <span class="experience">19 years exp</span>
+                            </footer>
+                        </li>
+
+                        <li class="doctor-item .renu">
+                            <header class="doctor-header">
+                                <span class="doctor-avatar renu"></span>
+                                <section class="doctor-info">
+                                    <h3>Dr. Renu Singh</h3>
+                                    <p class="doctor-specialty">Chipkalilogist</p>
+                                </section>
+                            </header>
+                            <footer class="doctor-stats">
+                                <span class="rating">
+                                    <i class="fas fa-star"></i>
+                                    <span>4.8</span>
+                                </span>
+                                <span class="experience">19 years exp.</span>
+                            </footer>
+                        </li>
+
+                        <li class="doctor-item .ria">
+                            <header class="doctor-header">
+                                <div class="doctor-avatar ria"></div>
+                                <section class="doctor-info">
+                                    <h3>Dr. Ria Gupta</h3>
+                                    <p class="doctor-specialty">Dubailogist</p>
+                                </section>
+                            </header>
+                            <footer class="doctor-stats">
+                                <span class="rating">
+                                    <i class="fas fa-star"></i>
+                                    <span>4.7</span>
+                                </span>
+                                <span class="experience">20 years exp.</span>
+                            </footer>
+                        </li>
                     </ul>
-                </div>
-			</section>
+                </section>
 
-			<section class="right">
-				<div class="right_panel">
+                <!-- Doctor Details -->
+                <section class="doctor-details" id="doctorDetails">
 
-                    <div class="head_category">
-
-                        <ul class="navarea">
-                            <li class="nav_heading">
-                                <p>Book Appointment</p>
+                    <header class="detail-header">
+                        <span class="detail-avatar soham"></span>
+                        <section class="detail-name-div">
+                        <h2 class="detail-name">Dr. Soham Sood</h2>
+                        <p class="detail-specialty">Badmintinologist</p>
+                        <p class="detail-specialty">Doctor By birth with a engineering degree</p>
+                        <ul class="detail-stats">
+                            <li class="stat-item">
+                                <span class="stat-value">4.9</span>
+                                <span class="stat-label">Rating</span>
                             </li>
-
-                            <ul class="sub_nav_menu">
-                                <li class="top_cat_ele input">
-                                    <i class="fa-solid fa-magnifying-glass"></i>
-                                    <input type="text" placeholder="Search Doctors or Specialist">
-                                </li>
-                                <li class="top_cat_ele"><i class="fa-solid fa-bell"></i></li>
-                                <li class="top_cat_ele"><i class="fa-solid fa-bell"></i></li>
-                                <li class="top_cat_ele profile">
-                                    <ul>
-                                    <li class="first">
-                                        <img src="../Assets/BioWaleDoctor.jpg">
-                                    </li>
-                                    <li class="scnd">blablabla</li>
-                                    </ul>
-                                </li>
-
-                            </ul>
-                        </ul>
-
-                        <ul class="categoriy_page">
-                            <li class="cat_heading">
-                                Category
-                                <p>
-                                    <i class="fa-solid fa-arrow-left ar-left"></i>
-                                    <i class="fa-solid fa-arrow-right ar-right"></i>
-                                </p>
+                            <li class="stat-item">
+                                <span class="stat-value">19</span>
+                                <span class="stat-label">Years Exp.</span>
                             </li>
-                            <ul class="categories">
-                                <li class="all">All</li>
-                                <li>Physchology</li>
-                                <li>Physchology</li>
-                                <li>Physchology</li>
-                                <li>Physchology</li>
-                                <li>Physchology</li>
-                                <li>Physchology</li>
-                                <li>Mathamatologyyyyyy</li>
-                                <li>Mathamatologyyyyyy</li>
-                            </ul>
+                            <li class="stat-item">
+                                <span class="stat-value">1.2k</span>
+                                <span class="stat-label">Patients</span>
+                            </li>
                         </ul>
-
-                    </div>
-
-                    <div class="main_area">
-                        <ul class="chose_doctor">
-
+                        </section>
+                    </header>
+                    
+                    <section class="appointment-section">
+                        <h3 class="appointment-title">Available Time Slots</h3>
+                        <ul class="time-slots">
+                            <li class="time-slot">9:00 AM</li>
+                            <li class="time-slot">10:30 AM</li>
+                            <li class="time-slot selected">2:00 PM</li>
+                            <li class="time-slot">3:30 PM</li>
+                            <li class="time-slot">4:00 PM</li>
+                            <li class="time-slot">5:30 PM</li>
                         </ul>
+                        <button class="book-btn">Book Appointment</button>
+                    </section>
 
-                        <ul class="doctor_info">
+                </section>
+            </section>
+        </section>
+    </main>
+<!-- 
+    <script>
+        // Doctor data
+        const doctors = {
+            1: {
+                name: "Dr. Sarah Mitchell",
+                specialty: "Cardiologist",
+                avatar: "SM",
+                rating: "4.9",
+                experience: "15",
+                patients: "1.2k",
+                slots: ["9:00 AM", "10:30 AM", "2:00 PM", "3:30 PM", "4:00 PM", "5:30 PM"]
+            },
+            2: {
+                name: "Dr. Michael Johnson",
+                specialty: "Neurologist",
+                avatar: "MJ",
+                rating: "4.8",
+                experience: "12",
+                patients: "950",
+                slots: ["8:30 AM", "11:00 AM", "1:30 PM", "4:00 PM", "6:00 PM"]
+            },
+            3: {
+                name: "Dr. Emily Davis",
+                specialty: "Pediatrician",
+                avatar: "ED",
+                rating: "4.7",
+                experience: "8",
+                patients: "800",
+                slots: ["9:30 AM", "11:30 AM", "2:30 PM", "4:30 PM", "5:00 PM"]
+            },
+            4: {
+                name: "Dr. David Wilson",
+                specialty: "Orthopedist",
+                avatar: "DW",
+                rating: "4.6",
+                experience: "20",
+                patients: "1.5k",
+                slots: ["10:00 AM", "12:00 PM", "3:00 PM", "5:00 PM"]
+            }
+        };
 
-                        </ul>
-                    </div>
+        // Doctor card selection
+        document.querySelectorAll('.doctor-item').forEach(item => {
+            item.addEventListener('click', () => {
+                document.querySelectorAll('.doctor-item').forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
+                
+                const doctorId = item.dataset.doctor;
+                updateDoctorDetails(doctorId);
+            });
+        });
 
-                </div>
-			</section>
-		</main>
-	</body>
+        // Update doctor details
+        function updateDoctorDetails(doctorId) {
+            const doctor = doctors[doctorId];
+            const detailsContainer = document.getElementById('doctorDetails');
+            
+            detailsContainer.innerHTML = `
+                <header class="detail-header">
+                    <span class="detail-avatar">${doctor.avatar}</span>
+                    <h2 class="detail-name">${doctor.name}</h2>
+                    <p class="detail-specialty">${doctor.specialty}</p>
+                    <ul class="detail-stats">
+                        <li class="stat-item">
+                            <span class="stat-value">${doctor.rating}</span>
+                            <span class="stat-label">Rating</span>
+                        </li>
+                        <li class="stat-item">
+                            <span class="stat-value">${doctor.experience}</span>
+                            <span class="stat-label">Years Exp.</span>
+                        </li>
+                        <li class="stat-item">
+                            <span class="stat-value">${doctor.patients}</span>
+                            <span class="stat-label">Patients</span>
+                        </li>
+                    </ul>
+                </header>
+                
+                <section class="appointment-section">
+                    <h3 class="appointment-title">Available Time Slots</h3>
+                    <ul class="time-slots">
+                        ${doctor.slots.map((slot, index) => 
+                            `<li class="time-slot ${index === 2 ? 'selected' : ''}">${slot}</li>`
+                        ).join('')}
+                    </ul>
+                    <button class="book-btn">Book Appointment</button>
+                </section>
+            `;
+            
+            // Re-attach time slot event listeners
+            attachTimeSlotListeners();
+            attachBookingListener();
+        }
+
+        // Time slot selection
+        function attachTimeSlotListeners() {
+            document.querySelectorAll('.time-slot').forEach(slot => {
+                slot.addEventListener('click', () => {
+                    document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
+                    slot.classList.add('selected');
+                });
+            });
+        }
+
+        // Book appointment
+        function attachBookingListener() {
+            document.querySelector('.book-btn').addEventListener('click', () => {
+                const selectedSlot = document.querySelector('.time-slot.selected');
+                if (selectedSlot) {
+                    alert(`Appointment booked for ${selectedSlot.textContent}!`);
+                }
+            });
+        }
+
+        // Category selection
+        document.querySelectorAll('.category-item').forEach(item => {
+            item.addEventListener('click', () => {
+                document.querySelectorAll('.category-item').forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
+            });
+        });
+
+        // Search functionality
+        document.querySelector('.search-input').addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            document.querySelectorAll('.doctor-item').forEach(item => {
+                const doctorName = item.querySelector('h3').textContent.toLowerCase();
+                const specialty = item.querySelector('.doctor-specialty').textContent.toLowerCase();
+                
+                if (doctorName.includes(searchTerm) || specialty.includes(searchTerm)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+
+        // Initialize
+        attachTimeSlotListeners();
+        attachBookingListener();
+    </script> -->
+</body>
 </html>
