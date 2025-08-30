@@ -140,9 +140,6 @@ body {
 .main-title {
 	font-size: 48px;
 	font-weight: 700;
-	background: linear-gradient(135deg, #667eea, #764ba2);
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
 	margin-bottom: 15px;
 	letter-spacing: -1px;
 }
