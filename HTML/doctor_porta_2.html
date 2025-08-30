@@ -1,0 +1,1771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HospitalOS - Advanced Management System</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #6366f1;
+            --secondary-color: #8b5cf6;
+            --accent-color: #06b6d4;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+            --dark-bg: #0f172a;
+            --card-bg: #1e293b;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --border-color: #334155;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(45deg, #0f172a, #1e293b, #334155);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 300px;
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(20px);
+            border-right: 1px solid var(--border-color);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .sidebar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+        }
+
+        .logo {
+            padding: 25px;
+            border-bottom: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .logo h1 {
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-top: 5px;
+            font-weight: 500;
+        }
+
+        .nav-menu {
+            padding: 20px 0;
+        }
+
+        .nav-section {
+            margin-bottom: 30px;
+        }
+
+        .nav-section-title {
+            padding: 0 25px 10px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-item {
+            padding: 15px 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            transition: width 0.3s ease;
+            z-index: -1;
+        }
+
+        .nav-item:hover::before {
+            width: 100%;
+        }
+
+        .nav-item:hover {
+            border-left-color: var(--primary-color);
+            color: white;
+        }
+
+        .nav-item.active {
+            background: linear-gradient(90deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.1));
+            border-left-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .nav-item i {
+            width: 20px;
+            font-size: 18px;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-item:hover i {
+            transform: scale(1.1);
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 25px;
+            overflow-y: auto;
+        }
+
+        /* Top Bar */
+        .top-bar {
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 16px;
+            padding: 20px 25px;
+            margin-bottom: 25px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .top-bar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+        }
+
+        .search-container {
+            flex: 1;
+            max-width: 400px;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 45px 12px 20px;
+            background: rgba(51, 65, 85, 0.8);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+        }
+
+        .top-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .notification-bell {
+            position: relative;
+            padding: 12px;
+            background: rgba(51, 65, 85, 0.8);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .notification-bell:hover {
+            background: var(--primary-color);
+            transform: scale(1.05);
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            width: 8px;
+            height: 8px;
+            background: var(--danger-color);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 15px;
+            background: rgba(51, 65, 85, 0.8);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .user-profile:hover {
+            background: var(--primary-color);
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+
+        /* Dashboard Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .metric-card {
+            background: linear-gradient(135deg, var(--card-bg), rgba(51, 65, 85, 0.8));
+            border-radius: 20px;
+            padding: 25px;
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .metric-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+        }
+
+        .metric-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .metric-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .metric-icon {
+            width: 55px;
+            height: 55px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            position: relative;
+        }
+
+        .metric-icon::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 16px;
+            padding: 2px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: exclude;
+        }
+
+        .metric-value {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .metric-label {
+            color: var(--text-secondary);
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .metric-change {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 12px;
+            margin-top: 10px;
+        }
+
+        .change-positive {
+            color: var(--success-color);
+        }
+
+        .change-negative {
+            color: var(--danger-color);
+        }
+
+        /* Content Sections */
+        .content-section {
+            display: none;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        /* Advanced Table */
+        .data-table {
+            background: var(--card-bg);
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            margin-top: 20px;
+        }
+
+        .table-header {
+            padding: 20px 25px;
+            background: rgba(99, 102, 241, 0.1);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .table-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .table-filters {
+            display: flex;
+            gap: 10px;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            background: rgba(51, 65, 85, 0.8);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 12px;
+        }
+
+        .filter-btn.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 18px 25px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background: rgba(51, 65, 85, 0.5);
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 14px;
+        }
+
+        td {
+            color: var(--text-secondary);
+        }
+
+        tr:hover {
+            background: rgba(99, 102, 241, 0.05);
+        }
+
+        /* Status indicators */
+        .status {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .status.online {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--success-color);
+        }
+
+        .status.offline {
+            background: rgba(107, 114, 128, 0.2);
+            color: var(--text-secondary);
+        }
+
+        .status.critical {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--danger-color);
+        }
+
+        .status.stable {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--success-color);
+        }
+
+        .status.pending {
+            background: rgba(245, 158, 11, 0.2);
+            color: var(--warning-color);
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(51, 65, 85, 0.8);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--border-color);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, var(--success-color), #059669);
+            color: white;
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, var(--danger-color), #dc2626);
+            color: white;
+        }
+
+        .btn-sm {
+            padding: 8px 16px;
+            font-size: 12px;
+        }
+
+        /* Charts and Analytics */
+        .analytics-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .chart-container {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 25px;
+            border: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .chart-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .chart-placeholder {
+            height: 300px;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            font-size: 16px;
+            border: 2px dashed var(--border-color);
+        }
+
+        /* Quick Stats */
+        .quick-stats {
+            display: grid;
+            gap: 20px;
+        }
+
+        .stat-item {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Department Cards */
+        .department-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .department-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 25px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .department-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+        }
+
+        .department-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        .department-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .department-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+        }
+
+        .department-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .department-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .department-stat {
+            text-align: center;
+        }
+
+        .department-stat-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .department-stat-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            border: 1px solid var(--border-color);
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translate(-50%, -60%); opacity: 0; }
+            to { transform: translate(-50%, -50%); opacity: 1; }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .modal-title {
+            font-size: 20px;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-secondary);
+            padding: 5px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .close:hover {
+            color: var(--text-primary);
+            background: rgba(51, 65, 85, 0.5);
+        }
+
+        /* Forms */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(51, 65, 85, 0.5);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+            background: rgba(51, 65, 85, 0.7);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .analytics-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 80px;
+            }
+
+            .sidebar .nav-item span,
+            .logo h1,
+            .logo p {
+                display: none;
+            }
+
+            .main-content {
+                padding: 15px;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .top-bar {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .search-container {
+                max-width: 100%;
+            }
+        }
+
+        /* Emergency Alert */
+        .emergency-alert {
+            background: linear-gradient(135deg, var(--danger-color), #dc2626);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            animation: alertPulse 2s infinite;
+        }
+
+        @keyframes alertPulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+            50% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+        }
+
+        /* Patient Cards */
+        .patient-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .patient-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 20px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .patient-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .patient-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .patient-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .patient-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .patient-id {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .patient-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .patient-info-item {
+            font-size: 12px;
+        }
+
+        .patient-info-label {
+            color: var(--text-secondary);
+        }
+
+        .patient-info-value {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid var(--border-color);
+            border-radius: 50%;
+            border-top-color: var(--primary-color);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+    
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">
+                <h1><i class="fas fa-hospital"></i> HospitalOS</h1>
+                <p>Advanced Management System</p>
+            </div>
+            <nav class="nav-menu">
+                <div class="nav-section">
+                    <div class="nav-section-title">Patient Care</div>
+                    <div class="nav-item" onclick="showSection('patients')">
+                        <i class="fas fa-users"></i>
+                        <span>Patients</span>
+                    </div>
+                    <div class="nav-item" onclick="showSection('appointments')">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Appointments</span>
+                    </div>
+                    <div class="nav-item" onclick="showSection('medical-records')">
+                        <i class="fas fa-file-medical"></i>
+                        <span>Medical Records</span>
+                    </div>
+                    <div class="nav-item" onclick="showSection('prescriptions')">
+                        <i class="fas fa-prescription-bottle"></i>
+                        <span>Prescriptions</span>
+                    </div>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Hospital</div>
+                    <div class="nav-item" onclick="showSection('departments')">
+                        <i class="fas fa-building"></i>
+                        <span>Departments</span>
+                    </div>
+                    <div class="nav-item" onclick="showSection('staff')">
+                        <i class="fas fa-user-nurse"></i>
+                        <span>Staff</span>
+                    </div>
+                    <div class="nav-item" onclick="showSection('inventory')">
+                        <i class="fas fa-boxes"></i>
+                        <span>Inventory</span>
+                    </div>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">System</div>
+                    <div class="nav-item" onclick="showSection('settings')">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </div>
+                    <div class="nav-item" onclick="showSection('help')">
+                        <i class="fas fa-question-circle"></i>
+                        <span>Help</span>
+                    </div>
+                </div>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Top Bar -->
+            <div class="top-bar">
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="Search patients, appointments, records...">
+                    <i class="fas fa-search search-icon"></i>
+                </div>
+                <div class="top-actions">
+                    <div class="notification-bell">
+                        <i class="fas fa-bell"></i>
+                        <div class="notification-badge"></div>
+                    </div>
+                    <div class="user-profile">
+                        <div>
+                            <div style="font-weight: 600; color: var(--text-primary);">Dr. Sarah Wilson</div>
+                            <div style="font-size: 12px; color: var(--text-secondary);">Chief of Cardiology</div>
+                        </div>
+                        <div class="user-avatar">SW</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard Section -->
+            <div id="dashboard" class="content-section active">
+                <!-- Emergency Alert -->
+                <div class="emergency-alert">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <div>
+                        <strong>Emergency Alert:</strong> Patient in Room 302 requires immediate attention - Cardiac irregularity detected
+                    </div>
+                    <button class="btn btn-secondary btn-sm">Respond</button>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="metric-card">
+                        <div class="metric-header">
+                            <div class="metric-icon">
+                                <i class="fas fa-user-injured"></i>
+                            </div>
+                            <div class="metric-change change-positive">
+                                <i class="fas fa-arrow-up"></i> 12%
+                            </div>
+                        </div>
+                        <div class="metric-value">1,247</div>
+                        <div class="metric-label">Total Patients</div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-header">
+                            <div class="metric-icon">
+                                <i class="fas fa-procedures"></i>
+                            </div>
+                            <div class="metric-change change-positive">
+                                <i class="fas fa-arrow-up"></i> 8%
+                            </div>
+                        </div>
+                        <div class="metric-value">89</div>
+                        <div class="metric-label">Active Admissions</div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-header">
+                            <div class="metric-icon">
+                                <i class="fas fa-calendar-check"></i>
+                            </div>
+                            <div class="metric-change change-negative">
+                                <i class="fas fa-arrow-down"></i> 3%
+                            </div>
+                        </div>
+                        <div class="metric-value">156</div>
+                        <div class="metric-label">Today's Appointments</div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-header">
+                            <div class="metric-icon">
+                                <i class="fas fa-heartbeat"></i>
+                            </div>
+                            <div class="metric-change change-positive">
+                                <i class="fas fa-arrow-up"></i> 15%
+                            </div>
+                        </div>
+                        <div class="metric-value">98.2%</div>
+                        <div class="metric-label">Patient Satisfaction</div>
+                    </div>
+                </div>
+
+                <div class="analytics-grid">
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <div class="chart-title">Patient Flow Analytics</div>
+                            <div class="section-actions">
+                                <button class="btn btn-secondary btn-sm">Today</button>
+                                <button class="btn btn-primary btn-sm">Week</button>
+                                <button class="btn btn-secondary btn-sm">Month</button>
+                            </div>
+                        </div>
+                        <div class="chart-placeholder">
+                            <i class="fas fa-chart-area" style="font-size: 48px; margin-right: 15px;"></i>
+                            Interactive Chart - Patient Flow Data
+                        </div>
+                    </div>
+
+                    <div class="quick-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">92%</div>
+                            <div class="stat-label">Bed Occupancy</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">24</div>
+                            <div class="stat-label">ICU Patients</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">156</div>
+                            <div class="stat-label">Operations Today</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">8min</div>
+                            <div class="stat-label">Avg Wait Time</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Patients Section -->
+            <div id="patients" class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-users"></i>
+                        Patient Management
+                    </h2>
+                    <div class="section-actions">
+                        <button class="btn btn-primary" onclick="openModal('new-patient')">
+                            <i class="fas fa-user-plus"></i> Add Patient
+                        </button>
+                        <button class="btn btn-secondary">
+                            <i class="fas fa-file-import"></i> Import
+                        </button>
+                    </div>
+                </div>
+
+                <div class="patient-cards">
+                    <div class="patient-card">
+                        <div class="patient-header">
+                            <div class="patient-avatar">EJ</div>
+                            <div>
+                                <div class="patient-name">Emily Johnson</div>
+                                <div class="patient-id">PID: #P2025001</div>
+                            </div>
+                            <div class="status online">Active</div>
+                        </div>
+                        <div class="patient-info">
+                            <div class="patient-info-item">
+                                <div class="patient-info-label">Age</div>
+                                <div class="patient-info-value">34 years</div>
+                            </div>
+                            <div class="patient-info-item">
+                                <div class="patient-info-label">Blood Type</div>
+                                <div class="patient-info-value">O+</div>
+                            </div>
+                            <div class="patient-info-item">
+                                <div class="patient-info-label">Last Visit</div>
+                                <div class="patient-info-value">Aug 28, 2025</div>
+                            </div>
+                            <div class="patient-info-item">
+                                <div class="patient-info-label">Condition</div>
+                                <div class="patient-info-value">Stable</div>
+                            </div>
+                        </div>
+                        <div class="section-actions">
+                            <button class="btn btn-primary btn-sm">View Records</button>
+                            <button class="btn btn-secondary btn-sm">Schedule</button>
+                        </div>
+                    </div>
+
+                    <div class="patient-card">
+                        <div class="patient-header">
+                            <div class="patient-avatar">MB</div>
+                            <div>
+                                <div class="patient-name">Michael Brown</div>
+                                <div class="patient-id">PID: #P2025002</div>
+                            </div>
+                            <div class="status critical">Critical</div>
+                        </div>
+                        <div class="patient-info">
+                            <div class="patient-info-item">
+                                <div class="patient-info-label">Age</div>
+                                <div class="patient-info-value">67 years</div>
+                            </div>
+                            <div class="patient-info-item">
+                                <div class="patient-info-label">Blood Type</div>
+                                <div class="patient-info-value">A-</div>
+                            </div>
+                            <div class="patient-info-item">
+                                <div class="patient-info-label">Last Visit</div>
+                                <div class="patient-info-value">Aug 30, 2025</div>
+                            </div>
+                            <div class="patient-info-item">
+                                <div class="patient-info-label">Condition</div>
+                                <div class="patient-info-value">ICU</div>
+                            </div>
+                        </div>
+                        <div class="section-actions">
+                            <button class="btn btn-danger btn-sm">Emergency</button>
+                            <button class="btn btn-primary btn-sm">View Records</button>
+                        </div>
+                    </div>
+
+                    <div class="patient-card">
+                        <div class="patient-header">
+                            <div class="patient-avatar">SD</div>
+                            <div>
+                                <div class="patient-name">Sarah Davis</div>
+                                <div class="patient-id">PID: #P2025003</div>
+                            </div>
+                            <div class="status stable">Stable</div>
+                        </div>
+                        <div class="patient-info">
+                            <div class="patient-info-item">
+                                <div class="patient-info-label">Age</div>
+                                <div class="patient-info-value">28 years</div>
+                            </div>
+                            <div class="patient-info-item">
+                                <div class="patient-info-label">Blood Type</div>
+                                <div class="patient-info-value">B+</div>
+                            </div>
+                            <div class="patient-info-item">
+                                <div class="patient-info-label">Last Visit</div>
+                                <div class="patient-info-value">Aug 29, 2025</div>
+                            </div>
+                            <div class="patient-info-item">
+                                <div class="patient-info-label">Condition</div>
+                                <div class="patient-info-value">Recovery</div>
+                            </div>
+                        </div>
+                        <div class="section-actions">
+                            <button class="btn btn-primary btn-sm">View Records</button>
+                            <button class="btn btn-secondary btn-sm">Schedule</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Appointments Section -->
+            <div id="appointments" class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-calendar-alt"></i>
+                        Appointment Scheduler
+                    </h2>
+                    <div class="section-actions">
+                        <button class="btn btn-primary" onclick="openModal('new-appointment')">
+                            <i class="fas fa-plus"></i> New Appointment
+                        </button>
+                        <button class="btn btn-secondary">
+                            <i class="fas fa-calendar-week"></i> Calendar View
+                        </button>
+                    </div>
+                </div>
+
+                <div class="data-table">
+                    <div class="table-header">
+                        <div class="table-title">Today's Schedule - August 30, 2025</div>
+                        <div class="table-filters">
+                            <button class="filter-btn active">All</button>
+                            <button class="filter-btn">Confirmed</button>
+                            <button class="filter-btn">Pending</button>
+                            <button class="filter-btn">Emergency</button>
+                        </div>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Time</th>
+                                <th>Patient</th>
+                                <th>Doctor</th>
+                                <th>Department</th>
+                                <th>Type</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>08:00 AM</strong></td>
+                                <td>Emily Johnson</td>
+                                <td>Dr. Sarah Wilson</td>
+                                <td>Cardiology</td>
+                                <td>Follow-up</td>
+                                <td><span class="status online">Confirmed</span></td>
+                                <td>
+                                    <button class="btn btn-success btn-sm">Start</button>
+                                    <button class="btn btn-secondary btn-sm">Edit</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>09:30 AM</strong></td>
+                                <td>Michael Brown</td>
+                                <td>Dr. James Miller</td>
+                                <td>Emergency</td>
+                                <td>Emergency</td>
+                                <td><span class="status critical">Urgent</span></td>
+                                <td>
+                                    <button class="btn btn-danger btn-sm">Priority</button>
+                                    <button class="btn btn-secondary btn-sm">Details</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>11:00 AM</strong></td>
+                                <td>Sarah Davis</td>
+                                <td>Dr. Sarah Wilson</td>
+                                <td>General</td>
+                                <td>Consultation</td>
+                                <td><span class="status pending">Pending</span></td>
+                                <td>
+                                    <button class="btn btn-primary btn-sm">Confirm</button>
+                                    <button class="btn btn-secondary btn-sm">Reschedule</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>02:00 PM</strong></td>
+                                <td>Robert Wilson</td>
+                                <td>Dr. Lisa Anderson</td>
+                                <td>Orthopedics</td>
+                                <td>Surgery Prep</td>
+                                <td><span class="status online">Confirmed</span></td>
+                                <td>
+                                    <button class="btn btn-primary btn-sm">Pre-op</button>
+                                    <button class="btn btn-secondary btn-sm">Details</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Medical Records Section -->
+            <div id="medical-records" class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-file-medical"></i>
+                        Electronic Medical Records
+                    </h2>
+                    <div class="section-actions">
+                        <button class="btn btn-primary">
+                            <i class="fas fa-file-plus"></i> New Record
+                        </button>
+                        <button class="btn btn-secondary">
+                            <i class="fas fa-download"></i> Export
+                        </button>
+                    </div>
+                </div>
+
+                <div class="data-table">
+                    <div class="table-header">
+                        <div class="table-title">Recent Medical Records</div>
+                        <div class="table-filters">
+                            <button class="filter-btn active">All Records</button>
+                            <button class="filter-btn">Lab Results</button>
+                            <button class="filter-btn">Imaging</button>
+                            <button class="filter-btn">Prescriptions</button>
+                        </div>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Patient</th>
+                                <th>Record Type</th>
+                                <th>Date</th>
+                                <th>Doctor</th>
+                                <th>Department</th>
+                                <th>Priority</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Emily Johnson</td>
+                                <td>ECG Report</td>
+                                <td>Aug 30, 2025</td>
+                                <td>Dr. Sarah Wilson</td>
+                                <td>Cardiology</td>
+                                <td><span class="status online">Normal</span></td>
+                                <td>
+                                    <button class="btn btn-primary btn-sm">View</button>
+                                    <button class="btn btn-secondary btn-sm">Download</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Michael Brown</td>
+                                <td>Blood Work</td>
+                                <td>Aug 30, 2025</td>
+                                <td>Dr. James Miller</td>
+                                <td>Laboratory</td>
+                                <td><span class="status critical">Abnormal</span></td>
+                                <td>
+                                    <button class="btn btn-danger btn-sm">Review</button>
+                                    <button class="btn btn-secondary btn-sm">History</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Sarah Davis</td>
+                                <td>X-Ray Chest</td>
+                                <td>Aug 29, 2025</td>
+                                <td>Dr. Lisa Anderson</td>
+                                <td>Radiology</td>
+                                <td><span class="status pending">Pending Review</span></td>
+                                <td>
+                                    <button class="btn btn-primary btn-sm">Review</button>
+                                    <button class="btn btn-secondary btn-sm">Share</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Departments Section -->
+            <div id="departments" class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-building"></i>
+                        Hospital Departments
+                    </h2>
+                    <div class="section-actions">
+                        <button class="btn btn-primary">
+                            <i class="fas fa-plus"></i> Add Department
+                        </button>
+                    </div>
+                </div>
+
+                <div class="department-grid">
+                    <div class="department-card">
+                        <div class="department-header">
+                            <div class="department-icon">
+                                <i class="fas fa-heartbeat"></i>
+                            </div>
+                            <div>
+                                <div class="department-name">Cardiology</div>
+                                <div style="font-size: 12px; color: var(--text-secondary);">Heart & Vascular Care</div>
+                            </div>
+                        </div>
+                        <div class="department-stats">
+                            <div class="department-stat">
+                                <div class="department-stat-value">45</div>
+                                <div class="department-stat-label">Patients</div>
+                            </div>
+                            <div class="department-stat">
+                                <div class="department-stat-value">8</div>
+                                <div class="department-stat-label">Doctors</div>
+                            </div>
+                            <div class="department-stat">
+                                <div class="department-stat-value">92%</div>
+                                <div class="department-stat-label">Capacity</div>
+                            </div>
+                            <div class="department-stat">
+                                <div class="department-stat-value">15</div>
+                                <div class="department-stat-label">Surgeries</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="department-card">
+                        <div class="department-header">
+                            <div class="department-icon">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <div>
+                                <div class="department-name">Neurology</div>
+                                <div style="font-size: 12px; color: var(--text-secondary);">Brain & Nervous System</div>
+                            </div>
+                        </div>
+                        <div class="department-stats">
+                            <div class="department-stat">
+                                <div class="department-stat-value">32</div>
+                                <div class="department-stat-label">Patients</div>
+                            </div>
+                            <div class="department-stat">
+                                <div class="department-stat-value">6</div>
+                                <div class="department-stat-label">Doctors</div>
+                            </div>
+                            <div class="department-stat">
+                                <div class="department-stat-value">78%</div>
+                                <div class="department-stat-label">Capacity</div>
+                            </div>
+                            <div class="department-stat">
+                                <div class="department-stat-value">8</div>
+                                <div class="department-stat-label">Procedures</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="department-card">
+                        <div class="department-header">
+                            <div class="department-icon">
+                                <i class="fas fa-ambulance"></i>
+                            </div>
+                            <div>
+                                <div class="department-name">Emergency</div>
+                                <div style="font-size: 12px; color: var(--text-secondary);">24/7 Emergency Care</div>
+                            </div>
+                        </div>
+                        <div class="department-stats">
+                            <div class="department-stat">
+                                <div class="department-stat-value">28</div>
+                                <div class="department-stat-label">Active Cases</div>
+                            </div>
+                            <div class="department-stat">
+                                <div class="department-stat-value">12</div>
+                                <div class="department-stat-label">Staff</div>
+                            </div>
+                            <div class="department-stat">
+                                <div class="department-stat-value">15min</div>
+                                <div class="department-stat-label">Avg Wait</div>
+                            </div>
+                            <div class="department-stat">
+                                <div class="department-stat-value">5</div>
+                                <div class="department-stat-label">Critical</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="department-card">
+                        <div class="department-header">
+                            <div class="department-icon">
+                                <i class="fas fa-cut"></i>
+                            </div>
+                            <div>
+                                <div class="department-name">Surgery</div>
+                                <div style="font-size: 12px; color: var(--text-secondary);">Surgical Operations</div>
+                            </div>
+                        </div>
+                        <div class="department-stats">
+                            <div class="department-stat">
+                                <div class="department-stat-value">18</div>
+                                <div class="department-stat-label">Scheduled</div>
+                            </div>
+                            <div class="department-stat">
+                                <div class="department-stat-value">10</div>
+                                <div class="department-stat-label">Surgeons</div>
+                            </div>
+                            <div class="department-stat">
+                                <div class="department-stat-value">6</div>
+                                <div class="department-stat-label">OR Available</div>
+                            </div>
+                            <div class="department-stat">
+                                <div class="department-stat-value">3</div>
+                                <div class="department-stat-label">In Progress</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Staff Section -->
+            <div id="staff" class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-user-nurse"></i>
+                        Staff Management
+                    </h2>
+                    <div class="section-actions">
+                        <button class="btn btn-primary">
+                            <i class="fas fa-user-plus"></i> Add Staff
+                        </button>
+                        <button class="btn btn-secondary">
+                            <i class="fas fa-calendar"></i> Schedules
+                        </button>
+                    </div>
+                </div>
+
+                <div class="data-table">
+                    <div class="table-header">
+                        <div class="table-title">Medical Staff Directory</div>
+                        <div class="table-filters">
+                            <button class="filter-btn active">All Staff</button>
+                            <button class="filter-btn">Doctors</button>
+                            <button class="filter-btn">Nurses</button>
+                            <button class="filter-btn">On Duty</button>
+                        </div>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Role</th>
+                                <th>Department</th>
+                                <th>Shift</th>
+                                <th>Status</th>
+                                <th>Patients</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div style="display: flex; align-items: center; gap: 10px;">
+                                        <div class="user-avatar" style="width: 35px; height: 35px; font-size: 14px;">SW</div>
+                                        Dr. Sarah Wilson
+                                    </div>
+                                </td>
+                                <td>Chief Cardiologist</td>
+                                <td>Cardiology</td>
+                                <td>08:00 - 18:00</td>
+                                <td><span class="status online">On Duty</span></td>
+                                <td>12</td>
+                                <td>
+                                    <button class="btn btn-primary btn-sm">Profile</button>
+                                    <button class="btn btn-secondary btn-sm">Schedule</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div style="display: flex; align-items: center; gap: 10px;">
+                                        <div class="user-avatar" style="width: 35px; height: 35px; font-size: 14px;">JM</div>
+                                        Dr. James Miller
+                                    </div>
+                                </td>
+                                <td>Emergency Physician</td>
+                                <td>Emergency</td>
+                                <td>18:00 - 06:00</td>
+                                <td><span class="status online">On Duty</span></td>
+                                <td>8</td>
+                                <td>
+                                    <button class="btn btn-primary btn-sm">Profile</button>
+                                    <button class="btn btn-secondary btn-sm">Schedule</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div style="display: flex; align-items: center; gap: 10px;">
+                                        <div class="user-avatar" style="width: 35px; height: 35px; font-size: 14px;">LA</div>
+                                        Dr. Lisa Anderson
+                                    </div>
+                                </td>
+                                <td>Orthopedic Surgeon</td>
+                                <td>Orthopedics</td>
+                                <td>06:00 - 14:00</td>
+                                <td><span class="status offline">Off Duty</span></td>
+                                <td>0</td>
+                                <td>
+                                    <button class="btn btn-primary btn-sm">Profile</button>
+                                    <button class="btn btn-secondary btn-sm">Contact</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Analytics Section -->
+            <div id="analytics" class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-chart-line"></i>
+                        Hospital Analytics
+                    </h2>
+                    <div class="section-actions">
+                        <button class="btn btn-primary">
+                            <i class="fas fa-file-export"></i> Export Report
+                        </button>
+                        <button class="btn btn-secondary">
+                            <i class="fas fa">Overview</div>
+                    <div class="nav-item active" onclick="showSection('dashboard')">
+                        <i class="fas fa-chart-pie"></i>
+                        <span>Dashboard</span>
+                    </div>
+                    <div class="nav-item" onclick="showSection('analytics')">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Analytics</span>
+                    </div>
+                    <div class="nav-item" onclick="showSection('billing')">
+                        <i class="fas fa-file-invoice-dollar"></i>
+                        <span>Billing</span>
+                    </div>
+                    <div class="nav-item" onclick="showSection('lab-results')">
+                        <i class="fas fa-flask"></i>
+                        <span>Lab Results</span>
+                    </div>
+
+                </div>
+            </div>
+
+            
+        </div>
+    </div>
+
+</body>
