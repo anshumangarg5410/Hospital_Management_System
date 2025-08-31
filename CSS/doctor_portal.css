@@ -23,17 +23,23 @@ ul {
 .dashboard-container {
     display: flex;
     min-height: 100vh;
-    padding: 20px;
-    gap: 20px;
+    /* padding: 20px; */
+    /* gap: 20px; */
 }
 
 /* SIDEBAR STYLES */
 .sidebar {
     width: 80px;
     /* background: rgba(255, 255, 255, 0.95); */
-    background-color: white;
+    /* background-color: #1e293b; */
+    background-color: #0f172a;
+    /* background-color: #4b5563; */
+    /* background-color: #374151; */
+    /* background-color: #6b21a8; */
+    /* background-color: #6b21a8; */
+    /* background-color: #7c3aed ; */
     backdrop-filter: blur(10px);
-    border-radius: 10px;
+    /* border-radius: 10px; */
     padding: 30px 20px;
     display: flex;
     flex-direction: column;
@@ -91,7 +97,9 @@ ul {
     justify-content: center;
     align-items: center;
     gap: 15px;
-    color: #666;
+    color: #e5e7eb;
+    /* color: #60a5fa; */
+    /* color: #93c5fd   */
 }
 
 .nav-item:hover {
@@ -115,7 +123,7 @@ ul {
     flex: 1;
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
-    border-radius: 10px;
+    /* border-radius: 10px; */
     padding: 30px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
     overflow-y: auto;
