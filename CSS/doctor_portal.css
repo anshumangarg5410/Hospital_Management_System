@@ -31,8 +31,9 @@ ul {
 	width: 80px;
 	/* background: rgba(255, 255, 255, 0.95); */
 	/* background-color: #1e293b; */
-	background-color: #0f172a;
+
 	/* background-color: #4b5563; */
+	background-color: rgb(15, 23, 42);
 	/* background-color: #374151; */
 	/* background-color: #6b21a8; */
 	/* background-color: #6b21a8; */
@@ -87,7 +88,7 @@ ul {
 
 .nav-item {
 	width: 100%;
-	padding: 15px 0px;
+	padding: 15px 20px;
 	margin-bottom: 8px;
 	border-radius: 12px;
 	cursor: pointer;

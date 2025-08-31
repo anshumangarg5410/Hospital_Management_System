@@ -6,16 +6,17 @@
 
 body {
 	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	/* background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
 	min-height: 100vh;
 	display: flex;
 }
 
 .sidebar {
 	width: 80px;
-	background: #1e293b;
+	/* background: #1e293b; */
+    background-color: rgb(15, 23, 42);
 	height: 100vh;
-	padding: 20px 0;
+	padding: 30px 20px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -25,7 +26,7 @@ body {
 	top: 0;
 	z-index: 100;
 }
-
+/* 
 .logo {
 	background: #3b82f6;
 	color: white;
@@ -35,22 +36,43 @@ body {
 	font-size: 16px;
 	margin-bottom: 40px;
 	box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+} */
+
+.doctor-profile {
+	text-align: center;
+	margin-bottom: 30px;
+	padding-bottom: 20px;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.nav-item {
-	width: 48px;
-	height: 48px;
-	background: transparent;
-	border: none;
-	color: #9ca3af;
-	margin-bottom: 16px;
-	border-radius: 12px;
+.doctor-avatar {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	background: linear-gradient(135deg, #667eea, #764ba2);
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	color: white;
+	font-size: 32px;
+	font-weight: bold;
+	margin: 0 auto 15px;
+}
+.nav-menu {
+	flex: 1;
+}
+.nav-item {
+	width: 100%;
+	padding: 15px 10px;
+	margin-bottom: 8px;
+	border-radius: 12px;
 	cursor: pointer;
 	transition: all 0.3s ease;
-	font-size: 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 15px;
+	color: #9ca3af;
 	position: relative;
 }
 
@@ -63,7 +85,10 @@ body {
 .nav-item.active {
 	background: #3b82f6;
 	color: white;
-	box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+}
+
+.nav-icon {
+	font-size: 18px;
 }
 
 .nav-item.active::before {
@@ -79,27 +104,29 @@ body {
 .main-content {
 	flex: 1;
 	margin-left: 80px;
-	padding: 30px;
+	padding: 0px 30px;
 	overflow-y: auto;
 }
 
 .header {
-	background: rgba(255, 255, 255, 0.95);
+	/* background: rgba(255, 255, 255, 0.95); */
+    /* background-color: red; */
+    /* background-color: red; */
 	backdrop-filter: blur(10px);
-	border-radius: 20px;
-	padding: 25px 30px;
-	margin-bottom: 30px;
+	padding: 25px 0px;
+	margin-bottom: 10px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-	border: 1px solid rgba(255, 255, 255, 0.2);
+	/* box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); */
+	/* border: 1px solid rgba(255, 255, 255, 0.2); */
 }
 
 .welcome-section {
 	display: flex;
 	align-items: center;
 	gap: 15px;
+    /* background-color: orange; */
 }
 
 .patient-avatar {
@@ -117,7 +144,7 @@ body {
 }
 
 .welcome-text h1 {
-	font-size: 24px;
+	font-size: 34px;
 	color: #1e293b;
 	margin-bottom: 4px;
 }
@@ -129,6 +156,8 @@ body {
 
 .date-time {
 	text-align: right;
+    display: flex;
+    flex-direction: column;
 }
 
 .date-time .date {
@@ -147,19 +176,30 @@ body {
 	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 	gap: 20px;
 	margin-bottom: 40px;
+    /* background-color: red; */
 }
 
 .stat-card {
 	background: rgba(255, 255, 255, 0.95);
 	backdrop-filter: blur(10px);
-	border-radius: 20px;
+	border-radius: 10px;
 	padding: 25px;
-	text-align: center;
 	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 	border: 1px solid rgba(255, 255, 255, 0.2);
 	transition: all 0.3s ease;
-	position: relative;
-	overflow: hidden;
+	display: flex;
+    justify-content: center;
+	align-items: start;
+	position: relative; 
+	overflow: hidden;  
+}
+
+.stas-div {
+    display: flex;
+    /* background-color: red; */
+    justify-content: space-around;
+    flex-direction: column;
+    width: 60%;
 }
 
 .stat-card::before {
@@ -169,7 +209,7 @@ body {
 	left: 0;
 	right: 0;
 	height: 4px;
-	background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+	background: linear-gradient(90deg, #3b82f6 0%, #1d4ed8 100%);
 }
 
 .stat-card:hover {
@@ -178,14 +218,14 @@ body {
 }
 
 .stat-icon {
-	width: 50px;
-	height: 50px;
+	width: 60px;
+	height: 60px;
 	border-radius: 15px;
 	margin: 0 auto 15px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	font-size: 24px;
+	font-size: 20px;
 	color: white;
 	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
