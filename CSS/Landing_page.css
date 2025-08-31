@@ -17,8 +17,12 @@ html {
   scroll-behavior: smooth; /* smooth scrolling */
 }
 
-
-
+a {
+  text-decoration: none;  /* removes underline */
+  color: inherit;         /* makes link color same as parent text */
+  background: none;       /* removes any background */
+  border: none;           /* removes border if any */
+}
 header {
 	position: fixed;
 	top: 0;
@@ -220,6 +224,17 @@ nav {
 	/* background-color: red; */
 	height: 100vh;
 	width: 100%;
+}
+
+.image {
+	/* background-color: red; */
+	background-image: url('../Assets/hosheartclipart.png');
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+	height: 50vh;
+	width: 45vw;
+
 }
 
 .strain {

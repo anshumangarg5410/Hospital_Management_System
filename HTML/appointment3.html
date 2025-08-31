@@ -16,31 +16,32 @@
 		<main>
 			<div class="main">
 				<div class="main_head">
-					<p>Create Appointment</p>
+					<p>Book Appointment</p>
 					<i class="fa-regular fa-circle-xmark"></i>
 				</div>
-
 				<ul class="row">
 					<ul class="subrow">
+						<!-- Doctor selection -->
 						<li class="doctor_selection common_selection">
 							<label for="doctor">Doctor</label>
-							<select name="doctors">
-								<option value="SohamSood">Dr. Soham Sood</option>
-								<option value="SohamSood">Dr. Soham Sood</option>
-								<option value="SohamSood">Dr. Soham Sood</option>
-								<option value="SohamSood">Dr. Soham Sood</option>
+							<select name="doctors" id="doctor">
+								<option value="sohamSood">Dr. Soham Sood</option>
+								<option value="riaGupta">Dr. Ria Gupta</option>
+								<option value="parthSohal">Dr. Parth Sohal</option>
+								<option value="renuSingh">Dr. Renu Singh</option>
 							</select>
 						</li>
 
+						<!-- Category selection -->
 						<li class="hygeine_selection common_selection">
-							<label for="hygeine">Hygiene</label>
-							<select name="Hygeine">
-								<option value="kachra">Kachra</option>
-								<option value="kachra">Kachra</option>
-								<option value="kachra">Kachra</option>
-								<option value="kachra">Kachra</option>
-								<option value="kachra">Kachra</option>
-								<option value="kachra">Kachra</option>
+							<label for="category">Category</label>
+							<select name="category" id="category">
+								<option value="cardiology">Cardiology</option>
+								<option value="orthopedic">Orthopedic</option>
+								<option value="dermatology">Dermatology</option>
+								<option value="pediatrics">Pediatrics</option>
+								<option value="neurology">Neurology</option>
+								<option value="gynecology">Gynecology</option>
 							</select>
 						</li>
 					</ul>
