@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Hospitality Management System</title>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+		<link rel="stylesheet" href="./CSS/index.css" />
+	</head>
+	<body>
+		<main class="landing">
+			<!-- Animated background -->
+			<section class="particles">
+				<span class="particle"></span>
+				<span class="particle"></span>
+				<span class="particle"></span>
+				<span class="particle"></span>
+				<span class="particle"></span>
+			</section>
+
+			<!-- Main content -->
+			<article class="content-container">
+				<!-- Header Section -->
+				<header class="header-section">
+					<span class="logo">H+</span>
+					<h1 class="main-title">Hospital Management System</h1>
+					<h2 class="subtitle">Complete Healthcare Solution</h2>
+					<p class="description" style="font-size: 20px; color: red">
+						YE JAGAH कृत्रिम बुद्धिमत्ता KE DWARA BANAYI GYI HAI.. <br />
+						KRIPYA APNI PAGES JO BANAYE UNHE YAHAN LINK KR DEIN .. LAST MEI YE
+						PAGE MAIN PAGE KR DENGE
+					</p>
+				</header>
+
+				<!-- PAGES LINK YAHAN KRNE HAINNN !!!!!!  ISS NAVIGATION SECTION KE ANDAR-->
+
+				<!-- Navigation Section -->
+				<nav class="navigation-section">
+					<ul class="nav-grid">
+						<li class="itemsss">
+							<a href="./HTML/Landing_page.html" class="nav-button">
+								<section class="button-content">
+									<i class="fas fa-calendar-check button-icon"></i>
+									<h3 class="button-title">Landing Page</h3>
+									<p class="button-description">
+										Landing Page.. where the airplane of both patient and doctor
+										lands!!
+									</p>
+								</section>
+							</a>
+						</li>
+
+						<li class="itemsss">
+							<a href="./HTML/doctor_portal.html" class="nav-button">
+								<section class="button-content">
+									<i class="fas fa-calendar-check button-icon"></i>
+									<h3 class="button-title">Doctor Portal</h3>
+									<p class="button-description">
+										DOCTOR'S DASHBOARD
+									</p>
+								</section>
+							</a>
+						</li>
+
+					<li class="itemsss">
+							<a href="./HTML/patient_dash.html" class="nav-button">
+								<section class="button-content">
+									<i class="fas fa-calendar-check button-icon"></i>
+									<h3 class="button-title">Patient Portal</h3>
+									<p class="button-description">
+										PATIENT DASHBOARD
+									</p>
+								</section>
+							</a>
+						</li>
+
+					<li class="itemsss">
+							<a href="./HTML/./medicine.html" class="nav-button">
+								<section class="button-content">
+									<i class="fas fa-calendar-check button-icon"></i>
+									<h3 class="button-title">Medicine Page</h3>
+									<p class="button-description">
+										Kachra Khao isse page pe aao... 
+									</p>
+								</section>
+							</a>
+						</li>
+
+					<li class="itemsss">
+							<a href="#" class="nav-button">
+								<section class="button-content">
+									<i class="fas fa-calendar-check button-icon"></i>
+									<h3 class="button-title">Login Page</h3>
+									<p class="button-description">
+										Login Page
+									</p>
+								</section>
+							</a>
+						</li>
+
+										<li class="itemsss">
+							<a href="#" class="nav-button">
+								<section class="button-content">
+									<i class="fas fa-calendar-check button-icon"></i>
+									<h3 class="button-title">Contact Us Page</h3>
+									<p class="button-description">
+										Contact Us Page
+									</p>
+								</section>
+							</a>
+						</li>
+
+						<li class="itemsss">
+							<a href="./HTML/appointment3.html" class="nav-button">
+								<section class="button-content">
+									<i class="fas fa-user-md button-icon"></i>
+									<h3 class="button-title">Normal Appointment Page</h3>
+									<p class="button-description">Normal Appoitnment Form</p>
+								</section>
+							</a>
+						</li>
+					</ul>
+				</nav>
+
+				<!-- Footer Section -->
+				<footer class="footer-section">
+					<span class="status-badge">
+						<i class="fas fa-exclamation-triangle"></i>
+						CURRENTLY IN DEVELOPMENT
+					</span>
+					<p class="footer-text">
+						© 2025 Hospitality Management System. All rights reserved.
+					</p>
+				</footer>
+			</article>
+		</main>
+
+		<script>
+			// Add some interactive animations
+			document.addEventListener("DOMContentLoaded", function () {
+				// Animate navigation buttons on scroll
+				const observerOptions = {
+					threshold: 0.1,
+					rootMargin: "0px 0px -50px 0px",
+				};
+
+				const observer = new IntersectionObserver(function (entries) {
+					entries.forEach((entry) => {
+						if (entry.isIntersecting) {
+							entry.target.style.animation = "slideUp 0.6s ease-out forwards";
+						}
+					});
+				}, observerOptions);
+
+				// Observe all navigation buttons
+				document.querySelectorAll(".nav-button").forEach((button, index) => {
+					button.style.opacity = "0";
+					button.style.transform = "translateY(30px)";
+					button.style.animationDelay = `${index * 0.1}s`;
+					observer.observe(button);
+				});
+
+				// Add click effect
+				document.querySelectorAll(".nav-button").forEach((button) => {
+					button.addEventListener("click", function (e) {
+						// Create ripple effect
+						const ripple = document.createElement("span");
+						const rect = this.getBoundingClientRect();
+						const size = Math.max(rect.width, rect.height);
+						const x = e.clientX - rect.left - size / 2;
+						const y = e.clientY - rect.top - size / 2;
+
+						ripple.style.cssText = `
+                        position: absolute;
+                        width: ${size}px;
+                        height: ${size}px;
+                        left: ${x}px;
+                        top: ${y}px;
+                        background: rgba(255, 255, 255, 0.3);
+                        border-radius: 50%;
+                        transform: scale(0);
+                        animation: ripple 0.6s linear;
+                        pointer-events: none;
+                        z-index: 1;
+                    `;
+
+						this.appendChild(ripple);
+
+						setTimeout(() => {
+							ripple.remove();
+						}, 600);
+					});
+				});
+
+				// Create floating particles animation
+				function createParticle() {
+					const particle = document.querySelector(".particle");
+					if (particle) {
+						const particles = document.querySelectorAll(".particle");
+						particles.forEach((p) => {
+							const randomY = Math.random() * window.innerHeight;
+							p.style.top = randomY + "px";
+						});
+					}
+				}
+
+				// Initialize particles
+				createParticle();
+				setInterval(createParticle, 3000);
+			});
+
+			// Add CSS for ripple animation
+			const style = document.createElement("style");
+			style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+            
+            .nav-button {
+                position: relative;
+                overflow: hidden;
+            }
+        `;
+			document.head.appendChild(style);
+		</script>
+	</body>
+</html>

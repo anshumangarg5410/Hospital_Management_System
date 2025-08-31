@@ -3,230 +3,498 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Hospitality Management System</title>
+		<title>HMS</title>
+		<link rel="icon" type="image/png" href="./Assets/mainlogo.png" />
+		<!-- Font Awesome -->
 		<link
 			rel="stylesheet"
-			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-		<link rel="stylesheet" href="./CSS/index.css" />
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+		<!-- Linking of CSS stylesheet -->
+		<link rel="stylesheet" href="./CSS/Landing_page.css" />
 	</head>
 	<body>
-		<main class="landing">
-			<!-- Animated background -->
-			<section class="particles">
-				<span class="particle"></span>
-				<span class="particle"></span>
-				<span class="particle"></span>
-				<span class="particle"></span>
-				<span class="particle"></span>
-			</section>
+		<!-- Navbar -->
+		<header>
+			<nav>
+				<a href="#" class="logo">
+					<!-- <i class="fas fa-heartbeat"></i> -->
+					<div class="logo_pic"></div>
+					<span>HMS</span>
+				</a>
+				<ul class="nav-links">
+					<li class="here"><a href="#home">Home</a></li>
+					<li class="here"><a href="./HTML/about.html">About</a></li>
+					<li class="here"><a href="#services">Services</a></li>
+					<li class="here"><a href="./HTML/contactpage.html">Contact</a></li>
+					<li class="here"><a href="#login">Login</a></li>
+					<li>
+						<a href="/HTML/appointment3.html">
+							<button class="nav-btn">Book Appointment</button>
+						</a>
+					</li>
+				</ul>
+				<button class="mobile-menu">
+					<i class="fas fa-bars"></i>
+				</button>
+			</nav>
+		</header>
 
-			<!-- Main content -->
-			<article class="content-container">
-				<!-- Header Section -->
-				<header class="header-section">
-					<span class="logo">H+</span>
-					<h1 class="main-title">Hospital Management System</h1>
-					<h2 class="subtitle">Complete Healthcare Solution</h2>
-					<p class="description" style="font-size: 20px; color: red">
-						YE JAGAH कृत्रिम बुद्धिमत्ता KE DWARA BANAYI GYI HAI.. <br />
-						KRIPYA APNI PAGES JO BANAYE UNHE YAHAN LINK KR DEIN .. LAST MEI YE
-						PAGE MAIN PAGE KR DENGE
-					</p>
-				</header>
+		<!-- Hero-Section -->
+		<!-- <div class="main"> -->
 
-				<!-- PAGES LINK YAHAN KRNE HAINNN !!!!!!  ISS NAVIGATION SECTION KE ANDAR-->
+		<section class="hero" id="home">
+			<div class="hero-content">
+				<span class="hero-badge">
+					<i class="fas fa-star"></i> Next-Gen Healthcare Software
+				</span>
+				<h1>Smarter Hospital Management for Better Care</h1>
+				<p>
+					Manage hospitals efficiently — from patient registration to advanced
+					reporting — with seamless digital solutions that transform healthcare
+					delivery.
+				</p>
 
-				<!-- Navigation Section -->
-				<nav class="navigation-section">
-					<ul class="nav-grid">
-						<li class="itemsss">
-							<a href="./HTML/Landing_page.html" class="nav-button">
-								<section class="button-content">
-									<i class="fas fa-calendar-check button-icon"></i>
-									<h3 class="button-title">Landing Page</h3>
-									<p class="button-description">
-										Landing Page.. where the airplane of both patient and doctor
-										lands!!
-									</p>
-								</section>
-							</a>
-						</li>
+				<div class="search-container">
+					<i class="fas fa-search search-icon"></i>
+					<input
+						type="search"
+						class="search-input"
+						placeholder="Search for services, doctors, or treatments..." />
+				</div>
+			</div>
 
-						<li class="itemsss">
-							<a href="./HTML/doctor_portal.html" class="nav-button">
-								<section class="button-content">
-									<i class="fas fa-calendar-check button-icon"></i>
-									<h3 class="button-title">Doctor Portal</h3>
-									<p class="button-description">
-										DOCTOR'S DASHBOARD
-									</p>
-								</section>
-							</a>
-						</li>
+			<!-- DNA Animation -->
+			<div class="dna">
+				<div class="strain"></div>
+				<div class="strain"></div>
+				<div class="strain"></div>
+				<div class="strain"></div>
+				<div class="strain"></div>
+				<div class="strain"></div>
+				<div class="strain"></div>
+				<div class="strain"></div>
+			</div>
+		</section>
+		<!-- </div> -->
+		<br /><br /><br /><br /><br />
 
-					<li class="itemsss">
-							<a href="./HTML/patient_dash.html" class="nav-button">
-								<section class="button-content">
-									<i class="fas fa-calendar-check button-icon"></i>
-									<h3 class="button-title">Patient Portal</h3>
-									<p class="button-description">
-										PATIENT DASHBOARD
-									</p>
-								</section>
-							</a>
-						</li>
-
-					<li class="itemsss">
-							<a href="./HTML/./medicine.html" class="nav-button">
-								<section class="button-content">
-									<i class="fas fa-calendar-check button-icon"></i>
-									<h3 class="button-title">Medicine Page</h3>
-									<p class="button-description">
-										Kachra Khao isse page pe aao... 
-									</p>
-								</section>
-							</a>
-						</li>
-
-					<li class="itemsss">
-							<a href="#" class="nav-button">
-								<section class="button-content">
-									<i class="fas fa-calendar-check button-icon"></i>
-									<h3 class="button-title">Login Page</h3>
-									<p class="button-description">
-										Login Page
-									</p>
-								</section>
-							</a>
-						</li>
-
-										<li class="itemsss">
-							<a href="#" class="nav-button">
-								<section class="button-content">
-									<i class="fas fa-calendar-check button-icon"></i>
-									<h3 class="button-title">Contact Us Page</h3>
-									<p class="button-description">
-										Contact Us Page
-									</p>
-								</section>
-							</a>
-						</li>
-
-						<li class="itemsss">
-							<a href="./HTML/appointment3.html" class="nav-button">
-								<section class="button-content">
-									<i class="fas fa-user-md button-icon"></i>
-									<h3 class="button-title">Normal Appointment Page</h3>
-									<p class="button-description">Normal Appoitnment Form</p>
-								</section>
-							</a>
-						</li>
-					</ul>
-				</nav>
-
-				<!-- Footer Section -->
-				<footer class="footer-section">
-					<span class="status-badge">
-						<i class="fas fa-exclamation-triangle"></i>
-						CURRENTLY IN DEVELOPMENT
-					</span>
-					<p class="footer-text">
-						© 2025 Hospitality Management System. All rights reserved.
-					</p>
-				</footer>
+		<section class="container" id="services">
+			<article class="row">
+				<figure class="col">
+					<img src="/Assets/shop_pharmacy.webp" alt="" />
+					<figcaption>Shop Pharmacy</figcaption>
+				</figure>
+				<figure class="col">
+					<img src="/Assets/order_prescription.webp" alt="" />
+					<figcaption>Order Prescription</figcaption>
+				</figure>
+				<figure class="col">
+					<img src="/Assets/Consult_Doctor.avif" alt="" />
+					<figcaption>Book a Doctor</figcaption>
+				</figure>
+				<figure class="col">
+					<img src="/Assets/instant_consultant.webp" alt="" />
+					<figcaption>Instant Consult</figcaption>
+				</figure>
+				<figure class="col">
+					<img src="/Assets/records.webp" alt="" />
+					<figcaption>My Records</figcaption>
+				</figure>
+				<figure class="col">
+					<img src="/Assets/Optical.avif" alt="" />
+					<figcaption>Optical Store</figcaption>
+				</figure>
+				<figure class="col">
+					<img src="/Assets/Offers.avif" alt="" />
+					<figcaption>Exclusive Offers</figcaption>
+				</figure>
 			</article>
-		</main>
+		</section>
 
-		<script>
-			// Add some interactive animations
-			document.addEventListener("DOMContentLoaded", function () {
-				// Animate navigation buttons on scroll
-				const observerOptions = {
-					threshold: 0.1,
-					rootMargin: "0px 0px -50px 0px",
-				};
+		<div class="Row-Title">
+			<p>Affordable Health Checks and Diagnostics</p>
+		</div>
 
-				const observer = new IntersectionObserver(function (entries) {
-					entries.forEach((entry) => {
-						if (entry.isIntersecting) {
-							entry.target.style.animation = "slideUp 0.6s ease-out forwards";
-						}
-					});
-				}, observerOptions);
+		<section class="card-container">
+			<article class="card">
+				<div class="card-img">
+					<span class="tag">At Clinic Only</span>
+					<img src="/Assets/MA_PackageCover_FLU.avif" alt="Shop Pharmacy" />
+				</div>
+				<div class="card-body">
+					<p>FLU Vaccine - Adult</p>
+					<p>₹ 99</p>
+				</div>
+			</article>
 
-				// Observe all navigation buttons
-				document.querySelectorAll(".nav-button").forEach((button, index) => {
-					button.style.opacity = "0";
-					button.style.transform = "translateY(30px)";
-					button.style.animationDelay = `${index * 0.1}s`;
-					observer.observe(button);
-				});
+			<article class="card">
+				<div class="card-img">
+					<span class="tag">At Clinic Only</span>
+					<img
+						src="/Assets/MA_PackageCover_FLU2.avif"
+						alt="Order Prescription" />
+				</div>
+				<div class="card-body">
+					<p>FLU Vaccine - Pediatric</p>
+					<p>₹ 99</p>
+				</div>
+			</article>
 
-				// Add click effect
-				document.querySelectorAll(".nav-button").forEach((button) => {
-					button.addEventListener("click", function (e) {
-						// Create ripple effect
-						const ripple = document.createElement("span");
-						const rect = this.getBoundingClientRect();
-						const size = Math.max(rect.width, rect.height);
-						const x = e.clientX - rect.left - size / 2;
-						const y = e.clientY - rect.top - size / 2;
+			<article class="card">
+				<div class="card-img">
+					<span class="tag">At Clinic Only</span>
+					<img src="/Assets/Vitamin_D_uZLYdJ9.avif" alt="Book a Doctor" />
+				</div>
+				<div class="card-body">
+					<p>Vitamin D Test</p>
+					<p>₹ 99</p>
+				</div>
+			</article>
 
-						ripple.style.cssText = `
-                        position: absolute;
-                        width: ${size}px;
-                        height: ${size}px;
-                        left: ${x}px;
-                        top: ${y}px;
-                        background: rgba(255, 255, 255, 0.3);
-                        border-radius: 50%;
-                        transform: scale(0);
-                        animation: ripple 0.6s linear;
-                        pointer-events: none;
-                        z-index: 1;
-                    `;
+			<article class="card">
+				<div class="card-img">
+					<span class="tag">At Clinic Only</span>
+					<img src="/Assets/Basic_Health_Package.avif" alt="Instant Consult" />
+				</div>
+				<div class="card-body">
+					<p>Basic Health Package</p>
+					<p>₹ 99</p>
+				</div>
+			</article>
 
-						this.appendChild(ripple);
+			<article class="card">
+				<div class="card-img">
+					<span class="tag">At Clinic Only</span>
+					<img src="/Assets/HealthCheckup_Cover-1.avif" alt="My Records" />
+				</div>
+				<div class="card-body">
+					<p>Pro Health Package</p>
+					<p>₹ 99</p>
+				</div>
+			</article>
+		</section>
 
-						setTimeout(() => {
-							ripple.remove();
-						}, 600);
-					});
-				});
+		<div class="Row-Title">
+			<p>Top Categories</p>
+		</div>
 
-				// Create floating particles animation
-				function createParticle() {
-					const particle = document.querySelector(".particle");
-					if (particle) {
-						const particles = document.querySelectorAll(".particle");
-						particles.forEach((p) => {
-							const randomY = Math.random() * window.innerHeight;
-							p.style.top = randomY + "px";
-						});
-					}
-				}
+		<section class="container">
+			<article class="row">
+				<figure class="col">
+					<img src="/Assets/top_deals.avif" alt="" />
+					<figcaption>Top Deals</figcaption>
+				</figure>
+				<figure class="col">
+					<img src="/Assets/Back_to_Routine.avif" alt="" />
+					<figcaption>Back to Routine</figcaption>
+				</figure>
+				<figure class="col">
+					<img src="/Assets/Beauty.avif" alt="" />
+					<figcaption>Beauty</figcaption>
+				</figure>
+				<figure class="col">
+					<img src="/Assets/mom_and_baby.avif" alt="" />
+					<figcaption>Mom & Baby</figcaption>
+				</figure>
+				<figure class="col">
+					<img src="/Assets/Nutrition_web.avif" alt="" />
+					<figcaption>Nutrition</figcaption>
+				</figure>
+				<figure class="col">
+					<img src="/Assets/Medical_Essentials.avif" alt="" />
+					<figcaption>Medical Essentials</figcaption>
+				</figure>
+				<figure class="col">
+					<img src="/Assets/Most_Clicked.avif" alt="" />
+					<figcaption>Most Clicked</figcaption>
+				</figure>
+			</article>
+		</section>
+		<br />
 
-				// Initialize particles
-				createParticle();
-				setInterval(createParticle, 3000);
-			});
+		<div class="Row-Title">
+			<img src="/Assets/Offerbanner.avif" alt="" />
+		</div>
 
-			// Add CSS for ripple animation
-			const style = document.createElement("style");
-			style.textContent = `
-            @keyframes ripple {
-                to {
-                    transform: scale(4);
-                    opacity: 0;
-                }
-            }
-            
-            .nav-button {
-                position: relative;
-                overflow: hidden;
-            }
-        `;
-			document.head.appendChild(style);
-		</script>
+		<br />
+		<div class="Row-Title">
+			<p>Brands In Spotlight</p>
+		</div>
+
+		<section class="container">
+			<article class="row">
+				<figure class="col">
+					<img src="/Assets/brand1.avif" alt="" />
+				</figure>
+				<figure class="col">
+					<img src="/Assets/brand2.avif" alt="" />
+				</figure>
+				<figure class="col">
+					<img src="/Assets/brand3.avif" alt="" />
+				</figure>
+				<figure class="col">
+					<img src="/Assets/brand4.avif" alt="" />
+				</figure>
+				<figure class="col">
+					<img src="/Assets/brand5.avif" alt="" />
+				</figure>
+				<figure class="col">
+					<img src="/Assets/brand6.avif" alt="" />
+				</figure>
+				<figure class="col">
+					<img src="/Assets/brand7.avif" alt="" />
+				</figure>
+			</article>
+			<article class="row">
+				<figure class="col">
+					<img src="/Assets/brand1.avif" alt="" />
+				</figure>
+				<figure class="col">
+					<img src="/Assets/brand2.avif" alt="" />
+				</figure>
+				<figure class="col">
+					<img src="/Assets/brand3.avif" alt="" />
+				</figure>
+				<figure class="col">
+					<img src="/Assets/brand4.avif" alt="" />
+				</figure>
+				<figure class="col">
+					<img src="/Assets/brand5.avif" alt="" />
+				</figure>
+				<figure class="col">
+					<img src="/Assets/brand6.avif" alt="" />
+				</figure>
+				<figure class="col">
+					<img src="/Assets/brand7.avif" alt="" />
+				</figure>
+			</article>
+		</section>
+		<br />
+		<div class="Row-Title">
+			<p>We Got You Through This</p>
+		</div>
+		<section class="container">
+			<article class="row">
+				<figure class="col">
+					<img src="/Assets/Cold.avif" alt="" />
+					<figcaption>Cold</figcaption>
+				</figure>
+				<figure class="col">
+					<img src="/Assets/Skin_Rash.avif" alt="" />
+					<figcaption>Skin Rash</figcaption>
+				</figure>
+				<figure class="col">
+					<img src="/Assets/Sore_Throat.avif" alt="" />
+					<figcaption>Sore Throat</figcaption>
+				</figure>
+				<figure class="col">
+					<img src="/Assets/Joint_Pain.avif" alt="" />
+					<figcaption>Joint Pain</figcaption>
+				</figure>
+				<figure class="col">
+					<img src="/Assets/Chest_Pain.avif" alt="" />
+					<figcaption>Chest Pain</figcaption>
+				</figure>
+				<figure class="col">
+					<img src="/Assets/Fatigue.avif" alt="" />
+					<figcaption>Fatigue</figcaption>
+				</figure>
+				<figure class="col">
+					<img src="/Assets/Headache.avif" alt="" />
+					<figcaption>Headache</figcaption>
+				</figure>
+			</article>
+		</section>
+
+		<br />
+		<!-- Category Footer Section -->
+		<section class="category-footer">
+			<div class="category-container">
+				<div class="category-col">
+					<h4>Mother & Baby</h4>
+					<ul>
+						<li>Baby Diapering</li>
+						<li>Baby Bath & Skin Care</li>
+						<li>Baby Food & Supplements</li>
+						<li>Kids Food & Supplements</li>
+						<li>Moms & Maternity</li>
+						<li>Baby Medical Essentials</li>
+						<li>Baby Feeding Accessories</li>
+						<li>Baby Health & Safety</li>
+						<li>Baby Gear & Nursery</li>
+					</ul>
+				</div>
+
+				<div class="category-col">
+					<h4>Beauty</h4>
+					<ul>
+						<li>Skin Care</li>
+						<li>Sun Protection</li>
+						<li>Hair Care</li>
+						<li>Bath & Body Care</li>
+						<li>Fragrance</li>
+						<li>Make Up</li>
+						<li>Hand & Foot Care</li>
+						<li>Kits & Combos</li>
+						<li>Trending Skincare</li>
+					</ul>
+				</div>
+
+				<div class="category-col">
+					<h4>Personal Care</h4>
+					<ul>
+						<li>Dental Hygiene</li>
+						<li>Feminine Hygiene</li>
+						<li>Sexual Wellness</li>
+						<li>Hygiene Essentials</li>
+						<li>Hair Removal</li>
+						<li>Men's Grooming</li>
+						<li>Travel & Comfort</li>
+					</ul>
+				</div>
+
+				<div class="category-col">
+					<h4>Health & Wellness</h4>
+					<ul>
+						<li>Health Support</li>
+						<li>Vitamins</li>
+						<li>Minerals</li>
+						<li>Wellness & Lifestyle</li>
+						<li>Specialty Supplements</li>
+						<li>Gut Health</li>
+						<li>Sports Nutrition</li>
+						<li>Health Food</li>
+						<li>Shop by Women’s Health</li>
+						<li>Shop by Men’s Health</li>
+						<li>Shop by Nutrition Trends</li>
+					</ul>
+				</div>
+
+				<div class="category-col">
+					<h4>Medical Essentials</h4>
+					<ul>
+						<li>Cough & Fever</li>
+						<li>Cold & Flu</li>
+						<li>Pain Relief</li>
+						<li>Pharmacy Remedies</li>
+						<li>Digestive Remedies</li>
+						<li>First Aid</li>
+						<li>Medical Supplies</li>
+						<li>Specialist Remedies</li>
+					</ul>
+				</div>
+
+				<div class="category-col">
+					<h4>Equipment & Homecare</h4>
+					<ul>
+						<li>Health Monitors</li>
+						<li>Orthopedic Supports</li>
+						<li>Mobility Support</li>
+						<li>Bath & Shower Support</li>
+						<li>Homecare Bed & Accessories</li>
+						<li>Respiratory Care</li>
+						<li>Massagers</li>
+					</ul>
+				</div>
+
+				<div class="category-col">
+					<h4>Lifestyle & Fitness</h4>
+					<ul>
+						<li>Fitness & Exercise</li>
+						<li>Health Food & Beverages</li>
+						<li>Aromatherapy</li>
+						<li>Sleep & Relaxation</li>
+					</ul>
+				</div>
+
+				<div class="category-col">
+					<h4>Eye Care & Opticals</h4>
+					<ul>
+						<li>Sunglasses</li>
+						<li>Reading Glasses</li>
+						<li>Contact Lenses</li>
+						<li>Eye Care Accessories</li>
+						<li>Optical Frames</li>
+					</ul>
+				</div>
+
+				<div class="category-col">
+					<h4>Pet Care</h4>
+					<ul>
+						<li>Pet First Aid</li>
+						<li>Pet Supplements</li>
+						<li>Pet Grooming</li>
+					</ul>
+				</div>
+			</div>
+
+			<!-- Bottom Bar -->
+			<div class="category-bottom">
+				<div class="help-center">
+					<p>We're Always Here To Help</p>
+					<button>Help Center</button>
+				</div>
+				<div class="social-links">
+					<span>Follow Us On:</span>
+					<a href="#"><i class="fab fa-facebook"></i></a>
+					<a href="#"><i class="fab fa-instagram"></i></a>
+					<a href="#"><i class="fab fa-twitter"></i></a>
+					<a href="#"><i class="fab fa-linkedin"></i></a>
+					<a href="#"><i class="fab fa-youtube"></i></a>
+				</div>
+			</div>
+		</section>
+		<br />
+		<footer class="footer">
+			<div class="footer-container">
+				<!-- About -->
+				<div class="footer-section">
+					<h3>Hospital Management System</h3>
+					<p>
+						Providing 24/7 healthcare with the best doctors, modern facilities,
+						and patient-friendly services. Your health is our priority.
+					</p>
+				</div>
+
+				<!-- Quick Links -->
+				<div class="footer-section">
+					<h4>Quick Links</h4>
+					<ul>
+						<li><a href="#">Home</a></li>
+						<li><a href="#">About Us</a></li>
+						<li><a href="#">Departments</a></li>
+						<li><a href="#">Doctors</a></li>
+						<li><a href="#">Contact</a></li>
+					</ul>
+				</div>
+
+				<!-- Contact -->
+				<div class="footer-section">
+					<h4>Contact Us</h4>
+					<p><strong>Address:</strong> 123 Health Street, New Delhi, India</p>
+					<p><strong>Phone:</strong> +91 98765 43210</p>
+					<p><strong>Email:</strong> info@hospital.com</p>
+				</div>
+
+				<!-- Emergency -->
+				<div class="footer-section">
+					<h4>Emergency</h4>
+					<p>Helpline: <strong>102 / 108</strong></p>
+					<p>24/7 Ambulance and Emergency Support</p>
+					<div class="social-icons">
+						<a href="#"><img src="/Assets/facebook.jpeg" alt="Facebook" /></a>
+						<a href="#"><img src="/Assets/twitter.png" alt="Twitter" /></a>
+						<a href="#"><img src="/Assets/linkedin.png" alt="LinkedIn" /></a>
+					</div>
+				</div>
+			</div>
+
+			<!-- Bottom -->
+			<div class="footer-bottom">
+				<p>© 2025 Hospital Management System | All Rights Reserved</p>
+			</div>
+		</footer>
+
 	</body>
 </html>
