@@ -145,6 +145,24 @@ body {
     margin-bottom: 30px;
 }
 
+.submit-button {
+    display: inline-block;
+    padding: 18px 50px;
+    background-color: rgb(37, 99, 235);
+    color: white;
+    border-radius: 25px;
+    text-decoration: none; /* removes underline */
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    margin: 10px; /* optional spacing */
+}
+
+.submit-button:hover {
+    background-color: rgb(25, 70, 180);
+}
+
 .submit-button:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
