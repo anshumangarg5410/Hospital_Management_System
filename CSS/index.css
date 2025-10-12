@@ -333,3 +333,127 @@ li {
 		font-size: 36px;
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+a {
+  text-decoration: none;  /* removes underline */
+  color: inherit;         /* makes link color same as parent text */
+  background: none;       /* removes any background */
+  border: none;           /* removes border if any */
+}
+header {
+	position: fixed;
+	top: 0;
+	height: 10vh;
+	width: 100%;
+	background: rgba(255, 255, 255, 0.95);
+	backdrop-filter: blur(10px);
+	z-index: 1000;
+	box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+	transition: all 0.3s ease;
+}
+
+nav {
+
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 1rem 5%;
+	max-width: 1400px;
+	margin: 0 auto;
+	min-height: 10vh;
+}
+
+.logo {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	font-size: 1.5rem;
+	font-weight: 700;
+	color: #2563eb;
+	text-decoration: none;
+}
+
+.logo i {
+	font-size: 1.8rem;
+	color: #dc2626;
+}
+
+.logo_pic {
+	height: 50px;
+	width: 60px;
+	background-image: url('../Assets/mainlogo.png');
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.nav-links {
+	display: flex;
+	list-style: none;
+	gap: 2rem;
+	align-items: center;
+}
+
+.nav-links a {
+	text-decoration: none;
+	color: #374151;
+	font-weight: 500;
+	transition: color 0.3s ease;
+	position: relative;
+}
+
+.nav-links .here a:hover {
+	color: #2563eb;
+}
+
+.nav-links .here a::after {
+	content: "";
+	position: absolute;
+	width: 0;
+	height: 2px;
+	bottom: -5px;
+	left: 0;
+	background: #2563eb;
+	transition: width 0.3s ease;
+}
+
+.nav-links .here a:hover::after {
+	width: 100%;
+}
+
+.nav-btn {
+	background: #2563eb;
+	color: white;
+	padding: 0.7rem 1.5rem;
+	border: none;
+	border-radius: 8px;
+	font-weight: 600;
+	cursor: pointer;
+	transition: all 0.3s ease;
+}
+
+.nav-btn:hover {
+	background: #1d4ed8;
+	transform: translateY(-2px);
+	box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+.mobile-menu {
+	display: none;
+	background: none;
+	border: none;
+	font-size: 1.5rem;
+	cursor: pointer;
+	color: #374151;
+}
