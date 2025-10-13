@@ -1,3 +1,13 @@
+const fs = require("fs");
+const path = require("path");
+
+// Correct path to your JSON file
+const filePath = path.join(__dirname, "Authentication.json");
+
+// Read JSON file
+let rawData = fs.readFileSync(filePath, "utf8");
+let data = JSON.parse(rawData);
+
 
 const login_as_doctor_btn = document.querySelector("#login_as_doctor_btn")
 

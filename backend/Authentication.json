@@ -1,0 +1,34 @@
+{
+  "users": [
+    {
+      "name": "Anshuman",
+      "username": "Anshuman",
+      "password": "something",
+      "email": "anshu_new@gmail.com",
+      "ID": 0
+    },
+    {
+      "name": "Ria",
+      "username": "Ria",
+      "password": "something",
+      "email": "ria@gmail.com",
+      "ID": 1
+    },
+    {
+      "name": "Soham",
+      "username": "Soham",
+      "password": "something",
+      "email": "soham@gmail.com",
+      "ID": 2
+    },
+    {
+      "name": "Renu",
+      "username": "Renu",
+      "password": "CHIPKALI",
+      "email": "renu@gmail.com",
+      "ID": 3
+    }
+  ],
+  "login": 0,
+  "Current_User_Index": 0
+}
