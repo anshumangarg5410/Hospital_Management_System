@@ -2,7 +2,7 @@ const navbar_text_for_login_selector = document.querySelector("#login_Status");
 
 async function loadNavbar() {
     try {
-        const response = await fetch("http://localhost:3000/login-status");
+        const response = await fetch("https://hospitality-management-system-xdyy.onrender.com/login-status");
         const result = await response.json();
 
         if(result.login == 1){
