@@ -16,7 +16,7 @@ async function loadNavbar() {
 }
 
 function logout() {
-    fetch("http://localhost:3000/logout", { method: "POST" })
+    fetch("https://hospitality-management-system-xdyy.onrender.com/logout", { method: "POST" })
         .then(() => location.reload());
 }
 
