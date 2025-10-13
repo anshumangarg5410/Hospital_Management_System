@@ -27,7 +27,7 @@ loginButton.addEventListener("click", async () => {
             // redirect to landing page after login
             window.location.href = "../index.html"; // change this path to your landing page
         } else {
-            alert(result.message); // show error like "Wrong password" or "User not found"
+            alert(result.message); // show error like "Wrong password" or "User not found".
         }
     } catch (err) {
         console.error("Login failed:", err);
