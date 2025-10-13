@@ -20,4 +20,5 @@ function logout() {
         .then(() => location.reload());
 }
 
+
 loadNavbar();
