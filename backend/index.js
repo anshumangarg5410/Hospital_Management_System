@@ -17,6 +17,15 @@ app.get("/", (req, res) => {
   res.send("Backend is running successfully 🚀");
 });
 
+app.get("/users", (req, res) => {
+  try {
+    const data = JSON.parse(fs.readFileSync(filePath, "utf8"));
+    res.send({ success: true, users: data.users });
+  } catch (err) {
+    console.error("Error reading users:", err);
+    res.status(500).send({ success: false, message: "Error reading users" });
+  }
+});
 
 app.post("/login", (req, res) => {
   let data = JSON.parse(fs.readFileSync(filePath, "utf8"));
@@ -78,5 +87,4 @@ const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
   console.log(`✅ Server running on port ${PORT}`)
-  console.log("Here are the users: ")
 });
