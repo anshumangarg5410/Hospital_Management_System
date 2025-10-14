@@ -10,7 +10,8 @@ app.use(express.json());
 app.use(cors());
 
 
-const filePath = path.join(__dirname, "databases" ,"Authentication.json");
+const filePath = path.join(__dirname,"Authentication.json");
+// const filePath = path.join(__dirname, "databases" ,"Authentication.json");
 
 
 app.get("/", (req, res) => {
