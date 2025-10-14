@@ -14,7 +14,7 @@ loginButton.addEventListener("click", async () => {
     }
 
     try {
-        const response = await fetch("https://hospitality-management-system-xdyy.onrender.com/login", {
+        const response = await fetch("http://localhost:3000/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({name, email, username, password })
@@ -23,7 +23,7 @@ loginButton.addEventListener("click", async () => {
         const result = await response.json();
 
         if (result.success) {
-            // alert(result.message); // optional: show success message
+            alert(result.message); // optional: show success message
             // redirect to landing page after login
             window.location.href = "../index.html"; // change this path to your landing page
         } else {

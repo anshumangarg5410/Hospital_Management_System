@@ -1,27 +1,37 @@
-const fs = require("fs");
-const path = require("path");
-
-// Correct path to your JSON file
-const filePath = path.join(__dirname, "Authentication.json");
-
-// Read JSON file
-let rawData = fs.readFileSync(filePath, "utf8");
-let data = JSON.parse(rawData);
-
-
 const login_as_doctor_btn = document.querySelector("#login_as_doctor_btn")
+const login_detail_username_doctor = document.querySelector("#doctor_login_username");
+const login_detail_password_doctor = document.querySelector("#doctor_login_password");
+console.log("ok")
 
-var login_detail_username_doctor = document.querySelector("#doctor_login_username");
-var login_detail_password_doctor = document.querySelector("#doctor_login_password");
+login_as_doctor_btn.addEventListener("click", async () => {
+    const username = login_detail_username_doctor.value;
+    const password = login_detail_password_doctor.value;
+    const name = username;
+    const email = name;
 
-function login_as_doctor() {
-    localStorage.setItem("login", 1);
+    if (!username || !password) {
+        alert("Please enter both username and password");
+        return;
+    }
 
-    localStorage.setItem("username", login_detail_username_doctor.value);
-    localStorage.setItem("password", login_detail_password_doctor.value);
-}
+    try {
+        const response = await fetch("http://localhost:3000/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({name, email, username, password })
+        });
 
-login_as_doctor_btn.addEventListener("click", () => {
-    login_as_doctor();
-    console.log("Working")
-})
+        const result = await response.json();
+
+        if (result.success) {
+            alert(result.message); // optional: show success message
+            // redirect to landing page after login
+            window.location.href = "../index.html"; // change this path to your landing page
+        } else {
+            alert(result.message); // show error like "Wrong password" or "User not found"
+        }
+    } catch (err) {
+        console.error("Login failed:", err);
+        alert("Unable to connect to server. Try again later.");
+    }
+});

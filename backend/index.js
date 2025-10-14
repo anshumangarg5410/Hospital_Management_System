@@ -17,21 +17,24 @@ app.get("/", (req, res) => {
   res.send("Backend is running successfully 🚀");
 });
 
-
 // ✅ LOGIN route
 app.post("/login", (req, res) => {
   let data = JSON.parse(fs.readFileSync(filePath, "utf8"));
   const { username, password } = req.body;
 
   const userIndex = data.users.findIndex(u => u.username === username);
+  console.log("idex: ")
+  console.log(userIndex);
 
   if (userIndex === -1) {
-    return res.send({ success: false, message: "User not found" });
+    return res.send({ success: false, message: "User found" });
   }
 
   if (data.users[userIndex].password === password) {
     data.login = 1;
     data.Current_User_Index = userIndex; // track who logged in
+    console.log("current user: ")
+    console.log(data.Current_User_Index);
     fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
     return res.send({ success: true, message: "Login successful!" });
   } else {
