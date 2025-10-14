@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Portal - Hospital Management System</title>
+    <link rel="stylesheet" href="../CSS/user_portal.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo">
+            <h2>MediCare Portal</h2>
+        </div>
+        <nav class="nav-menu">
+            <div class="nav-item active" onclick="showTab('dashboard')">
+                <span class="nav-icon">📊</span>
+                Dashboard
+            </div>
+            <div class="nav-item" onclick="showTab('appointments')">
+                <span class="nav-icon">📅</span>
+                Appointments
+            </div>
+            <div class="nav-item" onclick="showTab('prescriptions')">
+                <span class="nav-icon">📋</span>
+                Prescriptions
+            </div>
+            <div class="nav-item" onclick="showTab('medicines')">
+                <span class="nav-icon">💊</span>
+                Medicine Orders
+            </div>
+            <div class="nav-item" onclick="showTab('reports')">
+                <span class="nav-icon">📄</span>
+                Medical Reports
+            </div>
+            <div class="nav-item" onclick="showTab('profile')">
+                <span class="nav-icon">⚙️</span>
+                Settings
+            </div>
+        </nav>
+    </div>
+
+    <div class="main-content">
+        <div class="topbar">
+            <div class="topbar-left">
+                <h1 id="pageTitle">Dashboard</h1>
+                <p>Welcome back, manage your health records</p>
+            </div>
+            <div class="user-profile">
+                <div class="user-info">
+                    <h3 id="displayUserName">John Doe</h3>
+                    <p>Patient ID: PAT-2024-1234</p>
+                </div>
+                <div class="user-avatar">JD</div>
+            </div>
+        </div>
+
+        <div class="content-wrapper">
+            <!-- Dashboard Tab -->
+            <div id="dashboard" class="tab-content active">
+                <div class="stats-row">
+                    <div class="stat-card">
+                        <div class="stat-label">Upcoming</div>
+                        <div class="stat-value">3</div>
+                        <div style="font-size: 13px; color: var(--text-secondary); margin-top: 4px;">Appointments</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Total</div>
+                        <div class="stat-value">12</div>
+                        <div style="font-size: 13px; color: var(--text-secondary); margin-top: 4px;">Prescriptions</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Pending</div>
+                        <div class="stat-value">2</div>
+                        <div style="font-size: 13px; color: var(--text-secondary); margin-top: 4px;">Medicine Orders</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Available</div>
+                        <div class="stat-value">8</div>
+                        <div style="font-size: 13px; color: var(--text-secondary); margin-top: 4px;">Medical Reports</div>
+                    </div>
+                </div>
+
+                <div class="section-header">
+                    <h2 class="section-title">Upcoming Appointments</h2>
+                    <p class="section-subtitle">Your scheduled consultations</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-title">Dr. Sarah Johnson</div>
+                            <div class="card-subtitle">Cardiologist • Department of Cardiology</div>
+                        </div>
+                        <span class="badge badge-blue">Confirmed</span>
+                    </div>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <div class="info-label">Date & Time</div>
+                            <div class="info-value">October 18, 2025 at 10:00 AM</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Consultation Type</div>
+                            <div class="info-value">Follow-up Visit</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Location</div>
+                            <div class="info-value">Building A, Room 203</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Appointment ID</div>
+                            <div class="info-value">APT-2025-0892</div>
+                        </div>
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn btn-primary">View Details</button>
+                        <button class="btn btn-outline">Reschedule</button>
+                    </div>
+                </div>
+
+                <div style="margin-top: 40px;">
+                    <div class="section-header">
+                        <h2 class="section-title">Recent Prescription</h2>
+                        <p class="section-subtitle">Latest medications prescribed</p>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <div class="card-title">Prescription #RX-2025-089</div>
+                                <div class="card-subtitle">Issued by Dr. Michael Chen • October 10, 2025</div>
+                            </div>
+                            <span class="badge badge-green">Active</span>
+                        </div>
+                        <div class="prescription-box">
+                            <div class="prescription-title">Prescribed Medications</div>
+                            <div class="medicine-item">
+                                <div class="medicine-name">Paracetamol 500mg</div>
+                                <div class="medicine-dosage">1 tablet, 3 times daily after meals for 7 days</div>
+                            </div>
+                            <div class="medicine-item">
+                                <div class="medicine-name">Cetirizine 10mg</div>
+                                <div class="medicine-dosage">1 tablet, once daily at night for 5 days</div>
+                            </div>
+                            <div class="medicine-item">
+                                <div class="medicine-name">Azithromycin 500mg</div>
+                                <div class="medicine-dosage">1 tablet, once daily before meals for 5 days</div>
+                            </div>
+                        </div>
+                        <div class="btn-group">
+                            <button class="btn btn-primary">Order Medicines</button>
+                            <button class="btn btn-outline">Download PDF</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Appointments Tab -->
+            <div id="appointments" class="tab-content">
+                <div class="section-header">
+                    <h2 class="section-title">Upcoming Appointments</h2>
+                    <p class="section-subtitle">Manage your scheduled consultations</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-title">Dr. Sarah Johnson</div>
+                            <div class="card-subtitle">Cardiologist • Department of Cardiology</div>
+                        </div>
+                        <span class="badge badge-blue">Confirmed</span>
+                    </div>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <div class="info-label">Date & Time</div>
+                            <div class="info-value">October 18, 2025 at 10:00 AM</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Type</div>
+                            <div class="info-value">Follow-up Consultation</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Location</div>
+                            <div class="info-value">Building A, Room 203</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Duration</div>
+                            <div class="info-value">30 minutes</div>
+                        </div>
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn btn-outline">Reschedule</button>
+                        <button class="btn btn-danger">Cancel Appointment</button>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-title">Dr. Emily Williams</div>
+                            <div class="card-subtitle">Dermatologist • Department of Dermatology</div>
+                        </div>
+                        <span class="badge badge-blue">Confirmed</span>
+                    </div>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <div class="info-label">Date & Time</div>
+                            <div class="info-value">October 22, 2025 at 2:30 PM</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Type</div>
+                            <div class="info-value">New Consultation</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Location</div>
+                            <div class="info-value">Building B, Room 105</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Duration</div>
+                            <div class="info-value">45 minutes</div>
+                        </div>
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn btn-outline">Reschedule</button>
+                        <button class="btn btn-danger">Cancel Appointment</button>
+                    </div>
+                </div>
+
+                <div style="margin-top: 40px;">
+                    <div class="section-header">
+                        <h2 class="section-title">Past Appointments</h2>
+                        <p class="section-subtitle">Your consultation history</p>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <div class="card-title">Dr. Michael Chen</div>
+                                <div class="card-subtitle">General Physician • General Medicine</div>
+                            </div>
+                            <span class="badge badge-green">Completed</span>
+                        </div>
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <div class="info-label">Date & Time</div>
+                                <div class="info-value">October 10, 2025 at 11:00 AM</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Diagnosis</div>
+                                <div class="info-value">Seasonal Flu</div>
+                            </div>
+                        </div>
+                        <div class="btn-group">
+                            <button class="btn btn-primary" onclick="showTab('prescriptions')">View Prescription</button>
+                            <button class="btn btn-outline">Book Follow-up</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 24px;">
+                    <button class="btn btn-primary">Book New Appointment</button>
+                </div>
+            </div>
+
+            <!-- Prescriptions Tab -->
+            <div id="prescriptions" class="tab-content">
+                <div class="section-header">
+                    <h2 class="section-title">My Prescriptions</h2>
+                    <p class="section-subtitle">View and manage your medication records</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-title">Prescription #RX-2025-089</div>
+                            <div class="card-subtitle">Dr. Michael Chen • October 10, 2025</div>
+                        </div>
+                        <span class="badge badge-green">Active</span>
+                    </div>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <div class="info-label">Diagnosis</div>
+                            <div class="info-value">Seasonal Flu</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Medications</div>
+                            <div class="info-value">3 medicines prescribed</div>
+                        </div>
+                    </div>
+                    <div class="prescription-box">
+                        <div class="prescription-title">Prescribed Medications</div>
+                        <div class="medicine-item">
+                            <div class="medicine-name">Paracetamol 500mg</div>
+                            <div class="medicine-dosage">1 tablet, 3 times daily after meals (7 days)</div>
+                        </div>
+                        <div class="medicine-item">
+                            <div class="medicine-name">Cetirizine 10mg</div>
+                            <div class="medicine-dosage">1 tablet, once daily at night (5 days)</div>
+                        </div>
+                        <div class="medicine-item">
+                            <div class="medicine-name">Azithromycin 500mg</div>
+                            <div class="medicine-dosage">1 tablet, once daily before meals (5 days)</div>
+                        </div>
+                        <div class="note-box">
+                            <strong>Doctor's Note:</strong> Take plenty of rest and drink lots of fluids. Avoid cold beverages.
+                        </div>
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn btn-primary">Order Medicines</button>
+                        <button class="btn btn-outline">Download PDF</button>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-title">Prescription #RX-2025-067</div>
+                            <div class="card-subtitle">Dr. Sarah Johnson • September 15, 2025</div>
+                        </div>
+                        <span class="badge badge-gray">Completed</span>
+                    </div>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <div class="info-label">Diagnosis</div>
+                            <div class="info-value">Hypertension Management</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Medications</div>
+                            <div class="info-value">2 medicines prescribed</div>
+                        </div>
+                    </div>
+                    <div class="prescription-box">
+                        <div class="prescription-title">Prescribed Medications</div>
+                        <div class="medicine-item">
+                            <div class="medicine-name">Amlodipine 5mg</div>
+                            <div class="medicine-dosage">1 tablet, once daily in the morning (30 days)</div>
+                        </div>
+                        <div class="medicine-item">
+                            <div class="medicine-name">Atorvastatin 10mg</div>
+                            <div class="medicine-dosage">1 tablet, once daily at night (30 days)</div>
+                        </div>
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn btn-primary">Reorder Medicines</button>
+                        <button class="btn btn-outline">Download PDF</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Medicine Orders Tab -->
+            <div id="medicines" class="tab-content">
+                <div class="section-header">
+                    <h2 class="section-title">Medicine Orders</h2>
+                    <p class="section-subtitle">Track your medication deliveries</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-title">Order #MED-2025-0234</div>
+                            <div class="card-subtitle">Placed on October 12, 2025</div>
+                        </div>
+                        <span class="badge badge-yellow">Processing</span>
+                    </div>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <div class="info-label">Total Amount</div>
+                            <div class="info-value">₹450.00</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Items</div>
+                            <div class="info-value">3 medicines</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Delivery Address</div>
+                            <div class="info-value">123 Main Street, Ludhiana, Punjab</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Expected Delivery</div>
+                            <div class="info-value">October 15, 2025</div>
+                        </div>
+                    </div>
+                    <div class="prescription-box">
+                        <div class="prescription-title">Order Items</div>
+                        <div class="medicine-item">
+                            <div class="medicine-name">Paracetamol 500mg (Strip of 15)</div>
+                            <div class="medicine-dosage">₹25.00</div>
+                        </div>
+                        <div class="medicine-item">
+                            <div class="medicine-name">Cetirizine 10mg (Strip of 10)</div>
+                            <div class="medicine-dosage">₹30.00</div>
+                        </div>
+                        <div class="medicine-item">
+                            <div class="medicine-name">Azithromycin 500mg (Strip of 5)</div>
+                            <div class="medicine-dosage">₹395.00</div>
+                        </div>
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn btn-primary">Track Order</button>
+                        <button class="btn btn-danger">Cancel Order</button>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-title">Order #MED-2025-0189</div>
+                            <div class="card-subtitle">Delivered on September 22, 2025</div>
+                        </div>
+                        <span class="badge badge-green">Delivered</span>
+                    </div>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <div class="info-label">Total Amount</div>
+                            <div class="info-value">₹620.00</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Items</div>
+                            <div class="info-value">2 medicines</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Order Date</div>
+                            <div class="info-value">September 20, 2025</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Payment Method</div>
+                            <div class="info-value">Online Payment</div>
+                        </div>
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn btn-outline">View Invoice</button>
+                        <button class="btn btn-outline">Reorder</button>
+                    </div>
+                </div>
+
+                <div style="margin-top: 24px;">
+                    <button class="btn btn-primary">Order New Medicines</button>
+                </div>
+            </div>
+
+            <!-- Medical Reports Tab -->
+            <div id="reports" class="tab-content">
+                <div class="section-header">
+                    <h2 class="section-title">Medical Reports</h2>
+                    <p class="section-subtitle">Access your test results and diagnostic reports</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-title">Complete Blood Count (CBC)</div>
+                            <div class="card-subtitle">City Diagnostics Lab • October 8, 2025</div>
+                        </div>
+                        <span class="badge badge-green">Normal</span>
+                    </div>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <div class="info-label">Test Date</div>
+                            <div class="info-value">October 8, 2025</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Ordered By</div>
+                            <div class="info-value">Dr. Michael Chen</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Report ID</div>
+                            <div class="info-value">LAB-2025-1234</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Status</div>
+                            <div class="info-value">All values within normal range</div>
+                        </div>
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn btn-primary">Download Report</button>
+                        <button class="btn btn-outline">View Details</button>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-title">Electrocardiogram (ECG)</div>
+                            <div class="card-subtitle">Department of Cardiology • September 10, 2025</div>
+                        </div>
+                        <span class="badge badge-green">Normal</span>
+                    </div>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <div class="info-label">Test Date</div>
+                            <div class="info-value">September 10, 2025</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Ordered By</div>
+                            <div class="info-value">Dr. Sarah Johnson</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Report ID</div>
+                            <div class="info-value">ECG-2025-0876</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Result</div>
+                            <div class="info-value">Normal Sinus Rhythm</div>
+                        </div>
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn btn-primary">Download Report</button>
+                        <button class="btn btn-outline">View Details</button>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-title">Chest X-Ray</div>
+                            <div class="card-subtitle">Department of Radiology • August 25, 2025</div>
+                        </div>
+                        <span class="badge badge-green">Clear</span>
+                    </div>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <div class="info-label">Test Date</div>
+                            <div class="info-value">August 25, 2025</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Ordered By</div>
+                            <div class="info-value">Dr. Robert Martinez</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Report ID</div>
+                            <div class="info-value">RAD-2025-0654</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Findings</div>
+                            <div class="info-value">No abnormalities detected</div>
+                        </div>
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn btn-primary">Download Report</button>
+                        <button class="btn btn-outline">View Images</button>
+                    </div>
+                </div>
+
+                <div style="margin-top: 24px;">
+                    <button class="btn btn-outline">Upload External Report</button>
+                </div>
+            </div>
+
+            <!-- Profile Settings Tab -->
+            <div id="profile" class="tab-content">
+                <div class="section-header">
+                    <h2 class="section-title">Profile Settings</h2>
+                    <p class="section-subtitle">Manage your personal information and account settings</p>
+                </div>
+
+                <div class="card">
+                    <div style="max-width: 600px;">
+                        <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 20px; color: var(--text-primary);">Personal Information</h3>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Full Name</label>
+                            <input type="text" class="form-control" id="userName" value="John Doe">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Email Address</label>
+                            <input type="email" class="form-control" value="john.doe@email.com">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Phone Number</label>
+                            <input type="tel" class="form-control" value="+91 98765 43210">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Date of Birth</label>
+                            <input type="date" class="form-control" value="1990-05-15">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Blood Group</label>
+                            <select class="form-control">
+                                <option>A+</option>
+                                <option>A-</option>
+                                <option>B+</option>
+                                <option>B-</option>
+                                <option>O+</option>
+                                <option>O-</option>
+                                <option>AB+</option>
+                                <option>AB-</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Address</label>
+                            <textarea class="form-control" rows="3">123 Main Street, Ludhiana, Punjab, India - 141001</textarea>
+                        </div>
+
+                        <button class="btn btn-primary" onclick="updateProfile()">Save Changes</button>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 24px;">
+                    <div style="max-width: 600px;">
+                        <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 20px; color: var(--text-primary);">Change Password</h3>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Current Password</label>
+                            <input type="password" class="form-control" id="currentPassword">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">New Password</label>
+                            <input type="password" class="form-control" id="newPassword">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Confirm New Password</label>
+                            <input type="password" class="form-control" id="confirmPassword">
+                        </div>
+
+                        <button class="btn btn-primary" onclick="changePassword()">Update Password</button>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 24px;">
+                    <div style="max-width: 600px;">
+                        <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 20px; color: var(--text-primary);">Emergency Contact</h3>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Contact Name</label>
+                            <input type="text" class="form-control" value="Jane Doe">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Relationship</label>
+                            <input type="text" class="form-control" value="Spouse">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Phone Number</label>
+                            <input type="tel" class="form-control" value="+91 98765 43211">
+                        </div>
+
+                        <button class="btn btn-primary">Update Emergency Contact</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../JS/user_portal.js"></script>
+</body>
+</html>
