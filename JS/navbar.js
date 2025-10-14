@@ -5,7 +5,7 @@ console.log(navbar_appoint_toggle)
 
 async function loadNavbar() {
     try {
-        const response = await fetch("http://localhost:3000/login-status");
+        const response = await fetch("https://hospitality-management-system-xdyy.onrender.com/login-status");
         const result = await response.json();
         console.log("onfo")
         console.log(result.Current_User_Index);
@@ -23,11 +23,10 @@ async function loadNavbar() {
 }
 
 function logout() {
-    fetch("http://localhost:3000/logout", { method: "POST" })
+    fetch("https://hospitality-management-system-xdyy.onrender.com/logout", { method: "POST" })
         .then(() => location.reload());
 }
 
 
 
-// https://hospitality-management-system-xdyy.onrender.com/
 loadNavbar();

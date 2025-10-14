@@ -47,14 +47,13 @@ body {
 /* Welcome Panel */
 .welcome-panel {
     flex: 1;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, rgb(37, 99, 235) 0%, rgb(25, 70, 180) 100%);
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
     color: white;
 }
-
 #loginContainer .welcome-panel::after {
     content: '';
     position: absolute;
@@ -216,7 +215,7 @@ body {
 .submit-button {
     width: 100%;
     padding: 18px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, rgb(37, 99, 235) 0%, rgb(25, 70, 180) 100%);
     border: none;
     border-radius: 25px;
     color: white;
@@ -225,8 +224,7 @@ body {
     cursor: pointer;
     transition: all 0.3s ease;
     margin-bottom: 30px;
-}
-
+}d
 .submit-button:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);

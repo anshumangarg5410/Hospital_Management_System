@@ -31,14 +31,8 @@
       "email": "renu@gmail.com",
       "ID": 3,
       "Designation": "Doctor"
-    },
-    {
-      "name": "jh",
-      "username": "jh",
-      "password": "jbnjn",
-      "email": "jh"
     }
   ],
-  "login": 1,
+  "login": 0,
   "Current_User_Index": 0
 }

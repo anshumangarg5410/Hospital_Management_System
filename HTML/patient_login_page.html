@@ -27,7 +27,7 @@
             <div class="form-panel">
                 <div class="form-content">
                     <h2>Login</h2>
-                    <form id="loginForm" onsubmit="handleLogin(event)">
+                    <form id="loginForm">
                         <div class="input-field">
                             <input type="text" name="username" id="patient_login_username" placeholder="Username" required>
                             <i class="fas fa-user"></i>
@@ -42,7 +42,7 @@
                             <a href="forgot password">Forgot Password?</a>
                         </div>
 
-                        <button type="submit" class="submit-button" id="login_as_patient_btn">Login</button>
+                        <button class="submit-button" type="button" id="login_as_patient_btn">Login</button>
 
                         <div class="social-login">
                             <p>or login with social platforms</p>
@@ -73,9 +73,9 @@
             <div class="form-panel">
                 <div class="form-content">
                     <h2>Registration</h2>
-                    <form id="registerForm" onsubmit="handleRegister(event)">
+                    <form id="registerForm">
                         <div class="input-field">
-                            <input type="text" name="username" id="patient_login_username" placeholder="Username" required>
+                            <input type="text" name="username" id="patient_register_username" placeholder="Username" required>
                             <i class="fas fa-user"></i>
                         </div>
 
@@ -85,11 +85,11 @@
                         </div>
 
                         <div class="input-field">
-                            <input type="password" name="password" id="patient_login_password" placeholder="Password" required>
+                            <input type="password" name="password" id="patient_register_password" placeholder="Password" required>
                             <i class="fas fa-lock"></i>
                         </div>
 
-                        <button type="submit" class="submit-button" id="register_as_patient_btn">Register</button>
+                        <button class="submit-button" type="button" id="register_as_patient_btn">Register</button>
 
                         <div class="social-login">
                             <p>or register with social platforms</p>
@@ -136,7 +136,6 @@
         }
     </script>
     <script src="/JS/patient_login.js"></script>
-    <script src="/JS/doctor_login.js"></script>
 </body>
 
 </html>

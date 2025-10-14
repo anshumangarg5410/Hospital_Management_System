@@ -1,11 +1,15 @@
 const loginButton = document.querySelector("#login_as_patient_btn");
 const registerButton = document.querySelector("#register_as_patient_btn");
-const usernameInput = document.querySelector("#patient_login_username");
-const passwordInput = document.querySelector("#patient_login_password");
+
+const usernameInputLogin = document.querySelector("#patient_login_username");
+const passwordInputLogin = document.querySelector("#patient_login_password");
+
+const passwordInputRegister = document.querySelector("#patient_register_password");
+const usernameInputRegister = document.querySelector("#patient_register_username");
 
 loginButton.addEventListener("click", async () => {
-    const username = usernameInput.value;
-    const password = passwordInput.value;
+    const username = usernameInputLogin.value;
+    const password = passwordInputLogin.value;
     const name = username;
     const email = name;
 
@@ -15,7 +19,7 @@ loginButton.addEventListener("click", async () => {
     }
 
     try {
-        const response = await fetch("http://localhost:3000/login", {
+        const response = await fetch("https://hospitality-management-system-xdyy.onrender.com/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({name, email, username, password })
@@ -38,8 +42,8 @@ loginButton.addEventListener("click", async () => {
 
 
 registerButton.addEventListener("click", async () => {
-    const username = usernameInput.value;
-    const password = passwordInput.value;
+    const username = usernameInputRegister.value;
+    const password = passwordInputRegister.value;
     const name = username;
     const email = name;
 
@@ -49,7 +53,7 @@ registerButton.addEventListener("click", async () => {
     }
 
     try {
-        const response = await fetch("http://localhost:3000/signup", {
+        const response = await fetch("https://hospitality-management-system-xdyy.onrender.com/signup", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({name, email, username, password })
@@ -60,7 +64,7 @@ registerButton.addEventListener("click", async () => {
         if (result.success) {
             alert(result.message); 
 
-            window.location.href = "../index.html";
+            window.location.href = "../HTML/patient_login_page.html";
         } else {
             alert(result.message); 
         }
