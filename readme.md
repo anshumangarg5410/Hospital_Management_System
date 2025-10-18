@@ -2,6 +2,8 @@ Backend at:
 https://hospitality-management-system-xdyy.onrender.com <br>
 All Current Users List at: 
 https://hospitality-management-system-xdyy.onrender.com/users
+All Review here: 
+https://hospitality-management-system-xdyy.onrender.com/reviews
 
 # 🏥 Hospital Management Website Page Structure
 
