@@ -15,8 +15,14 @@ const filePath = path.join(__dirname, "databases" ,"Authentication.json");
 const reviewFilePath = path.join(__dirname, "databases", "reviews.json");
 
 
+
 app.get("/", (req, res) => {
   res.send("Backend is running successfully 🚀");
+});
+
+app.get("/usersnum", (req, res) => {
+  const data = JSON.parse(fs.readFileSync(filePath, "utf8"));
+  res.send({ success: true, users: data.users });
 });
 
 app.get("/users", (req, res) => {
@@ -63,7 +69,7 @@ app.post("/signup", (req, res) => {
     return res.send({ success: false, message: "User already exists!" });
   }
 
-  data.users.push({ name, username, password, email });
+  data.users.push({ name, username, password, email, id });
   fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
 
   res.send({ success: true, message: "User registered successfully!" });

@@ -7,7 +7,20 @@ const passwordInputLogin = document.querySelector("#patient_login_password");
 const passwordInputRegister = document.querySelector("#patient_register_password");
 const usernameInputRegister = document.querySelector("#patient_register_username");
 
+var lengthOfUsers = 4;
+
+async function getUsers() {
+    const response = await fetch("https://hospitality-management-system-xdyy.onrender.com/users");
+    const data = await response.json();
+    lengthOfUsers = data.users.length;
+}
+
+getUsers();
+
+console.log(lengthOfUsers)
+
 loginButton.addEventListener("click", async () => {
+
     const username = usernameInputLogin.value;
     const password = passwordInputLogin.value;
     const name = username;
@@ -56,7 +69,7 @@ registerButton.addEventListener("click", async () => {
         const response = await fetch("https://hospitality-management-system-xdyy.onrender.com/signup", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({name, email, username, password })
+            body: JSON.stringify({name, email, username, password, lengthOfUsers })
         });
 
         const result = await response.json();
