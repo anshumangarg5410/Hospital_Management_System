@@ -3,6 +3,10 @@ const login_detail_username_doctor = document.querySelector("#doctor_login_usern
 const login_detail_password_doctor = document.querySelector("#doctor_login_password");
 console.log("ok")
 
+// const backendLink = "https://hospitality-management-system-xdyy.onrender.com"
+const backendLink = "http://localhost:3000"
+
+
 login_as_doctor_btn.addEventListener("click", async () => {
     const username = login_detail_username_doctor.value;
     const password = login_detail_password_doctor.value;
@@ -15,7 +19,7 @@ login_as_doctor_btn.addEventListener("click", async () => {
     }
 
     try {
-        const response = await fetch("https://hospitality-management-system-xdyy.onrender.com/login", {
+        const response = await fetch(backendLink + "/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({name, email, username, password })

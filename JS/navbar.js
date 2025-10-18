@@ -3,9 +3,12 @@ const navbar_appoint_toggle = document.querySelector("#book_appoint")
 
 console.log(navbar_appoint_toggle)
 
+// const backendLink = "https://hospitality-management-system-xdyy.onrender.com"
+const backendLink = "http://localhost:3000"
+
 async function loadNavbar() {
     try {
-        const response = await fetch("https://hospitality-management-system-xdyy.onrender.com/login-status");
+        const response = await fetch(backendLink + "login-status");
         const result = await response.json();
         console.log("onfo")
         console.log(result.Current_User_Index);
@@ -23,7 +26,7 @@ async function loadNavbar() {
 }
 
 function logout() {
-    fetch("https://hospitality-management-system-xdyy.onrender.com/logout", { method: "POST" })
+    fetch(backendLink + "logout", { method: "POST" })
         .then(() => location.reload());
 }
 

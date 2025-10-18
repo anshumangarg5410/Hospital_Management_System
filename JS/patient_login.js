@@ -7,17 +7,20 @@ const passwordInputLogin = document.querySelector("#patient_login_password");
 const passwordInputRegister = document.querySelector("#patient_register_password");
 const usernameInputRegister = document.querySelector("#patient_register_username");
 
-var lengthOfUsers = 4;
+// const backendLink = "https://hospitality-management-system-xdyy.onrender.com"
+const backendLink = "http://localhost:3000"
 
-async function getUsers() {
-    const response = await fetch("https://hospitality-management-system-xdyy.onrender.com/users");
-    const data = await response.json();
-    lengthOfUsers = data.users.length;
-}
+// var lengthOfUsers = 4;
 
-getUsers();
+// async function getUsers() {
+//     const response = await fetch(backendLink + "/users");
+//     const data = await response.json();
+//     lengthOfUsers = data.users.length;
+// }
 
-console.log(lengthOfUsers)
+// getUsers();
+
+// console.log(lengthOfUsers)
 
 loginButton.addEventListener("click", async () => {
 
@@ -32,7 +35,7 @@ loginButton.addEventListener("click", async () => {
     }
 
     try {
-        const response = await fetch("https://hospitality-management-system-xdyy.onrender.com/login", {
+        const response = await fetch(backendLink + "/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({name, email, username, password })
@@ -66,10 +69,10 @@ registerButton.addEventListener("click", async () => {
     }
 
     try {
-        const response = await fetch("https://hospitality-management-system-xdyy.onrender.com/signup", {
+        const response = await fetch(backendLink + "/signup", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({name, email, username, password, lengthOfUsers })
+            body: JSON.stringify({name, email, username, password })
         });
 
         const result = await response.json();
