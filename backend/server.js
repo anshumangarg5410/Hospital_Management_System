@@ -28,4 +28,8 @@ app.post("/saveReview", (req, res) => {
 });
 
 // Start server
+// starting command reach folder hms/backend
+//then type node server rest work is done from here u can directly fill the form it will automatically save input in reviews.json
+
+
 app.listen(3000, () => console.log("✅ Server running at http://localhost:3000"));
