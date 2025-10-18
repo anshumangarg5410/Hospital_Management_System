@@ -47,3 +47,4 @@ window.addEventListener('resize', () => {
     icon.classList.add('fa-bars');
   }
 });
+

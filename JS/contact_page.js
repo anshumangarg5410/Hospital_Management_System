@@ -1,6 +1,16 @@
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("reviewForm");
 
+  // Create message div dynamically if it doesn't exist
+  let formMessage = document.getElementById("formMessage");
+  if (!formMessage) {
+    formMessage = document.createElement("div");
+    formMessage.id = "formMessage";
+    formMessage.style.marginTop = "10px";
+    formMessage.style.fontWeight = "bold";
+    form.appendChild(formMessage);
+  }
+
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
@@ -10,33 +20,43 @@ document.addEventListener("DOMContentLoaded", () => {
     const terms = document.getElementById("terms").checked;
 
     if (!terms) {
-      alert("⚠️ Please agree to the Terms and Conditions.");
+      formMessage.textContent = "⚠️ Please agree to the Terms and Conditions.";
+      formMessage.style.color = "red";
       return;
     }
 
     if (!name || !email || !message) {
-      alert("⚠️ Please fill in all fields.");
+      formMessage.textContent = "⚠️ Please fill in all fields.";
+      formMessage.style.color = "red";
       return;
     }
 
     const review = { name, email, message };
 
     try {
-      const res = await fetch("/saveReview", {
+      const res = await fetch("https://hospitality-management-system-xdyy.onrender.com/saveReview", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(review),
       });
 
       if (res.ok) {
-        alert("✅ Your message has been sent successfully!");
+        formMessage.textContent = "✅ Your message has been sent successfully!";
+        formMessage.style.color = "green";
         form.reset();
+
+        // Optional: keep message for 5 seconds, then fade
+        setTimeout(() => {
+          formMessage.textContent = "";
+        }, 5000); // 5000 ms = 5 seconds
       } else {
-        alert("❌ Failed to send your message. Please try again.");
+        formMessage.textContent = "❌ Failed to send your message. Please try again.";
+        formMessage.style.color = "red";
       }
     } catch (err) {
       console.error("Error:", err);
-      alert("⚠️ Server error. Please check the console.");
+      formMessage.textContent = "⚠️ Server error. Please check the console.";
+      formMessage.style.color = "red";
     }
   });
 });

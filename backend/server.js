@@ -1,35 +1,32 @@
-const express = require("express");
-const fs = require("fs");
-const path = require("path");
-const app = express();
+// const express = require("express");
+// const fs = require("fs");
+// const path = require("path");
+// const cors = require("cors");
 
-// Middleware
-app.use(express.json());
-app.use(express.static(path.join(__dirname, "../"))); // serve your HTML/JS/CSS
+// const app = express();
 
-// Path to reviews.json
-const filePath = path.join(__dirname, "databases/reviews.json");
+// // ✅ Middleware
+// app.use(express.json());
+// app.use(cors({ origin: "*" })); // Allow all origins (you can restrict later)
+// app.use(express.static(path.join(__dirname, "../"))); // Serve frontend files
 
-// Handle POST request from contact form
-app.post("/saveReview", (req, res) => {
-  const newReview = { ...req.body, time: new Date().toLocaleString() };
+// // ✅ Path to reviews.json file
+// const filePath = path.join(__dirname, "databases/reviews.json");
 
-  // Read existing reviews
-  fs.readFile(filePath, "utf8", (err, data) => {
-    const reviews = data ? JSON.parse(data) : [];
-    reviews.push(newReview);
+// // ✅ API route to save review
+// app.post("/saveReview", (req, res) => {
+//   const newReview = { ...req.body, time: new Date().toLocaleString() };
 
-    // Write updated reviews back to JSON
-    fs.writeFile(filePath, JSON.stringify(reviews, null, 2), (err) => {
-      if (err) return res.status(500).send("Error saving review");
-      res.send("Review saved successfully!");
-    });
-  });
-});
+//   fs.readFile(filePath, "utf8", (err, data) => {
+//     const reviews = data ? JSON.parse(data) : [];
+//     reviews.push(newReview);
 
-// Start server
-// starting command reach folder hms/backend
-//then type node server rest work is done from here u can directly fill the form it will automatically save input in reviews.json
+//     fs.writeFile(filePath, JSON.stringify(reviews, null, 2), (err) => {
+//       if (err) return res.status(500).send("Error saving review");
+//       res.send("Review saved successfully!");
+//     });
+//   });
+// });
 
-
-app.listen(3000, () => console.log("✅ Server running at http://localhost:3000"));
+// // ✅ Start server
+// app.listen(4000, () => console.log("✅ Server running at http://localhost:4000"));

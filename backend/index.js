@@ -12,6 +12,7 @@ app.use(cors());
 
 // const filePath = path.join(__dirname,"Authentication.json");
 const filePath = path.join(__dirname, "databases" ,"Authentication.json");
+const reviewFilePath = path.join(__dirname, "databases", "reviews.json");
 
 
 app.get("/", (req, res) => {
@@ -81,6 +82,65 @@ app.post("/logout", (req, res) => {
     data.login = 0;
     fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
     res.send({ success: true });
+});
+
+app.post("/saveReview", (req, res) => {
+  const newReview = { ...req.body, time: new Date().toLocaleString() };
+
+  fs.readFile(reviewFilePath, "utf8", (err, data) => {
+    const reviews = data ? JSON.parse(data) : [];
+    reviews.push(newReview);
+
+    fs.writeFile(reviewFilePath, JSON.stringify(reviews, null, 2), (err) => {
+      if (err) {
+        console.error("Error saving review:", err);
+        return res.status(500).send("Error saving review");
+      }
+      res.send("✅ Review saved successfully!");
+    });
+  });
+});
+
+// Route to view all reviews in browser
+app.get("/reviews", (req, res) => {
+  const reviewFilePath = path.join(__dirname, "databases", "reviews.json");
+
+  fs.readFile(reviewFilePath, "utf8", (err, data) => {
+    if (err) {
+      return res.status(500).send("Error reading reviews.");
+    }
+
+    const reviews = data ? JSON.parse(data) : [];
+
+    // Create simple HTML to display reviews
+    let html = `
+      <html>
+        <head>
+          <title>All Reviews</title>
+          <style>
+            body { font-family: Arial, sans-serif; padding: 20px; }
+            h1 { color: #333; }
+            .review { border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; border-radius: 5px; }
+            .time { font-size: 0.9em; color: gray; }
+          </style>
+        </head>
+        <body>
+          <h1>All Feedback / Reviews</h1>
+          ${reviews.length === 0 ? "<p>No reviews yet.</p>" : ""}
+          ${reviews.map(r => `
+            <div class="review">
+              <p><strong>Name:</strong> ${r.name}</p>
+              <p><strong>Email:</strong> ${r.email}</p>
+              <p><strong>Message:</strong> ${r.message}</p>
+              <p class="time"><strong>Time:</strong> ${r.time}</p>
+            </div>
+          `).join("")}
+        </body>
+      </html>
+    `;
+
+    res.send(html);
+  });
 });
 
 
