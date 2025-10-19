@@ -1,5 +1,6 @@
 // user_portal.js
-const BACKEND = "http://localhost:3000";
+// const BACKEND = "http://localhost:3000";
+const BACKEND = "https://hospitality-management-system-xdyy.onrender.com"
 
 // ========== TAB SWITCHING ==========
 function showTab(event, tabName) {
