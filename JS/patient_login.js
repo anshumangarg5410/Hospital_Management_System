@@ -81,7 +81,7 @@ if (result.success) {
     alert(result.message);
     setTimeout(() => {
         window.location.href = "../HTML/patient_login_page.html";
-    }, 100); // 100ms ensures redirect happens *after* alert closes cleanly
+    }, 100); 
 } else {
     alert(result.message);
 }

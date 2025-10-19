@@ -3,7 +3,7 @@
     {
       "name": "Anshuman",
       "username": "Anshuman",
-      "password": "something",
+      "password": "Something",
       "email": "anshu_new@gmail.com",
       "ID": 0,
       "Designation": "Patient"
@@ -11,7 +11,7 @@
     {
       "name": "Ria",
       "username": "Ria",
-      "password": "something",
+      "password": "Something",
       "email": "ria@gmail.com",
       "ID": 1,
       "Designation": "Patient"
@@ -19,7 +19,7 @@
     {
       "name": "Soham",
       "username": "Soham",
-      "password": "something",
+      "password": "Something",
       "email": "soham@gmail.com",
       "ID": 2,
       "Designation": "Patient"
@@ -27,82 +27,10 @@
     {
       "name": "Renu",
       "username": "Renu",
-      "password": "CHIPKALI",
+      "password": "Something",
       "email": "renu@gmail.com",
       "ID": 3,
       "Designation": "Doctor"
-    },
-    {
-      "name": "df",
-      "username": "df",
-      "password": "324",
-      "email": "df",
-      "ID": 4,
-      "Designation": "Patient"
-    },
-    {
-      "name": "sdf",
-      "username": "sdf",
-      "password": "dsf",
-      "email": "sdf",
-      "ID": 5,
-      "Designation": "Patient"
-    },
-    {
-      "name": "cv",
-      "username": "cv",
-      "password": "asdf",
-      "email": "cv",
-      "ID": 6,
-      "Designation": "Patient"
-    },
-    {
-      "name": "sd",
-      "username": "sd",
-      "password": "sdf",
-      "email": "sd",
-      "ID": 7,
-      "Designation": "Patient"
-    },
-    {
-      "name": "sdew",
-      "username": "sdew",
-      "password": "dsfdsf",
-      "email": "sdew",
-      "ID": 8,
-      "Designation": "Patient"
-    },
-    {
-      "name": "ssdf",
-      "username": "ssdf",
-      "password": "sdfsdf",
-      "email": "ssdf",
-      "ID": 9,
-      "Designation": "Patient"
-    },
-    {
-      "name": "sdfdf",
-      "username": "sdfdf",
-      "password": "sdf",
-      "email": "sdfdf",
-      "ID": 10,
-      "Designation": "Patient"
-    },
-    {
-      "name": "sdfdfsdf",
-      "username": "sdfdfsdf",
-      "password": "sdfsdf",
-      "email": "sdfdfsdf",
-      "ID": 11,
-      "Designation": "Patient"
-    },
-    {
-      "name": "asdasdasd",
-      "username": "asdasdasd",
-      "password": "asdasd",
-      "email": "asdasdasd",
-      "ID": 12,
-      "Designation": "Patient"
     }
   ],
   "login": 0,
