@@ -52,7 +52,7 @@ loginButton.addEventListener("click", async () => {
         }
     } catch (err) {
         console.error("Login failed:", err);
-        alert("Unable to connect to server. Try again later.");
+        alert("Unable to connect to serverr. Try again later.");
     }
 });
 
@@ -77,13 +77,14 @@ registerButton.addEventListener("click", async () => {
 
         const result = await response.json();
 
-        if (result.success) {
-            alert(result.message); 
-
-            window.location.href = "../HTML/patient_login_page.html";
-        } else {
-            alert(result.message); 
-        }
+if (result.success) {
+    alert(result.message);
+    setTimeout(() => {
+        window.location.href = "../HTML/patient_login_page.html";
+    }, 5000); // 100ms ensures redirect happens *after* alert closes cleanly
+} else {
+    alert(result.message);
+}
     } catch (err) {
         console.error("Login failed:", err);
         alert("Unable to connect to server. Try again later.");

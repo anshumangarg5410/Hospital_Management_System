@@ -35,46 +35,68 @@ app.get("/users", (req, res) => {
   }
 });
 
+
 app.post("/login", (req, res) => {
-  let data = JSON.parse(fs.readFileSync(filePath, "utf8"));
-  const { username, password } = req.body;
+  try {
+    let data = JSON.parse(fs.readFileSync(filePath, "utf8"));
+    const { username, password } = req.body;
 
-  const userIndex = data.users.findIndex(u => u.username === username);
-  console.log("idex: ")
-  console.log(userIndex);
+    const userIndex = data.users.findIndex(u => u.username === username);
 
-  if (userIndex === -1) {
-    return res.send({ success: false, message: "User found" });
-  }
+    if (userIndex === -1) {
+      return res.json({ success: false, message: "User not found!" });
+    }
 
-  if (data.users[userIndex].password === password) {
-    data.login = 1;
-    data.Current_User_Index = userIndex; 
-    console.log("current user: ")
-    console.log(data.Current_User_Index);
-    fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
-    return res.send({ success: true, message: "Login successful!" });
-  } else {
-    return res.send({ success: false, message: "Wrong password!" });
+    if (data.users[userIndex].password === password) {
+      data.login = 1;
+      data.Current_User_Index = userIndex;
+      fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
+      return res.json({ success: true, message: "Login successful!" });
+    } else {
+      return res.json({ success: false, message: "Wrong password!" });
+    }
+  } catch (err) {
+    console.error("Login Error:", err);
+    res.status(500).json({ success: false, message: "Internal Server Error" });
   }
 });
 
 
 
 app.post("/signup", (req, res) => {
-  let data = JSON.parse(fs.readFileSync(filePath, "utf8"));
-  const { name, username, password, email } = req.body;
+  try {
+    let data = JSON.parse(fs.readFileSync(filePath, "utf8"));
+    const { name, username, password, email } = req.body;
 
-  if (data.users.some(u => u.username === username)) {
-    return res.send({ success: false, message: "User already exists!" });
+    // Validate input
+    if (!name || !username || !password || !email) {
+      return res.status(400).json({ success: false, message: "Missing required fields" });
+    }
+
+    // Check if user already exists
+    if (data.users.some(u => u.username === username)) {
+      return res.json({ success: false, message: "User already exists!" });
+    }
+
+    // Create new user with unique ID and Designation
+    const newUser = {
+      name,
+      username,
+      password,
+      email,
+      ID: data.users.length, // unique incremental ID
+      Designation: "Patient"
+    };
+
+    data.users.push(newUser);
+    fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
+
+    res.json({ success: true, message: "User registered successfully!" });
+  } catch (err) {
+    console.error("Signup Error:", err);
+    res.status(500).json({ success: false, message: "Internal Server Error" });
   }
-
-  data.users.push({ name, username, password, email, id });
-  fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
-
-  res.send({ success: true, message: "User registered successfully!" });
 });
-
 
 
 app.get("/login-status", (req, res) => {

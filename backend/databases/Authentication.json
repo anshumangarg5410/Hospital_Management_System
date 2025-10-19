@@ -31,6 +31,70 @@
       "email": "renu@gmail.com",
       "ID": 3,
       "Designation": "Doctor"
+    },
+    {
+      "name": "df",
+      "username": "df",
+      "password": "324",
+      "email": "df",
+      "ID": 4,
+      "Designation": "Patient"
+    },
+    {
+      "name": "sdf",
+      "username": "sdf",
+      "password": "dsf",
+      "email": "sdf",
+      "ID": 5,
+      "Designation": "Patient"
+    },
+    {
+      "name": "cv",
+      "username": "cv",
+      "password": "asdf",
+      "email": "cv",
+      "ID": 6,
+      "Designation": "Patient"
+    },
+    {
+      "name": "sd",
+      "username": "sd",
+      "password": "sdf",
+      "email": "sd",
+      "ID": 7,
+      "Designation": "Patient"
+    },
+    {
+      "name": "sdew",
+      "username": "sdew",
+      "password": "dsfdsf",
+      "email": "sdew",
+      "ID": 8,
+      "Designation": "Patient"
+    },
+    {
+      "name": "ssdf",
+      "username": "ssdf",
+      "password": "sdfsdf",
+      "email": "ssdf",
+      "ID": 9,
+      "Designation": "Patient"
+    },
+    {
+      "name": "sdfdf",
+      "username": "sdfdf",
+      "password": "sdf",
+      "email": "sdfdf",
+      "ID": 10,
+      "Designation": "Patient"
+    },
+    {
+      "name": "sdfdfsdf",
+      "username": "sdfdfsdf",
+      "password": "sdfsdf",
+      "email": "sdfdfsdf",
+      "ID": 11,
+      "Designation": "Patient"
     }
   ],
   "login": 0,
