@@ -1,33 +1,36 @@
-
 const fs = require("fs");
 const path = require("path");
 const express = require("express");
 const cors = require("cors"); 
 
-
 const app = express();
 app.use(express.json());
 app.use(cors());
 
-
-// const filePath = path.join(__dirname,"Authentication.json");
 const filePath = path.join(__dirname, "databases" ,"Authentication.json");
 const reviewFilePath = path.join(__dirname, "databases", "reviews.json");
 
+// ===== Utility to read/write JSON =====
+function readDB() {
+  return JSON.parse(fs.readFileSync(filePath, "utf8"));
+}
 
+function writeDB(data) {
+  fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
+}
 
-app.get("/", (req, res) => {
-  res.send("Backend is running successfully 🚀");
-});
+// ===== Basic routes =====
+app.get("/", (req, res) => res.send("Backend is running successfully 🚀"));
 
+// ===== Users =====
 app.get("/usersnum", (req, res) => {
-  const data = JSON.parse(fs.readFileSync(filePath, "utf8"));
+  const data = readDB();
   res.send({ success: true, users: data.users });
 });
 
 app.get("/users", (req, res) => {
   try {
-    const data = JSON.parse(fs.readFileSync(filePath, "utf8"));
+    const data = readDB();
     res.send({ success: true, users: data.users });
   } catch (err) {
     console.error("Error reading users:", err);
@@ -35,61 +38,48 @@ app.get("/users", (req, res) => {
   }
 });
 
-
-app.post("/login", (req, res) => {
-  try {
-    let data = JSON.parse(fs.readFileSync(filePath, "utf8"));
-    const { username, password } = req.body;
-
-    const userIndex = data.users.findIndex(u => u.username === username);
-
-    if (userIndex === -1) {
-      return res.json({ success: false, message: "User not found!" });
-    }
-
-    if (data.users[userIndex].password === password) {
-      data.login = 1;
-      data.Current_User_Index = userIndex;
-      fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
-      return res.json({ success: true, message: "Login successful!" });
+app.get("/login-status", (req, res) => {
+    const data = readDB(); // your utility function to read JSON
+    if (data.login === 1 && data.Current_User_Index !== undefined) {
+        res.json({
+            login: 1,
+            user: data.users[data.Current_User_Index]
+        });
     } else {
-      return res.json({ success: false, message: "Wrong password!" });
+        res.json({ login: 0 });
     }
-  } catch (err) {
-    console.error("Login Error:", err);
-    res.status(500).json({ success: false, message: "Internal Server Error" });
-  }
 });
 
-
-
+// ===== Signup =====
 app.post("/signup", (req, res) => {
   try {
-    let data = JSON.parse(fs.readFileSync(filePath, "utf8"));
+    let data = readDB();
     const { name, username, password, email } = req.body;
 
-    // Validate input
     if (!name || !username || !password || !email) {
       return res.status(400).json({ success: false, message: "Missing required fields" });
     }
 
-    // Check if user already exists
     if (data.users.some(u => u.username === username)) {
       return res.json({ success: false, message: "User already exists!" });
     }
 
-    // Create new user with unique ID and Designation
+    // Create new user with empty arrays
     const newUser = {
       name,
       username,
       password,
       email,
-      ID: data.users.length, // unique incremental ID
-      Designation: "Patient"
+      ID: data.users.length,
+      Designation: "Patient",
+      appointments: [],
+      prescriptions: [],
+      orders: [],
+      reports: []
     };
 
     data.users.push(newUser);
-    fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
+    writeDB(data);
 
     res.json({ success: true, message: "User registered successfully!" });
   } catch (err) {
@@ -98,20 +88,102 @@ app.post("/signup", (req, res) => {
   }
 });
 
+// ===== Login =====
+// Login
+app.post("/login", (req, res) => {
+  try {
+    let data = readDB();
+    const { username, password } = req.body;
+    const userIndex = data.users.findIndex(u => u.username === username);
 
-app.get("/login-status", (req, res) => {
-    let data = JSON.parse(fs.readFileSync(filePath, "utf8"));
-    res.json({ login: data.login });
+    if (userIndex === -1) return res.json({ success: false, message: "User not found!" });
+    if (data.users[userIndex].password !== password)
+      return res.json({ success: false, message: "Wrong password!" });
+
+    data.Current_User_Index = userIndex;
+    writeDB(data);
+    res.json({ success: true, message: "Login successful!", user: data.users[userIndex] });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, message: "Internal Server Error" });
+  }
 });
 
-
+// ===== Logout =====
 app.post("/logout", (req, res) => {
-    let data = JSON.parse(fs.readFileSync(filePath, "utf8"));
-    data.login = 0;
-    fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
-    res.send({ success: true });
+  try {
+    let data = readDB();
+    data.Current_User_Index = null;
+    writeDB(data);
+    res.json({ success: true, message: "Logged out successfully" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, message: "Logout failed" });
+  }
+});
+// ===== Current User =====
+app.get("/currentUser", (req, res) => {
+  try {
+    const data = readDB();
+    const idx = data.Current_User_Index;
+    if (idx !== null && data.users[idx]) {
+      return res.json({ success: true, user: data.users[idx] });
+    }
+    res.json({ success: false, message: "No user logged in" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, message: "Internal Server Error" });
+  }
 });
 
+// ===== User Data Endpoints =====
+function getUserData(key) {
+  const data = readDB();
+  const idx = data.Current_User_Index;
+  if (idx !== undefined && data.users[idx]) {
+    return data.users[idx][key] || [];
+  }
+  return [];
+}
+
+app.get("/appointments", (req, res) => res.json({ success: true, appointments: getUserData("appointments") }));
+app.get("/prescriptions", (req, res) => res.json({ success: true, prescriptions: getUserData("prescriptions") }));
+app.get("/orders", (req, res) => res.json({ success: true, orders: getUserData("orders") }));
+app.get("/reports", (req, res) => res.json({ success: true, reports: getUserData("reports") }));
+
+// ===== Update User Profile =====
+app.put("/updateUser", (req, res) => {
+  const { username, name, email, phone, dob, bloodGroup, address } = req.body;
+  const file = readDB();
+  const userIndex = file.users.findIndex(u => u.username === username);
+
+  if (userIndex !== -1) {
+    file.users[userIndex] = { ...file.users[userIndex], name, email, phone, dob, bloodGroup, address };
+    writeDB(file);
+    res.json({ success: true, message: "User updated successfully!", user: file.users[userIndex] });
+  } else {
+    res.json({ success: false, message: "User not found!" });
+  }
+});
+
+// ===== Change Password =====
+app.put("/changePassword", (req, res) => {
+  const { username, currentPassword, newPassword } = req.body;
+  const file = readDB();
+  const userIndex = file.users.findIndex(u => u.username === username);
+
+  if (userIndex === -1) return res.json({ success: false, message: "User not found!" });
+  if (file.users[userIndex].password !== currentPassword) {
+    return res.json({ success: false, message: "Current password is incorrect" });
+  }
+
+  file.users[userIndex].password = newPassword;
+  writeDB(file);
+
+  res.json({ success: true, message: "Password changed successfully!" });
+});
+
+// ===== Reviews =====
 app.post("/saveReview", (req, res) => {
   const newReview = { ...req.body, time: new Date().toLocaleString() };
 
@@ -120,40 +192,29 @@ app.post("/saveReview", (req, res) => {
     reviews.push(newReview);
 
     fs.writeFile(reviewFilePath, JSON.stringify(reviews, null, 2), (err) => {
-      if (err) {
-        console.error("Error saving review:", err);
-        return res.status(500).send("Error saving review");
-      }
+      if (err) return res.status(500).send("Error saving review");
       res.send("✅ Review saved successfully!");
     });
   });
 });
 
-// Route to view all reviews in browser
 app.get("/reviews", (req, res) => {
-  const reviewFilePath = path.join(__dirname, "databases", "reviews.json");
-
   fs.readFile(reviewFilePath, "utf8", (err, data) => {
-    if (err) {
-      return res.status(500).send("Error reading reviews.");
-    }
-
+    if (err) return res.status(500).send("Error reading reviews.");
     const reviews = data ? JSON.parse(data) : [];
 
-    // Create simple HTML to display reviews
     let html = `
       <html>
         <head>
           <title>All Reviews</title>
           <style>
-            body { font-family: Arial, sans-serif; padding: 20px; }
-            h1 { color: #333; }
+            body { font-family: Arial; padding: 20px; }
             .review { border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; border-radius: 5px; }
             .time { font-size: 0.9em; color: gray; }
           </style>
         </head>
         <body>
-          <h1>All Feedback / Reviews</h1>
+          <h1>All Reviews</h1>
           ${reviews.length === 0 ? "<p>No reviews yet.</p>" : ""}
           ${reviews.map(r => `
             <div class="review">
@@ -166,14 +227,9 @@ app.get("/reviews", (req, res) => {
         </body>
       </html>
     `;
-
     res.send(html);
   });
 });
 
-
 const PORT = process.env.PORT || 3000;
-
-app.listen(PORT, () => {
-  console.log(`✅ Server running on port ${PORT}`)
-});
+app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));

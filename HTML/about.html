@@ -16,14 +16,39 @@
 				</a>
 				<ul class="nav-links">
 					<li class="here"><a href="../index.html">Home</a></li>
-					<li class="here"><a href="../HTML/about.html">About</a></li>
-					<li class="here"><a href="/index.html">Services</a></li>
-					<li class="here"><a href="./HTML/contactpage.html">Contact</a></li>
-		<li class="here"><a href="../HTML/user_sel.html" id="login_Status">Login</a></li>
-					<li>
-<a href="../HTML/login_pat.html">
-							<button class="nav-btn">Book Appointment</button>
-						</a>
+					<li class="here"><a href="./about.html">About</a></li>
+					<li class="here"><a href="./contactpage.html">Contact</a></li>
+					
+					<!-- Dynamic Login/Portal Section -->
+					<li class="here" id="authSection">
+						<a href="./user_sel.html" id="authLink">Login</a>
+					</li>
+					
+					<!-- User Profile Dropdown (Hidden by default) -->
+					<li class="user-dropdown" id="userDropdown" style="display: none;">
+						<div class="user-profile-nav">
+							<div class="user-avatar-small" id="navUserAvatar">U</div>
+							<span id="navUserName">User</span>
+							<i class="fas fa-chevron-down"></i>
+						</div>
+						<div class="dropdown-menu">
+							<a href="./user_portal.html" class="dropdown-item">
+								<i class="fas fa-user-circle"></i> My Portal
+							</a>
+							<a href="./user_portal.html?tab=appointments" class="dropdown-item">
+								<i class="fas fa-calendar-check"></i> Appointments
+							</a>
+							<a href="./user_portal.html?tab=prescriptions" class="dropdown-item">
+								<i class="fas fa-prescription"></i> Prescriptions
+							</a>
+							<a href="./user_portal.html?tab=profile" class="dropdown-item">
+								<i class="fas fa-cog"></i> Settings
+							</a>
+							<div class="dropdown-divider"></div>
+							<a href="#" class="dropdown-item" id="logoutBtn">
+								<i class="fas fa-sign-out-alt"></i> Logout
+							</a>
+						</div>
 					</li>
 				</ul>
 				<button class="mobile-menu">

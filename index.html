@@ -18,22 +18,44 @@
 		<header>
 			<nav>
 				<a href="#" class="logo">
-					<!-- <i class="fas fa-heartbeat"></i> -->
 					<div class="logo_pic"></div>
 					<span>HMS</span>
 				</a>
 				<ul class="nav-links">
 					<li class="here"><a href="#home">Home</a></li>
 					<li class="here"><a href="./HTML/about.html">About</a></li>
-					<li class="here"><a href="#services">Services</a></li>
 					<li class="here"><a href="./HTML/contactpage.html">Contact</a></li>
 					
-					<li class="here" id="login_Status"><a href="./HTML/user_sel.html" >Login</a></li>
-					<!-- ./HTML/user_selection.html -->
-					<li id="book_appoint">
-						<a href="/HTML/login_pat.html" >
-							<button class="nav-btn">Book Appointment</button>
-						</a>
+					<!-- Dynamic Login/Portal Section -->
+					<li class="here" id="authSection">
+						<a href="./HTML/user_sel.html" id="authLink">Login</a>
+					</li>
+					
+					<!-- User Profile Dropdown (Hidden by default) -->
+					<li class="user-dropdown" id="userDropdown" style="display: none;">
+						<div class="user-profile-nav">
+							<div class="user-avatar-small" id="navUserAvatar">U</div>
+							<span id="navUserName">User</span>
+							<i class="fas fa-chevron-down"></i>
+						</div>
+						<div class="dropdown-menu">
+							<a href="./HTML/user_portal.html" class="dropdown-item">
+								<i class="fas fa-user-circle"></i> My Portal
+							</a>
+							<a href="./HTML/user_portal.html?tab=appointments" class="dropdown-item">
+								<i class="fas fa-calendar-check"></i> Appointments
+							</a>
+							<a href="./HTML/user_portal.html?tab=prescriptions" class="dropdown-item">
+								<i class="fas fa-prescription"></i> Prescriptions
+							</a>
+							<a href="./HTML/user_portal.html?tab=profile" class="dropdown-item">
+								<i class="fas fa-cog"></i> Settings
+							</a>
+							<div class="dropdown-divider"></div>
+							<a href="#" class="dropdown-item" id="logoutBtn">
+								<i class="fas fa-sign-out-alt"></i> Logout
+							</a>
+						</div>
 					</li>
 				</ul>
 				<button class="mobile-menu">
@@ -43,8 +65,6 @@
 		</header>
 
 		<!-- Hero-Section -->
-		<!-- <div class="main"> -->
-
 		<section class="hero" id="home">
 			<div class="hero-content">
 				<span class="hero-badge">
@@ -66,143 +86,67 @@
 				</div>
 			</div>
 
-			<!-- DNA Animation -->
-			 
-			<!-- <div class="dna">
-				<div class="strain"></div>
-				<div class="strain"></div>
-				<div class="strain"></div>
-				<div class="strain"></div>
-				<div class="strain"></div>
-				<div class="strain"></div>
-				<div class="strain"></div>
-				<div class="strain"></div>
-			</div> -->
-
 			<div class="image"></div>
 		</section>
-		<!-- </div> -->
-		 <div class="" style="height: 40px" id="services"></div>
-		<!-- <br /><br /><br /><br /><br /> -->
-		<div class="Row-Title" >
+		
+		<div class="" style="height: 40px" id="services"></div>
+		
+		<div class="Row-Title">
 			<p>Quick Options</p>
 		</div>
 
-<section class="container" >
-  <article class="row">
-    <figure class="col">
-      <a href="./HTML/medicine.html">
-        <img src="/Assets/shop_pharmacy.webp" alt="Shop Pharmacy" />
-        <figcaption>Shop Pharmacy</figcaption>
-      </a>
-    </figure>
+		<section class="container">
+			<article class="row">
+				<figure class="col">
+					<a href="./HTML/medicine.html">
+						<img src="/Assets/shop_pharmacy.webp" alt="Shop Pharmacy" />
+						<figcaption>Shop Pharmacy</figcaption>
+					</a>
+				</figure>
 
-    <figure class="col">
-      <a href="#home">
-        <img src="/Assets/order_prescription.webp" alt="Order Prescription" />
-        <figcaption>Order Prescription</figcaption>
-      </a>
-    </figure>
+				<figure class="col">
+					<a href="#home">
+						<img src="/Assets/order_prescription.webp" alt="Order Prescription" />
+						<figcaption>Order Prescription</figcaption>
+					</a>
+				</figure>
 
-    <figure class="col">
-      <a href="./HTML/login_pat.html">
-        <img src="/Assets/Consult_Doctor.avif" alt="Book a Doctor" />
-        <figcaption>Book a Doctor</figcaption>
-      </a>
-    </figure>
+				<figure class="col">
+					<a href="./HTML/login_pat.html">
+						<img src="/Assets/Consult_Doctor.avif" alt="Book a Doctor" />
+						<figcaption>Book a Doctor</figcaption>
+					</a>
+				</figure>
 
-    <figure class="col">
-      <a href="./HTML/appointment3.html">
-        <img src="/Assets/instant_consultant.webp" alt="Instant Consult" />
-        <figcaption>Instant Consult</figcaption>
-      </a>
-    </figure>
+				<figure class="col">
+					<a href="./HTML/appointment3.html">
+						<img src="/Assets/instant_consultant.webp" alt="Instant Consult" />
+						<figcaption>Instant Consult</figcaption>
+					</a>
+				</figure>
 
-    <figure class="col">
-      <a href="./HTML/login_pat.html">
-        <img src="/Assets/records.webp" alt="My Records" />
-        <figcaption>My Records</figcaption>
-      </a>
-    </figure>
+				<figure class="col">
+					<a href="./HTML/login_pat.html">
+						<img src="/Assets/records.webp" alt="My Records" />
+						<figcaption>My Records</figcaption>
+					</a>
+				</figure>
 
-    <figure class="col">
-      <a href="#home">
-        <img src="/Assets/Optical.avif" alt="Optical Store" />
-        <figcaption>Optical Store</figcaption>
-      </a>
-    </figure>
+				<figure class="col">
+					<a href="#home">
+						<img src="/Assets/Optical.avif" alt="Optical Store" />
+						<figcaption>Optical Store</figcaption>
+					</a>
+				</figure>
 
-    <figure class="col">
-      <a href="#home">
-        <img src="/Assets/Offers.avif" alt="Exclusive Offers" />
-        <figcaption>Exclusive Offers</figcaption>
-      </a>
-    </figure>
-  </article>
-</section>
-
-		<!-- <div class="Row-Title">
-			<p>Affordable Health Checks and Diagnostics</p>
-		</div> -->
-
-		<!-- <section class="card-container">
-			<article class="card">
-				<div class="card-img">
-					<span class="tag">At Clinic Only</span>
-					<img src="/Assets/MA_PackageCover_FLU.avif" alt="Shop Pharmacy" />
-				</div>
-				<div class="card-body">
-					<p>FLU Vaccine - Adult</p>
-					<p>₹ 99</p>
-				</div>
+				<figure class="col">
+					<a href="#home">
+						<img src="/Assets/Offers.avif" alt="Exclusive Offers" />
+						<figcaption>Exclusive Offers</figcaption>
+					</a>
+				</figure>
 			</article>
-
-			<article class="card">
-				<div class="card-img">
-					<span class="tag">At Clinic Only</span>
-					<img
-						src="/Assets/MA_PackageCover_FLU2.avif"
-						alt="Order Prescription" />
-				</div>
-				<div class="card-body">
-					<p>FLU Vaccine - Pediatric</p>
-					<p>₹ 99</p>
-				</div>
-			</article>
-
-			<article class="card">
-				<div class="card-img">
-					<span class="tag">At Clinic Only</span>
-					<img src="/Assets/Vitamin_D_uZLYdJ9.avif" alt="Book a Doctor" />
-				</div>
-				<div class="card-body">
-					<p>Vitamin D Test</p>
-					<p>₹ 99</p>
-				</div>
-			</article>
-
-			<article class="card">
-				<div class="card-img">
-					<span class="tag">At Clinic Only</span>
-					<img src="/Assets/Basic_Health_Package.avif" alt="Instant Consult" />
-				</div>
-				<div class="card-body">
-					<p>Basic Health Package</p>
-					<p>₹ 99</p>
-				</div>
-			</article>
-
-			<article class="card">
-				<div class="card-img">
-					<span class="tag">At Clinic Only</span>
-					<img src="/Assets/HealthCheckup_Cover-1.avif" alt="My Records" />
-				</div>
-				<div class="card-body">
-					<p>Pro Health Package</p>
-					<p>₹ 99</p>
-				</div>
-			</article>
-		</section> -->
+		</section>
 
 		<div class="Row-Title">
 			<p>Top Categories</p>
@@ -394,8 +338,8 @@
 						<li>Gut Health</li>
 						<li>Sports Nutrition</li>
 						<li>Health Food</li>
-						<li>Shop by Women’s Health</li>
-						<li>Shop by Men’s Health</li>
+						<li>Shop by Women's Health</li>
+						<li>Shop by Men's Health</li>
 						<li>Shop by Nutrition Trends</li>
 					</ul>
 				</div>
@@ -525,7 +469,7 @@
 			</div>
 		</footer>
 
-	<script src="/JS/navbar.js"></script>
-	<script src="/JS/landing_page.js"></script>
+		<script src="/JS/navbar.js"></script>
+		<script src="/JS/landing_page.js"></script>
 	</body>
 </html>
