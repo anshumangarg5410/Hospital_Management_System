@@ -9,6 +9,7 @@ app.use(cors());
 
 const filePath = path.join(__dirname, "databases" ,"Authentication.json");
 const reviewFilePath = path.join(__dirname, "databases", "reviews.json");
+const searchFilePath = path.join(__dirname, "databases", "searchData.json");
 
 // ===== Utility to read/write JSON =====
 function readDB() {
@@ -230,6 +231,23 @@ app.get("/reviews", (req, res) => {
     res.send(html);
   });
 });
+
+app.get("/searchItems", (req, res) => {
+  fs.readFile(searchFilePath, "utf8", (err, data) => {
+    if (err) {
+      console.error("Error reading search JSON:", err);
+      return res.status(500).json({ success: false, message: "Failed to load search data" });
+    }
+    try {
+      const json = JSON.parse(data);
+      res.json({ success: true, searchItems: json.searchItems || [] });
+    } catch (parseErr) {
+      console.error("Error parsing search JSON:", parseErr);
+      res.status(500).json({ success: false, message: "Invalid JSON format" });
+    }
+  });
+});
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
