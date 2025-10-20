@@ -41,6 +41,31 @@
           "date": "2025-10-18",
           "total": 450,
           "status": "Delivered"
+        },
+        {
+          "id": 2,
+          "date": "2025-10-20",
+          "total": 438.5,
+          "status": "Processing",
+          "prescriptionId": 1,
+          "doctorName": "Dr. Renu",
+          "medicines": [
+            {
+              "name": "Paracetamol",
+              "instructions": "As directed by physician",
+              "price": 120
+            },
+            {
+              "name": "Vitamin D",
+              "instructions": "As directed by physician",
+              "price": 250
+            }
+          ],
+          "deliveryAddress": "asdasd",
+          "paymentMethod": "card",
+          "subtotal": 370,
+          "deliveryCharges": 50,
+          "tax": 18.5
         }
       ],
       "reports": [
