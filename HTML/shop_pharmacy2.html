@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HMS Pharmacy</title>
+    <link rel="stylesheet" href="../CSS/shop_pharmacy2.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <nav class="navbar">
+        <div class="logo">
+          <img src="../Assets/mainlogo.png" alt="HMS Logo" />
+          <h1>HMS Pharmacy</h1>
+        </div>
+        <ul class="nav-links">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Categories</a></li>
+          <li><a href="#">Deals</a></li>
+          <li><a href="#">New Arrivals</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+        <div class="nav-right">
+          <input type="text" placeholder="Search Medicine..." />
+          <a href="#"><i class="fas fa-user"></i></a>
+          <a href="#"><i class="fas fa-shopping-cart"></i></a>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Banner -->
+    <section class="banner">
+      <div class="banner-content">
+        <h2>Grab Upto 50% Off On Selected Medicines</h2>
+        <button>Buy Now</button>
+      </div>
+    </section>
+
+    <!-- Filters -->
+    <section class="filters">
+      <div class="filter-group">
+        <select id="filterType">
+          <option value="All">Medicine Type</option>
+          <option value="Tablet">Tablet</option>
+          <option value="Syrup">Syrup</option>
+          <option value="Capsule">Capsule</option>
+          <option value="Ointment">Ointment</option>
+        </select>
+        <select id="filterPrice">
+          <option value="All">Price</option>
+          <option value="0-10">$0 - $10</option>
+          <option value="10-20">$10 - $20</option>
+          <option value="20+">$20+</option>
+        </select>
+        <select id="filterCondition">
+          <option value="All">Health Condition</option>
+          <option value="Allergy">Allergy</option>
+          <option value="Cold & Cough">Cold & Cough</option>
+          <option value="Pain Relief">Pain Relief</option>
+        </select>
+        <select id="filterRating">
+          <option value="All">Rating</option>
+          <option value="5">⭐⭐⭐⭐⭐</option>
+          <option value="4">⭐⭐⭐⭐</option>
+          <option value="3">⭐⭐⭐</option>
+        </select>
+        <button class="sort-btn">Sort by</button>
+      </div>
+    </section>
+
+    <!-- Product Section -->
+    <main class="product-section">
+      <h2>Medicines For You!</h2>
+      <!-- PRODUCT GRID STARTS EMPTY -->
+      <div class="product-grid"></div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>© 2025 HMS Pharmacy. All rights reserved.</p>
+    </footer>
+
+    <!-- SCRIPT TO LOAD MEDICINES FROM JSON -->
+    <script>
+      async function loadMedicines() {
+        try {
+          // fetch your JSON data
+          const response = await fetch("../backend/databases/medicines.json");
+          const data = await response.json();
+
+          const productGrid = document.querySelector(".product-grid");
+          productGrid.innerHTML = ""; // make sure grid is empty first
+
+          data.forEach((item) => {
+            const productCard = document.createElement("div");
+            productCard.classList.add("product-card");
+
+            productCard.innerHTML = `
+              <img src="${item.image}" alt="${item.name}" />
+              <h3>${item.name}</h3>
+              <p>${item.description}</p>
+              <span class="rating">${"⭐".repeat(item.rating)} (${
+              item.reviews
+            })</span>
+              <p class="price">$${item.price.toFixed(2)}</p>
+              <button>Add to Cart</button>
+            `;
+
+            productGrid.appendChild(productCard);
+          });
+        } catch (error) {
+          console.error("Error loading medicines:", error);
+          document.querySelector(".product-grid").innerHTML =
+            "<p>Failed to load medicines.</p>";
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", loadMedicines);
+    </script>
+  </body>
+</html>

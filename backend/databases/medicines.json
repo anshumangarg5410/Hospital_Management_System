@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "name": "VitaBoost Daily C",
+    "category": "Tablet",
+    "description": "Glass Bottle",
+    "rating": 5,
+    "reviews": 121,
+    "price": 8.99,
+    "image": "https://rukminim2.flixcart.com/image/808/970/xif0q/moisturizer-cream/d/n/c/50-vitaboost-moisturizer-with-vitamin-b-c-and-e-for-daily-skin-original-imaghmev47dwbhs5.jpeg?q=90&crop=false"
+  },
+  {
+    "id": 2,
+    "name": "RapidRelief Pain Tablets",
+    "category": "Pain Relief",
+    "description": "Pain Relief Tablets",
+    "rating": 4,
+    "reviews": 98,
+    "price": 5.49,
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTG6DrZCBS4FeRkQxocgpGkPL2d2SFUBBI2rd2JYQBa-x3HQMcJy9nsFbzdyjtH2CkHoq0&usqp=CAU"
+  },
+  {
+    "id": 3,
+    "name": "AllerClear SF",
+    "category": "Syrup",
+    "description": "Relieves allergy and sneezing",
+    "rating": 5,
+    "reviews": 101,
+    "price": 12.99,
+    "image": "https://i.ebayimg.com/images/g/cVkAAOSw5ZRc9BTC/s-l1200.jpg"
+  },
+  {
+    "id": 4,
+    "name": "HealthKart Fish Oil",
+    "category": "Capsule",
+    "description": "Omega 3 Supplement",
+    "rating": 4,
+    "reviews": 89,
+    "price": 10.0,
+    "image": "https://cdn01.pharmeasy.in/dam/products_otc/Y03384/healthkart-hk-vitals-fish-oil-90-capsules-for-men-and-women-1000mg-omega-3-2-1746671352.jpg?dim=700x0&dpr=1&q=100"
+  },
+  {
+    "id": 4,
+    "name": "HealthKart Fish Oil",
+    "category": "Capsule",
+    "description": "Omega 3 Supplement",
+    "rating": 4,
+    "reviews": 89,
+    "price": 10.0,
+    "image": "https://cdn01.pharmeasy.in/dam/products_otc/Y03384/healthkart-hk-vitals-fish-oil-90-capsules-for-men-and-women-1000mg-omega-3-2-1746671352.jpg?dim=700x0&dpr=1&q=100"
+  }
+]
