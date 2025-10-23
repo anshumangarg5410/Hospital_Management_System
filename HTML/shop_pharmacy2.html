@@ -94,7 +94,7 @@
           const data = await response.json();
 
           const productGrid = document.querySelector(".product-grid");
-          productGrid.innerHTML = ""; // make sure grid is empty first
+          productGrid.innerHTML = "";
 
           data.forEach((item) => {
             const productCard = document.createElement("div");
