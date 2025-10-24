@@ -59,4 +59,38 @@ document.addEventListener("DOMContentLoaded", () => {
       formMessage.style.color = "red";
     }
   });
+
 });
+const BACKEND = "https://hospitality-management-system-xdyy.onrender.com";
+
+async function populateForm() {
+  try {
+    const res = await fetch(`${BACKEND}/currentUser`);
+    const json = await res.json();
+
+    if (!json.success) {
+      console.log("No logged in user:", json.message);
+      return;
+    }
+
+    // Fill form inputs
+    const nameInput = document.getElementById("name");
+    const emailInput = document.getElementById("email");
+
+    if (nameInput) {
+      nameInput.value = json.user.name || json.user.username || "";
+      nameInput.readOnly = true;  // Make it uneditable
+    }
+
+    if (emailInput) {
+      emailInput.value = json.user.email || "";
+      emailInput.readOnly = true; // Make it uneditable
+    }
+
+  } catch (err) {
+    console.error("Failed to fetch current user:", err);
+  }
+}
+
+// Run on page load
+document.addEventListener("DOMContentLoaded", populateForm);
