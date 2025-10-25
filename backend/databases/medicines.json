@@ -1,52 +1,100 @@
-[
-  {
-    "id": 1,
-    "name": "VitaBoost Daily C",
-    "category": "Tablet",
-    "description": "Glass Bottle",
-    "rating": 5,
-    "reviews": 121,
-    "price": 8.99,
-    "image": "https://rukminim2.flixcart.com/image/808/970/xif0q/moisturizer-cream/d/n/c/50-vitaboost-moisturizer-with-vitamin-b-c-and-e-for-daily-skin-original-imaghmev47dwbhs5.jpeg?q=90&crop=false"
-  },
-  {
-    "id": 2,
-    "name": "RapidRelief Pain Tablets",
-    "category": "Pain Relief",
-    "description": "Pain Relief Tablets",
-    "rating": 4,
-    "reviews": 98,
-    "price": 5.49,
-    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTG6DrZCBS4FeRkQxocgpGkPL2d2SFUBBI2rd2JYQBa-x3HQMcJy9nsFbzdyjtH2CkHoq0&usqp=CAU"
-  },
-  {
-    "id": 3,
-    "name": "AllerClear SF",
-    "category": "Syrup",
-    "description": "Relieves allergy and sneezing",
-    "rating": 5,
-    "reviews": 101,
-    "price": 12.99,
-    "image": "https://i.ebayimg.com/images/g/cVkAAOSw5ZRc9BTC/s-l1200.jpg"
-  },
-  {
-    "id": 4,
-    "name": "HealthKart Fish Oil",
-    "category": "Capsule",
-    "description": "Omega 3 Supplement",
-    "rating": 4,
-    "reviews": 89,
-    "price": 10.0,
-    "image": "https://cdn01.pharmeasy.in/dam/products_otc/Y03384/healthkart-hk-vitals-fish-oil-90-capsules-for-men-and-women-1000mg-omega-3-2-1746671352.jpg?dim=700x0&dpr=1&q=100"
-  },
-  {
-    "id": 4,
-    "name": "HealthKart Fish Oil",
-    "category": "Capsule",
-    "description": "Omega 3 Supplement",
-    "rating": 4,
-    "reviews": 89,
-    "price": 10.0,
-    "image": "https://cdn01.pharmeasy.in/dam/products_otc/Y03384/healthkart-hk-vitals-fish-oil-90-capsules-for-men-and-women-1000mg-omega-3-2-1746671352.jpg?dim=700x0&dpr=1&q=100"
-  }
-]
+{
+  "medicines": [
+    {
+      "id": 1,
+      "name": "VitaBoost Daily C",
+      "description": "Glass Bottle",
+      "category": "Vitamins & Selfcare",
+      "price": 15.99,
+      "rating": 5,
+      "reviews": 121,
+      "image": "https://rukminim2.flixcart.com/image/808/970/xif0q/moisturizer-cream/d/n/c/50-vitaboost-moisturizer-with-vitamin-b-c-and-e-for-daily-skin-original-imaghmev47dwbhs5.jpeg?q=90&crop=false",
+      "stock": 50,
+      "healthCondition": "Immunity & Support"
+    },
+    {
+      "id": 2,
+      "name": "RapidRelief Pain Tablets",
+      "description": "Skincare",
+      "category": "Pain Relief",
+      "price": 8.99,
+      "rating": 4,
+      "reviews": 98,
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTG6DrZCBS4FeRkQxocgpGkPL2d2SFUBBI2rd2JYQBa-x3HQMcJy9nsFbzdyjtH2CkHoq0&usqp=CAU",
+      "stock": 75,
+      "healthCondition": "Pain Relief"
+    },
+    {
+      "id": 3,
+      "name": "AllerClear SF",
+      "description": "Syrup",
+      "category": "Immunity & Support",
+      "price": 12.49,
+      "rating": 5,
+      "reviews": 121,
+      "image": "https://i.ebayimg.com/images/g/cVkAAOSw5ZRc9BTC/s-l1200.jpg",
+      "stock": 40,
+      "healthCondition": "Allergy & Hayfever"
+    },
+    {
+      "id": 4,
+      "name": "First Aid Kit S4.98",
+      "description": "Essential Kit",
+      "category": "First Aid",
+      "price": 24.98,
+      "rating": 5,
+      "reviews": 101,
+      "image": "https://5.imimg.com/data5/SELLER/Default/2023/11/358224277/TG/KM/XA/57356396/first-aid-kit-sjf-m4.jpg",
+      "stock": 30,
+      "healthCondition": "First Aid"
+    },
+    {
+      "id": 5,
+      "name": "AllerClear P+",
+      "description": "Tablets",
+      "category": "Immunity & Support",
+      "price": 18.99,
+      "rating": 4,
+      "reviews": 82,
+      "image": "https://cdn01.pharmeasy.in/dam/products_otc/Y03384/healthkart-hk-vitals-fish-oil-90-capsules-for-men-and-women-1000mg-omega-3-2-1746671352.jpg?dim=700x0&dpr=1&q=100",
+      "stock": 60,
+      "healthCondition": "Allergy & Hayfever"
+    },
+    {
+      "id": 6,
+      "name": "AbnaPEATS KWYJ",
+      "description": "Capsules",
+      "category": "Digestive Health",
+      "price": 9.99,
+      "rating": 3,
+      "reviews": 30,
+      "image": "https://5.imimg.com/data5/SELLER/Default/2025/7/527151802/DY/XE/JG/47379995/alleryskp-paracetamol-chlorpheniramine-maleate-phenylephrine-hcl-drop.jpeg",
+      "stock": 45,
+      "healthCondition": "Cough & Cold"
+    },
+    {
+      "id": 7,
+      "name": "TesaHVILtliil Cailt",
+      "description": "Bottle",
+      "category": "Vitamins & Selfcare",
+      "price": 22.99,
+      "rating": 4,
+      "reviews": 76,
+      "image": "https://cdn01.pharmeasy.in/dam/products_otc/C58839/pharmeasy-coenzyme-q10-coq10-200mg-with-piperine-for-heart-health-bottle-of-60-capsules-6.1-1737724089.jpg?dim=700x0&dpr=1&q=100",
+      "stock": 35,
+      "healthCondition": "Immunity & Support"
+    },
+    {
+      "id": 8,
+      "name": "AllerClear Syrup",
+      "description": "Children's",
+      "category": "Immunity & Support",
+      "price": 14.99,
+      "rating": 5,
+      "reviews": 101,
+      "image": "https://cdn01.pharmeasy.in/dam/products_otc/H10249/briyo-fish-oil-mini-450-mg-size-60-softgels-7139-omega-3-320-mg-omega-3-per-450-mg-capsule-2-1671744034.jpg?dim=700x0&dpr=1&q=100",
+      "stock": 55,
+      "healthCondition": "Cough & Cold"
+    }
+  ]
+}

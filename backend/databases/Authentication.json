@@ -75,6 +75,13 @@
           "date": "2025-10-10",
           "status": "Available"
         }
+      ],
+      "cart": [
+        {
+          "medicineId": 2,
+          "quantity": 2,
+          "addedAt": "2025-10-25T11:53:22.413Z"
+        }
       ]
     },
     {
@@ -88,6 +95,7 @@
       "prescriptions": [],
       "orders": [],
       "reports": [],
+      "cart": [],
       "phone": "sdfsfsdf",
       "dob": "",
       "bloodGroup": "",
@@ -103,7 +111,8 @@
       "appointments": [],
       "prescriptions": [],
       "orders": [],
-      "reports": []
+      "reports": [],
+      "cart": []
     },
     {
       "name": "Dr. Renu",
@@ -134,7 +143,8 @@
         }
       ],
       "orders": [],
-      "reports": []
+      "reports": [],
+      "cart": []
     }
   ],
   "login": 0,

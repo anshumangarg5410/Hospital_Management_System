@@ -3,8 +3,8 @@
 const navbarAuth = document.querySelector("#authSection");
 const userDropdown = document.querySelector("#userDropdown");
 
-const backendLink = "https://hospitality-management-system-xdyy.onrender.com"
-// const backendLink = "http://localhost:3000"; 
+// const backendLink = "https://hospitality-management-system-xdyy.onrender.com"
+const backendLink = "http://localhost:3000"; 
 
 // ========== LOAD NAVBAR BASED ON LOGIN STATUS ==========
 async function loadNavbar() {
@@ -25,6 +25,8 @@ async function loadNavbar() {
         showLoginButton();
     }
 }
+
+
 
 // ========== SHOW USER PROFILE DROPDOWN ==========
 function showUserProfile(user) {
@@ -69,6 +71,57 @@ function showLoginButton() {
     // Hide user dropdown
     if (userDropdown) {
         userDropdown.style.display = "none";
+    }
+}
+
+// ========== SHOW USER PROFILE DROPDOWN ==========
+function showUserProfile(user) {
+    // Hide login button
+    if (navbarAuth) navbarAuth.style.display = "none";
+
+    // Show user dropdown
+    if (userDropdown) userDropdown.style.display = "block";
+
+    // Update dropdown info
+    const navUserName = document.getElementById("navUserName");
+    const navUserAvatar = document.getElementById("navUserAvatar");
+
+    if (navUserName) {
+        const displayName = user.name || user.username || "User";
+        navUserName.textContent = displayName.split(" ")[0];
+    }
+
+    if (navUserAvatar) {
+        const name = user.name || user.username || "U";
+        const initials = name
+            .split(" ")
+            .map(s => s[0])
+            .join("")
+            .slice(0, 2)
+            .toUpperCase();
+        navUserAvatar.textContent = initials;
+    }
+
+    // ===== ADD CART LINK DYNAMICALLY =====
+    const dropdownMenu = userDropdown.querySelector(".dropdown-menu");
+    if (dropdownMenu) {
+        // Remove existing cart link if any
+        const existingCart = dropdownMenu.querySelector(".dropdown-item.cart-link");
+        if (existingCart) existingCart.remove();
+
+        // Create new cart link
+        const cartLink = document.createElement("a");
+        cartLink.href = "./HTML/cart.html"; // Link to your cart page
+        cartLink.className = "dropdown-item cart-link";
+        cartLink.innerHTML = `<i class="fas fa-shopping-cart"></i> Cart`;
+        
+        // Insert above the divider
+        const divider = dropdownMenu.querySelector(".dropdown-divider");
+        if (divider) {
+            dropdownMenu.insertBefore(cartLink, divider);
+        } else {
+            dropdownMenu.appendChild(cartLink);
+        }
     }
 }
 

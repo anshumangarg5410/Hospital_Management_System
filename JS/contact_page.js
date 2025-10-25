@@ -1,3 +1,6 @@
+// const BACKEND = "https://hospitality-management-system-xdyy.onrender.com/"
+const BACKEND = "http://localhost:3000"
+
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("reviewForm");
 
@@ -34,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const review = { name, email, message };
 
     try {
-      const res = await fetch("https://hospitality-management-system-xdyy.onrender.com/saveReview", {
+      const res = await fetch(BACKEND + "/saveReview", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(review),
@@ -61,7 +64,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
 });
-const BACKEND = "https://hospitality-management-system-xdyy.onrender.com";
 
 async function populateForm() {
   try {

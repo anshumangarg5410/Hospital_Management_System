@@ -8,310 +8,135 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     />
-    <link rel="stylesheet" href="../CSS/shop_pharmacy.css" />
+    <link rel="stylesheet" href="../CSS/shop_pharmacy.css">
   </head>
   <body>
-    <header>
-      <nav>
-        <a href="#" class="logo">
-          <div class="logo_pic"></div>
-          <span>HMS</span>
-        </a>
-        <ul class="nav-links">
-          <li class="here"><a href="#home">Home</a></li>
-          <li class="here"><a href="./HTML/about.html">About</a></li>
-          <li class="here"><a href="./HTML/contactpage.html">Contact</a></li>
+<header>
+		<nav>
+			<a href="#" class="logo">
+				<div class="logo_pic"></div>
+				<span>HMS</span>
+			</a>
+			
+			<ul class="nav-links">
+				<li class="here"><a href="#home">Home</a></li>
+				<li class="here"><a href="./HTML/about.html">About</a></li>
+				<li class="here"><a href="./HTML/contactpage.html">Contact</a></li>
+				<li class="here" id="authSection">
+					<a href="./HTML/user_sel.html" id="authLink">Login</a>
+				</li>
+				
+				<li class="user-dropdown" id="userDropdown" style="display: none;">
+					<div class="user-profile-nav">
+						<div class="user-avatar-small" id="navUserAvatar">U</div>
+						<span id="navUserName">User</span>
+						<i class="fas fa-chevron-down"></i>
+					</div>
+					<div class="dropdown-menu">
+						<a href="./HTML/user_portal.html" class="dropdown-item">
+							<i class="fas fa-user-circle"></i> My Portal
+						</a>
+						<a href="./HTML/user_portal.html?tab=appointments" class="dropdown-item">
+							<i class="fas fa-calendar-check"></i> Appointments
+						</a>
+						<a href="./HTML/user_portal.html?tab=prescriptions" class="dropdown-item">
+							<i class="fas fa-prescription"></i> Prescriptions
+						</a>
+						<a href="./HTML/user_portal.html?tab=profile" class="dropdown-item">
+							<i class="fas fa-cog"></i> Settings
+						</a>
+						<div class="dropdown-divider"></div>
+						<a href="#" class="dropdown-item" id="logoutBtn">
+							<i class="fas fa-sign-out-alt"></i> Logout
+						</a>
+					</div>
+				</li>
+			</ul>
+			
+			<button class="mobile-menu">
+				<i class="fas fa-bars"></i>
+			</button>
+		</nav>
+	</header>
 
-          <li class="here" id="authSection">
-            <a href="./HTML/user_sel.html" id="authLink">Login</a>
-          </li>
-
-          <li class="user-dropdown" id="userDropdown" style="display: none">
-            <div class="user-profile-nav">
-              <div class="user-avatar-small" id="navUserAvatar">U</div>
-              <span id="navUserName">User</span>
-              <i class="fas fa-chevron-down"></i>
-            </div>
-            <div class="dropdown-menu">
-              <a href="./HTML/user_portal.html" class="dropdown-item">
-                <i class="fas fa-user-circle"></i> My Portal
-              </a>
-              <a
-                href="./HTML/user_portal.html?tab=appointments"
-                class="dropdown-item"
-              >
-                <i class="fas fa-calendar-check"></i> Appointments
-              </a>
-              <a
-                href="./HTML/user_portal.html?tab=prescriptions"
-                class="dropdown-item"
-              >
-                <i class="fas fa-prescription"></i> Prescriptions
-              </a>
-              <a
-                href="./HTML/user_portal.html?tab=profile"
-                class="dropdown-item"
-              >
-                <i class="fas fa-cog"></i> Settings
-              </a>
-              <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item" id="logoutBtn">
-                <i class="fas fa-sign-out-alt"></i> Logout
-              </a>
-            </div>
-          </li>
-        </ul>
-        <button class="mobile-menu">
-          <i class="fas fa-bars"></i>
-        </button>
-      </nav>
-    </header>
+    <section class="banner">
+      <div class="banner-content">
+        <h2>Grab Upto 50% Off On Selected Medicines</h2>
+        <button>Buy Now</button>
+      </div>
+    </section>
 
     <div class="page-container">
       <aside class="sidebar">
         <div class="filter-group">
           <h3>EXPLORE CATEGORIES</h3>
-          <ul>
+          <ul id="categoryFilters">
             <li>
-              <input type="checkbox" id="cat1" /><label for="cat1"
-                >Vitamins & Selfcare</label
-              >
+              <input type="checkbox" id="cat1" value="Vitamins & Selfcare" />
+              <label for="cat1">Vitamins & Selfcare</label>
             </li>
             <li>
-              <input type="checkbox" id="cat2" /><label for="cat2"
-                >Immunity & Support</label
-              >
+              <input type="checkbox" id="cat2" value="Immunity & Support" />
+              <label for="cat2">Immunity & Support</label>
             </li>
             <li>
-              <input type="checkbox" id="cat3" /><label for="cat3"
-                >Digestive Health</label
-              >
+              <input type="checkbox" id="cat3" value="Digestive Health" />
+              <label for="cat3">Digestive Health</label>
             </li>
             <li>
-              <input type="checkbox" id="cat4" /><label for="cat4"
-                >Pain Relief</label
-              >
+              <input type="checkbox" id="cat4" value="Pain Relief" />
+              <label for="cat4">Pain Relief</label>
             </li>
           </ul>
         </div>
 
         <div class="filter-group">
           <h3>HEALTH CONDITION</h3>
-          <ul>
+          <ul id="conditionFilters">
             <li>
-              <input type="checkbox" id="con1" /><label for="con1"
-                >Allergy & Hayfever</label
-              >
+              <input type="checkbox" id="con1" value="Allergy & Hayfever" />
+              <label for="con1">Allergy & Hayfever</label>
             </li>
             <li>
-              <input type="checkbox" id="con2" /><label for="con2"
-                >Cough & Cold</label
-              >
+              <input type="checkbox" id="con2" value="Cough & Cold" />
+              <label for="con2">Cough & Cold</label>
             </li>
             <li>
-              <input type="checkbox" id="con3" /><label for="con3"
-                >First Aid</label
-              >
+              <input type="checkbox" id="con3" value="First Aid" />
+              <label for="con3">First Aid</label>
             </li>
           </ul>
         </div>
 
         <div class="filter-group">
           <h3>PRICE RANGE</h3>
-          <ul>
+          <ul id="priceFilters">
             <li>
-              <input type="checkbox" id="p1" /><label for="p1">$0 - $10</label>
+              <input type="checkbox" id="p1" value="0-10" />
+              <label for="p1">$0 - $10</label>
             </li>
             <li>
-              <input type="checkbox" id="p2" /><label for="p2">$10 - $20</label>
+              <input type="checkbox" id="p2" value="10-20" />
+              <label for="p2">$10 - $20</label>
             </li>
             <li>
-              <input type="checkbox" id="p3" /><label for="p3">$20+</label>
+              <input type="checkbox" id="p3" value="20-999" />
+              <label for="p3">$20+</label>
             </li>
           </ul>
         </div>
 
-        <button class="clear-filters-btn">Clear All</button>
+        <button class="clear-filters-btn" id="clearFilters">Clear All</button>
       </aside>
 
       <main class="product-content">
-        <div class="product-grid">
-          <div class="product-card">
-            <img
-              src="https://rukminim2.flixcart.com/image/808/970/xif0q/moisturizer-cream/d/n/c/50-vitaboost-moisturizer-with-vitamin-b-c-and-e-for-daily-skin-original-imaghmev47dwbhs5.jpeg?q=90&crop=false"
-              alt="Product Image"
-            />
-            <h4>VitaBoost Daily C</h4>
-            <p class="product-desc">Glass Bottle</p>
-            <p class="product-reviews">⭐⭐⭐⭐⭐ (121)</p>
-            <button class="add-to-cart-btn">Add to Cart</button>
-          </div>
-
-          <div class="product-card">
-            <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTG6DrZCBS4FeRkQxocgpGkPL2d2SFUBBI2rd2JYQBa-x3HQMcJy9nsFbzdyjtH2CkHoq0&usqp=CAU"
-              alt="Product Image"
-            />
-            <h4>RapidRelief Pain Tablets</h4>
-            <p class="product-desc">Skincare</p>
-            <p class="product-reviews">⭐⭐⭐⭐ (98)</p>
-            <button class="add-to-cart-btn">Add to Cart</button>
-          </div>
-
-          <div class="product-card">
-            <img
-              src="https://i.ebayimg.com/images/g/cVkAAOSw5ZRc9BTC/s-l1200.jpg"
-              alt="Product Image"
-            />
-            <h4>AllerClear SF</h4>
-            <p class="product-desc">Syrup</p>
-            <p class="product-reviews">⭐⭐⭐⭐⭐ (121)</p>
-            <button class="add-to-cart-btn">Add to Cart</button>
-          </div>
-
-          <div class="product-card">
-            <img
-              src="https://5.imimg.com/data5/SELLER/Default/2023/11/358224277/TG/KM/XA/57356396/first-aid-kit-sjf-m4.jpg"
-              alt="Product Image"
-            />
-            <h4>First Aid Kit S4.98</h4>
-            <p class="product-desc">Essential Kit</p>
-            <p class="product-reviews">⭐⭐⭐⭐⭐ (101)</p>
-            <button class="add-to-cart-btn">Add to Cart</button>
-          </div>
-
-          <div class="product-card">
-            <img
-              src="https://cdn01.pharmeasy.in/dam/products_otc/Y03384/healthkart-hk-vitals-fish-oil-90-capsules-for-men-and-women-1000mg-omega-3-2-1746671352.jpg?dim=700x0&dpr=1&q=100"
-              alt="Product Image"
-            />
-            <h4>AllerClear P+</h4>
-            <p class="product-desc">Tablets</p>
-            <p class="product-reviews">⭐⭐⭐⭐ (82)</p>
-            <button class="add-to-cart-btn">Add to Cart</button>
-          </div>
-
-          <div class="product-card">
-            <img
-              src="https://5.imimg.com/data5/SELLER/Default/2025/7/527151802/DY/XE/JG/47379995/alleryskp-paracetamol-chlorpheniramine-maleate-phenylephrine-hcl-drop.jpeg"
-              alt="Product Image"
-            />
-            <h4>AbnaPEATS KWYJ</h4>
-            <p class="product-desc">Capsules</p>
-            <p class="product-reviews">⭐⭐⭐ (30)</p>
-            <button class="add-to-cart-btn">Add to Cart</button>
-          </div>
-
-          <div class="product-card">
-            <img
-              src="https://cdn01.pharmeasy.in/dam/products_otc/C58839/pharmeasy-coenzyme-q10-coq10-200mg-with-piperine-for-heart-health-bottle-of-60-capsules-6.1-1737724089.jpg?dim=700x0&dpr=1&q=100"
-              alt="Product Image"
-            />
-            <h4>TesaHVILtliil Cailt</h4>
-            <p class="product-desc">Bottle</p>
-            <p class="product-reviews">⭐⭐⭐⭐ (76)</p>
-            <button class="add-to-cart-btn">Add to Cart</button>
-          </div>
-
-          <div class="product-card">
-            <img
-              src="https://cdn01.pharmeasy.in/dam/products_otc/H10249/briyo-fish-oil-mini-450-mg-size-60-softgels-7139-omega-3-320-mg-omega-3-per-450-mg-capsule-2-1671744034.jpg?dim=700x0&dpr=1&q=100"
-              alt="Product Image"
-            />
-            <h4>AllerClear Syrup</h4>
-            <p class="product-desc">Children's</p>
-            <p class="product-reviews">⭐⭐⭐⭐⭐ (101)</p>
-            <button class="add-to-cart-btn">Add to Cart</button>
-          </div>
-          <div class="product-card">
-            <img
-              src="https://rukminim2.flixcart.com/image/808/970/xif0q/moisturizer-cream/d/n/c/50-vitaboost-moisturizer-with-vitamin-b-c-and-e-for-daily-skin-original-imaghmev47dwbhs5.jpeg?q=90&crop=false"
-              alt="Product Image"
-            />
-            <h4>VitaBoost Daily C</h4>
-            <p class="product-desc">Glass Bottle</p>
-            <p class="product-reviews">⭐⭐⭐⭐⭐ (121)</p>
-            <button class="add-to-cart-btn">Add to Cart</button>
-          </div>
-
-          <div class="product-card">
-            <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTG6DrZCBS4FeRkQxocgpGkPL2d2SFUBBI2rd2JYQBa-x3HQMcJy9nsFbzdyjtH2CkHoq0&usqp=CAU"
-              alt="Product Image"
-            />
-            <h4>RapidRelief Pain Tablets</h4>
-            <p class="product-desc">Skincare</p>
-            <p class="product-reviews">⭐⭐⭐⭐ (98)</p>
-            <button class="add-to-cart-btn">Add to Cart</button>
-          </div>
-
-          <div class="product-card">
-            <img
-              src="https://i.ebayimg.com/images/g/cVkAAOSw5ZRc9BTC/s-l1200.jpg"
-              alt="Product Image"
-            />
-            <h4>AllerClear SF</h4>
-            <p class="product-desc">Syrup</p>
-            <p class="product-reviews">⭐⭐⭐⭐⭐ (121)</p>
-            <button class="add-to-cart-btn">Add to Cart</button>
-          </div>
-
-          <div class="product-card">
-            <img
-              src="https://5.imimg.com/data5/SELLER/Default/2023/11/358224277/TG/KM/XA/57356396/first-aid-kit-sjf-m4.jpg"
-              alt="Product Image"
-            />
-            <h4>First Aid Kit S4.98</h4>
-            <p class="product-desc">Essential Kit</p>
-            <p class="product-reviews">⭐⭐⭐⭐⭐ (101)</p>
-            <button class="add-to-cart-btn">Add to Cart</button>
-          </div>
-
-          <div class="product-card">
-            <img
-              src="https://cdn01.pharmeasy.in/dam/products_otc/Y03384/healthkart-hk-vitals-fish-oil-90-capsules-for-men-and-women-1000mg-omega-3-2-1746671352.jpg?dim=700x0&dpr=1&q=100"
-              alt="Product Image"
-            />
-            <h4>AllerClear P+</h4>
-            <p class="product-desc">Tablets</p>
-            <p class="product-reviews">⭐⭐⭐⭐ (82)</p>
-            <button class="add-to-cart-btn">Add to Cart</button>
-          </div>
-
-          <div class="product-card">
-            <img
-              src="https://5.imimg.com/data5/SELLER/Default/2025/7/527151802/DY/XE/JG/47379995/alleryskp-paracetamol-chlorpheniramine-maleate-phenylephrine-hcl-drop.jpeg"
-              alt="Product Image"
-            />
-            <h4>AbnaPEATS KWYJ</h4>
-            <p class="product-desc">Capsules</p>
-            <p class="product-reviews">⭐⭐⭐ (30)</p>
-            <button class="add-to-cart-btn">Add to Cart</button>
-          </div>
-
-          <div class="product-card">
-            <img
-              src="https://cdn01.pharmeasy.in/dam/products_otc/C58839/pharmeasy-coenzyme-q10-coq10-200mg-with-piperine-for-heart-health-bottle-of-60-capsules-6.1-1737724089.jpg?dim=700x0&dpr=1&q=100"
-              alt="Product Image"
-            />
-            <h4>TesaHVILtliil Cailt</h4>
-            <p class="product-desc">Bottle</p>
-            <p class="product-reviews">⭐⭐⭐⭐ (76)</p>
-            <button class="add-to-cart-btn">Add to Cart</button>
-          </div>
-
-          <div class="product-card">
-            <img
-              src="https://cdn01.pharmeasy.in/dam/products_otc/H10249/briyo-fish-oil-mini-450-mg-size-60-softgels-7139-omega-3-320-mg-omega-3-per-450-mg-capsule-2-1671744034.jpg?dim=700x0&dpr=1&q=100"
-              alt="Product Image"
-            />
-            <h4>AllerClear Syrup</h4>
-            <p class="product-desc">Children's</p>
-            <p class="product-reviews">⭐⭐⭐⭐⭐ (101)</p>
-            <button class="add-to-cart-btn">Add to Cart</button>
-          </div>
+        <div class="product-grid" id="productGrid">
+          <div class="loading">Loading medicines...</div>
         </div>
       </main>
     </div>
+
+    <script src="../JS/pharmacy.js"></script>
+    <script src="../JS/navbar.js"></script>
   </body>
 </html>

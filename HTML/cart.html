@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping Cart - HMS</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: #f8f9fa;
+      padding: 2rem;
+    }
+
+    .cart-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      color: #2563eb;
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .cart-items {
+      margin-bottom: 2rem;
+    }
+
+    .cart-item {
+      display: grid;
+      grid-template-columns: 100px 1fr auto;
+      gap: 1.5rem;
+      padding: 1.5rem;
+      border: 1px solid #e9ecef;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      align-items: center;
+    }
+
+    .cart-item img {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+
+    .item-details h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      color: #374151;
+    }
+
+    .item-details p {
+      color: #6c757d;
+      font-size: 0.9rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .item-price {
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: #0b3d2e;
+    }
+
+    .item-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      align-items: flex-end;
+    }
+
+    .quantity-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .quantity-controls button {
+      width: 32px;
+      height: 32px;
+      border: 1px solid #dee2e6;
+      background: white;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .quantity-controls button:hover {
+      background: #f8f9fa;
+    }
+
+    .quantity-controls span {
+      min-width: 40px;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    .remove-btn {
+      background: none;
+      border: none;
+      color: #dc3545;
+      cursor: pointer;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .remove-btn:hover {
+      color: #c82333;
+    }
+
+    .cart-summary {
+      border-top: 2px solid #e9ecef;
+      padding-top: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .total {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #374151;
+    }
+
+    .total span {
+      color: #0b3d2e;
+    }
+
+    .checkout-btn {
+      background: #0b3d2e;
+      color: white;
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .checkout-btn:hover {
+      background: #145a40;
+    }
+
+    .empty-cart {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: #6c757d;
+    }
+
+    .empty-cart i {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      color: #dee2e6;
+    }
+
+    .continue-shopping {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.75rem 1.5rem;
+      background: #2563eb;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: background 0.3s ease;
+    }
+
+    .continue-shopping:hover {
+      background: #1d4ed8;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 3rem;
+      color: #6c757d;
+    }
+  </style>
+</head>
+<body>
+  <div class="cart-container">
+    <h1>
+      <i class="fas fa-shopping-cart"></i>
+      Shopping Cart
+    </h1>
+    
+    <div id="cartContent">
+      <div class="loading">Loading your cart...</div>
+    </div>
+  </div>
+
+  <script>
+    const API_BASE = 'http://localhost:3000';
+
+    async function loadCart() {
+      try {
+        const response = await fetch(`${API_BASE}/cart`);
+        const data = await response.json();
+
+        if (!data.success) {
+          if (response.status === 401) {
+            window.location.href = '/HTML/user_sel.html';
+            // return;
+          }
+          throw new Error(data.message);
+        }
+
+        displayCart(data.cart);
+      } catch (error) {
+        console.error('Error loading cart:', error);
+        document.getElementById('cartContent').innerHTML = 
+          '<div class="empty-cart"><p>Error loading cart</p></div>';
+      }
+    }
+
+    function displayCart(cartItems) {
+      const container = document.getElementById('cartContent');
+
+      if (cartItems.length === 0) {
+        container.innerHTML = `
+          <div class="empty-cart">
+            <i class="fas fa-shopping-cart"></i>
+            <h2>Your cart is empty</h2>
+            <p>Add some medicines to get started</p>
+            <a href="/shop_pharmacy.html" class="continue-shopping">Continue Shopping</a>
+          </div>
+        `;
+        return;
+      }
+
+      const total = cartItems.reduce((sum, item) => 
+        sum + (item.medicine?.price || 0) * item.quantity, 0
+      );
+
+      container.innerHTML = `
+        <div class="cart-items">
+          ${cartItems.map(item => `
+            <div class="cart-item">
+              <img src="${item.medicine.image}" alt="${item.medicine.name}">
+              <div class="item-details">
+                <h3>${item.medicine.name}</h3>
+                <p>${item.medicine.description}</p>
+                <p>Price: $${item.medicine.price.toFixed(2)}</p>
+              </div>
+              <div class="item-actions">
+                <div class="item-price">$${(item.medicine.price * item.quantity).toFixed(2)}</div>
+                <div class="quantity-controls">
+                  <button onclick="updateQuantity(${item.medicineId}, ${item.quantity - 1})">-</button>
+                  <span>${item.quantity}</span>
+                  <button onclick="updateQuantity(${item.medicineId}, ${item.quantity + 1})">+</button>
+                </div>
+                <button class="remove-btn" onclick="removeFromCart(${item.medicineId})">
+                  <i class="fas fa-trash"></i> Remove
+                </button>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+        <div class="cart-summary">
+          <div class="total">Total: <span>$${total.toFixed(2)}</span></div>
+          <button class="checkout-btn" onclick="checkout()">
+            <i class="fas fa-credit-card"></i> Proceed to Checkout
+          </button>
+        </div>
+      `;
+    }
+
+    async function updateQuantity(medicineId, newQuantity) {
+      if (newQuantity < 1) {
+        removeFromCart(medicineId);
+        return;
+      }
+
+      try {
+        const response = await fetch(`${API_BASE}/cart/update`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ medicineId, quantity: newQuantity })
+        });
+
+        const data = await response.json();
+        if (data.success) {
+          loadCart();
+        }
+      } catch (error) {
+        console.error('Error updating quantity:', error);
+      }
+    }
+
+    async function removeFromCart(medicineId) {
+      if (!confirm('Remove this item from cart?')) return;
+
+      try {
+        const response = await fetch(`${API_BASE}/cart/remove/${medicineId}`, {
+          method: 'DELETE'
+        });
+
+        const data = await response.json();
+        if (data.success) {
+          loadCart();
+        }
+      } catch (error) {
+        console.error('Error removing item:', error);
+      }
+    }
+
+    function checkout() {
+      alert('Checkout functionality coming soon!');
+    }
+
+    loadCart();
+  </script>
+</body>
+</html>
