@@ -1,4 +1,5 @@
-const API_BASE = "http://localhost:3000";
+// const API_BASE = "http://localhost:3000";
+const API_BASE = "https://hospitality-management-system-xdyy.onrender.com";
 let allMedicines = [];
 let currentUser = null;
 

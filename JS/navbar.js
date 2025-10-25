@@ -3,8 +3,8 @@
 const navbarAuth = document.querySelector("#authSection");
 const userDropdown = document.querySelector("#userDropdown");
 
-// const backendLink = "https://hospitality-management-system-xdyy.onrender.com"
-const backendLink = "http://localhost:3000"; 
+const backendLink = "https://hospitality-management-system-xdyy.onrender.com"
+// const backendLink = "http://localhost:3000"; 
 
 // ========== LOAD NAVBAR BASED ON LOGIN STATUS ==========
 async function loadNavbar() {

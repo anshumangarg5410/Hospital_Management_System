@@ -7,8 +7,8 @@ const passwordInputLogin = document.querySelector("#patient_login_password");
 const passwordInputRegister = document.querySelector("#patient_register_password");
 const usernameInputRegister = document.querySelector("#patient_register_username");
 
-// const backendLink = "https://hospitality-management-system-xdyy.onrender.com"
-const backendLink = "http://localhost:3000"
+const backendLink = "https://hospitality-management-system-xdyy.onrender.com"
+// const backendLink = "http://localhost:3000"
 
 // var lengthOfUsers = 4;
 
