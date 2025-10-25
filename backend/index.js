@@ -281,7 +281,7 @@ app.get("/cart", (req, res) => {
   if (Current_User_Index === null) return res.status(401).json({ success: false, message: "Login first!" });
 
   const data = readDB();
-  const cart = data.users[Current_User_Index].cart || [];
+  const cart = data.users[Current_User_Index].cart || [{"medicineId":1,"quantity":"INFINITE","addedAt":"UNKNOWN"}];
   const medicines = readMedicines().medicines || [];
 
   const cartWithDetails = cart.map(item => ({
