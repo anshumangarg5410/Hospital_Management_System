@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
 fetch("../backend/databases/Authentication.json")
     .then(response => response.json())
     .then(data => {
-      if(data.login == 0) {
+      if(data.login == 1) {
         const idx = data.Current_User_Index;
         const currentuser = data.users[idx];
         const namee = document.getElementById("name")
@@ -82,3 +82,4 @@ fetch("../backend/databases/Authentication.json")
     .catch(error => {
     console.log("Error fetching data: ",error);
   });
+
