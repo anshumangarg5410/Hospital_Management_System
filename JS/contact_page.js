@@ -49,6 +49,12 @@ document.addEventListener("DOMContentLoaded", () => {
       formMessage.style.color = "red";
       return;
     }
+    const namePattern = /^[^\s@]{2,50}$/;
+    if(!namePattern.test(name)) {
+      formMessage.textContent = "⚠️ Please enter a valid name (letters and spaces only, 2-50 characters).";
+      formMessage.style.color = "red";
+      return;
+    }
     if (!email) {
       formMessage.textContent = "Enter Your Email";
       formMessage.style.color = "red";
