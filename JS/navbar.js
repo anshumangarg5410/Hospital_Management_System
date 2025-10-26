@@ -1,7 +1,9 @@
-// navbar.js - Simplified version (only login or dropdown, no separate portal button)
+// navbar.js - Complete version with all functionality
 
 const navbarAuth = document.querySelector("#authSection");
 const userDropdown = document.querySelector("#userDropdown");
+const mobileMenuBtn = document.querySelector('.mobile-menu');
+const navLinks = document.querySelector('.nav-links');
 
 const backendLink = "https://hospitality-management-system-xdyy.onrender.com"
 // const backendLink = "http://localhost:3000"; 
@@ -23,54 +25,6 @@ async function loadNavbar() {
     } catch (err) {
         console.error("Error fetching login status:", err);
         showLoginButton();
-    }
-}
-
-
-
-// ========== SHOW USER PROFILE DROPDOWN ==========
-function showUserProfile(user) {
-    // Hide login button
-    if (navbarAuth) {
-        navbarAuth.style.display = "none";
-    }
-
-    // Show user dropdown
-    if (userDropdown) {
-        userDropdown.style.display = "block";
-    }
-
-    // Update dropdown info
-    const navUserName = document.getElementById("navUserName");
-    const navUserAvatar = document.getElementById("navUserAvatar");
-
-    if (navUserName) {
-        const displayName = user.name || user.username || "User";
-        navUserName.textContent = displayName.split(" ")[0]; // First name only
-    }
-
-    if (navUserAvatar) {
-        const name = user.name || user.username || "U";
-        const initials = name
-            .split(" ")
-            .map(s => s[0])
-            .join("")
-            .slice(0, 2)
-            .toUpperCase();
-        navUserAvatar.textContent = initials;
-    }
-}
-
-// ========== SHOW LOGIN BUTTON ==========
-function showLoginButton() {
-    // Show login button
-    if (navbarAuth) {
-        navbarAuth.style.display = "block";
-    }
-
-    // Hide user dropdown
-    if (userDropdown) {
-        userDropdown.style.display = "none";
     }
 }
 
@@ -111,7 +65,7 @@ function showUserProfile(user) {
 
         // Create new cart link
         const cartLink = document.createElement("a");
-        cartLink.href = "./HTML/cart.html"; // Link to your cart page
+        cartLink.href = "./HTML/cart.html";
         cartLink.className = "dropdown-item cart-link";
         cartLink.innerHTML = `<i class="fas fa-shopping-cart"></i> Cart`;
         
@@ -122,6 +76,19 @@ function showUserProfile(user) {
         } else {
             dropdownMenu.appendChild(cartLink);
         }
+    }
+}
+
+// ========== SHOW LOGIN BUTTON ==========
+function showLoginButton() {
+    // Show login button
+    if (navbarAuth) {
+        navbarAuth.style.display = "block";
+    }
+
+    // Hide user dropdown
+    if (userDropdown) {
+        userDropdown.style.display = "none";
     }
 }
 
@@ -145,34 +112,19 @@ function logout(e) {
         });
 }
 
-// ========== MOBILE DROPDOWN TOGGLE ==========
-function setupMobileDropdown() {
-    if (!userDropdown) return;
-
-    const userProfileNav = userDropdown.querySelector(".user-profile-nav");
-
-    if (userProfileNav && window.innerWidth <= 968) {
-        // Remove any existing listeners
-        const newProfileNav = userProfileNav.cloneNode(true);
-        userProfileNav.parentNode.replaceChild(newProfileNav, userProfileNav);
-        
-        newProfileNav.addEventListener("click", e => {
-            e.preventDefault();
-            e.stopPropagation();
-            userDropdown.classList.toggle("active");
-        });
-    }
-}
-
 // ========== MOBILE MENU TOGGLE ==========
-const mobileMenuBtn = document.querySelector('.mobile-menu');
-const navLinks = document.querySelector('.nav-links');
+function setupMobileMenu() {
+    if (!mobileMenuBtn || !navLinks) return;
 
-if (mobileMenuBtn && navLinks) {
-    mobileMenuBtn.addEventListener('click', () => {
+    // Remove old event listener by cloning
+    const newMobileMenuBtn = mobileMenuBtn.cloneNode(true);
+    mobileMenuBtn.parentNode.replaceChild(newMobileMenuBtn, mobileMenuBtn);
+
+    newMobileMenuBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
         navLinks.classList.toggle('active');
         
-        const icon = mobileMenuBtn.querySelector('i');
+        const icon = newMobileMenuBtn.querySelector('i');
         if (navLinks.classList.contains('active')) {
             icon.classList.remove('fa-bars');
             icon.classList.add('fa-times');
@@ -181,34 +133,111 @@ if (mobileMenuBtn && navLinks) {
             icon.classList.add('fa-bars');
         }
     });
+}
 
-    // Close mobile menu when clicking outside
-    document.addEventListener('click', e => {
-        if (!mobileMenuBtn.contains(e.target) && !navLinks.contains(e.target)) {
-            navLinks.classList.remove('active');
-            const icon = mobileMenuBtn.querySelector('i');
-            icon.classList.remove('fa-times');
-            icon.classList.add('fa-bars');
+// ========== MOBILE DROPDOWN TOGGLE ==========
+function setupMobileDropdown() {
+    if (!userDropdown) return;
+
+    const userProfileNav = userDropdown.querySelector(".user-profile-nav");
+
+    if (userProfileNav) {
+        // Remove any existing listeners by cloning
+        const newProfileNav = userProfileNav.cloneNode(true);
+        userProfileNav.parentNode.replaceChild(newProfileNav, userProfileNav);
+        
+        // Only add click handler in mobile view
+        if (window.innerWidth <= 968) {
+            newProfileNav.addEventListener("click", (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                userDropdown.classList.toggle("active");
+            });
         }
+    }
+}
+
+// ========== CLOSE MENU WHEN CLICKING NAV ITEMS ==========
+function setupNavItemClicks() {
+    const navItems = document.querySelectorAll('.nav-links .here a');
+    
+    navItems.forEach(item => {
+        item.addEventListener('click', () => {
+            if (window.innerWidth <= 968) {
+                navLinks.classList.remove('active');
+                const icon = mobileMenuBtn?.querySelector('i');
+                if (icon) {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            }
+        });
+    });
+}
+
+// ========== CLOSE MENU WHEN CLICKING OUTSIDE ==========
+function setupOutsideClick() {
+    document.addEventListener('click', (e) => {
+        // Close mobile menu
+        if (mobileMenuBtn && navLinks && window.innerWidth <= 968) {
+            if (!mobileMenuBtn.contains(e.target) && !navLinks.contains(e.target)) {
+                navLinks.classList.remove('active');
+                const icon = mobileMenuBtn.querySelector('i');
+                if (icon) {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            }
+        }
+
+        // Close user dropdown in mobile
+        if (userDropdown && window.innerWidth <= 968) {
+            const userProfileNav = userDropdown.querySelector('.user-profile-nav');
+            if (userProfileNav && !userDropdown.contains(e.target)) {
+                userDropdown.classList.remove('active');
+            }
+        }
+    });
+}
+
+// ========== HANDLE WINDOW RESIZE ==========
+function setupResizeHandler() {
+    window.addEventListener('resize', () => {
+        // Close mobile menu when resizing to desktop
+        if (window.innerWidth > 968) {
+            navLinks?.classList.remove('active');
+            userDropdown?.classList.remove('active');
+            
+            const icon = mobileMenuBtn?.querySelector('i');
+            if (icon) {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        }
+        
+        // Re-setup mobile dropdown
+        setupMobileDropdown();
     });
 }
 
 // ========== INITIALIZE ON PAGE LOAD ==========
 document.addEventListener("DOMContentLoaded", () => {
+    // Load user data and setup navbar
     loadNavbar();
+    
+    // Setup all event handlers
+    setupMobileMenu();
     setupMobileDropdown();
+    setupNavItemClicks();
+    setupOutsideClick();
+    setupResizeHandler();
 
     // Setup logout button
     const logoutBtn = document.getElementById("logoutBtn");
     if (logoutBtn) {
         logoutBtn.addEventListener("click", logout);
     }
-
-    // Re-setup mobile dropdown on window resize
-    window.addEventListener("resize", () => {
-        setupMobileDropdown();
-    });
 });
 
-// Expose logout globally
+// Expose logout globally for inline onclick handlers
 window.logout = logout;

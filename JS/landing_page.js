@@ -1,5 +1,5 @@
 const mobileMenu = document.querySelector('.mobile-menu');
-// const navLinks = document.querySelector('.nav-links');
+const navLinks = document.querySelector('.nav-links'); // FIXED: Uncommented this line
 const navItems = document.querySelectorAll('.nav-links .here a');
 
 // Toggle menu on hamburger click
@@ -46,6 +46,17 @@ window.addEventListener('resize', () => {
     icon.classList.add('fa-bars');
   }
 });
+
+// Handle user dropdown in mobile view
+const userDropdown = document.getElementById('userDropdown');
+if (userDropdown) {
+  const userProfileNav = userDropdown.querySelector('.user-profile-nav');
+  
+  userProfileNav?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    userDropdown.classList.toggle('active');
+  });
+}
 
 // ====== ENHANCED SEARCH FUNCTIONALITY ======
 document.addEventListener("DOMContentLoaded", async () => {
