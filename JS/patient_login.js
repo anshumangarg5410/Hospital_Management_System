@@ -75,6 +75,7 @@ registerButton.addEventListener("click", async () => {
         return;
     }
 
+    
     try {
         const response = await fetch(backendLink + "/signup", {
             method: "POST",
