@@ -21,7 +21,27 @@ document.addEventListener("DOMContentLoaded", () => {
     const email = document.getElementById("email").value.trim();
     const message = document.getElementById("message").value.trim();
     const terms = document.getElementById("terms").checked;
-
+    if (!name) {
+      formMessage.textContent = "Enter Your Name";
+      formMessage.style.color = "red";
+      return;
+    }
+    if (!email) {
+      formMessage.textContent = "Enter Your Email";
+      formMessage.style.color = "red";
+      return;
+    }
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email)) {
+        formMessage.textContent = "⚠️ Please enter a valid email address.";
+        formMessage.style.color = "red";
+        return;
+    }
+    if (!message) {
+      formMessage.textContent = "Enter Your Message";
+      formMessage.style.color = "red";
+      return;
+    }
     if (!terms) {
       formMessage.textContent = "⚠️ Please agree to the Terms and Conditions.";
       formMessage.style.color = "red";
@@ -45,13 +65,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (res.ok) {
         formMessage.textContent = "✅ Your message has been sent successfully!";
+        alert("Form submitted successfully");
+        //alert(JSON.stringify(review, null, 2)); if want to see the submitted data 
         formMessage.style.color = "green";
         form.reset();
+
+        // dynamically created div should fade after 5 seconds of diplay
+        setTimeout(() => {
+          formMessage.textContent = "";
+        }, 5000); /// 5 secinds value given
+
+        const submitButton = document.getElementById("reviewForm").querySelector("button[type='submit']");
+        submitButton.disabled = true;
+        submitButton.textContent = "Submitted(wait 10 mins before re submitting)";
+
+        setTimeout(() => {
+          submitButton.disabled = false;
+          submitButton.textContent = "Submit";
+        }, 10 * 60 * 1000); // letting user wait for 10 mintues before he resubmits 
 
         // Optional: keep message for 5 seconds, then fade
         setTimeout(() => {
           formMessage.textContent = "";
-        }, 5000); // 5000 ms = 5 seconds
+        }, 5000);
       } else {
         formMessage.textContent = "❌ Failed to send your message. Please try again.";
         formMessage.style.color = "red";
@@ -66,20 +102,20 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 fetch("../backend/databases/Authentication.json")
-    .then(response => response.json())
-    .then(data => {
-      if(data.login == 1) {
-        const idx = data.Current_User_Index;
-        const currentuser = data.users[idx];
-        const namee = document.getElementById("name")
-        const emaill = document.getElementById("email")
-        namee.value = currentuser.name;
-        emaill.value =  currentuser.email;
-        namee.readOnly = true;
-        emaill.readOnly = true;
-      }
-    })
-    .catch(error => {
-    console.log("Error fetching data: ",error);
+  .then(response => response.json())
+  .then(data => {
+    if (data.login == 1) {
+      const idx = data.Current_User_Index;
+      const currentuser = data.users[idx];
+      const namee = document.getElementById("name")
+      const emaill = document.getElementById("email")
+      namee.value = currentuser.name;
+      emaill.value = currentuser.email;
+      namee.readOnly = true;
+      emaill.readOnly = true;
+    }
+  })
+  .catch(error => {
+    console.log("Error fetching data: ", error);
   });
 
