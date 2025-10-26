@@ -170,6 +170,7 @@ async function updateProfile() {
 }
 
 // ========== CHANGE PASSWORD ==========
+// ========== CHANGE PASSWORD ==========
 async function changePassword() {
   const username = document.body.dataset.currentUsername;
   const currentPassword = document.getElementById("currentPassword")?.value?.trim();
@@ -186,8 +187,10 @@ async function changePassword() {
     return;
   }
 
-  if (newPassword.length < 8) {
-    alert("Password must be at least 8 characters.");
+  // Password validation
+  const passwordRegex = /^(?=.*[\/#$]).{8,}$/;
+  if (!passwordRegex.test(newPassword)) {
+    alert("Password must be at least 8 characters and include at least one of: / # $");
     return;
   }
 
@@ -214,7 +217,6 @@ async function changePassword() {
     alert("Error changing password. Please check your connection.");
   }
 }
-
 // ========== LOGOUT ==========
 async function logout() {
   if (!confirm("Are you sure you want to logout?")) return;
