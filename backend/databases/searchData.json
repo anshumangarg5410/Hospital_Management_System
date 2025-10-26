@@ -21,10 +21,10 @@
     { "keyword": "appointments", "link": "./HTML/appointment3.html" },
     { "keyword": "book doctor", "link": "./HTML/appointment3.html" },
 
-    { "keyword": "Soham", "link": "./HTML/user_portal.html?user=soham" },
-    { "keyword": "Anshuman", "link": "./HTML/user_portal.html?user=anshuman" },
-    { "keyword": "Ria", "link": "./HTML/user_portal.html?user=ria" },
-    { "keyword": "Renu", "link": "./HTML/user_portal.html?user=renu" },
+    { "keyword": "Soham Sood", "link": "./HTML/login_pat.html" },
+    { "keyword": "Anshuman", "link": "./HTML/login_pat.html" },
+    { "keyword": "Ria", "link": "./HTML/login_pat.html" },
+    { "keyword": "Renu", "link": "./HTML/login_pat.html" },
 
     { "keyword": "lab tests", "link": "./HTML/lab_tests.html" },
     { "keyword": "blood test", "link": "./HTML/lab_tests.html" },
