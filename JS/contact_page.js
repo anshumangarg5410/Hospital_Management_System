@@ -119,3 +119,31 @@ fetch("../backend/databases/Authentication.json")
     console.log("Error fetching data: ", error);
   });
 
+
+// const termsLink = document.querySelector('.checkbox-label a');
+
+// // Create the message div
+// const msg = document.createElement('div');
+// msg.innerText = 'By agreeing, you accept our rules.You must be at least 18 years old.Do not use this website for illegal activities.';
+// msg.style.position = 'absolute';
+// msg.style.background = '#333';
+// msg.style.color = '#fff';
+// msg.style.padding = '3px 6px';
+// msg.style.fontSize = '12px';
+// msg.style.display = 'none'; // hide by default
+
+// // Add it to the page
+// document.body.appendChild(msg);
+
+// // Show message on hover
+// termsLink.addEventListener('mouseenter', () => {
+//   const rect = termsLink.getBoundingClientRect();
+//   msg.style.top = rect.bottom + window.scrollY + 1 + 'px'; // 5px below link
+//   msg.style.left = rect.left + window.scrollX + 'px';
+//   msg.style.display = 'block';
+// });
+
+// // Hide message on mouse leave
+// termsLink.addEventListener('mouseleave', () => {
+//   msg.style.display = 'none';
+// });
