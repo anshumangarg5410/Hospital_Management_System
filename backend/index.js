@@ -66,6 +66,25 @@ app.get("/login-status", (req, res) => {
   }
 });
 
+// ======LoginWihtoutPassword======
+app.post("/loginwithoutpassword", (req, res) => {
+  try {
+    let data = readDB();
+    const { username, email } = req.body;
+    const userIndex = data.users.findIndex(u => u.username === username);
+
+    if (userIndex === -1) return res.json({ success: false, message: "User not found!" });
+    if (data.users[userIndex].email !== email)
+      return res.json({ success: false, message: "Wrong email!" });
+
+    Current_User_Index = userIndex;
+    res.json({ success: true, message: "Login successful!", user: data.users[userIndex] });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, message: "Internal Server Error" });
+  }
+});
+
 // ====== Signup ======
 app.post("/signup", (req, res) => {
   try {
