@@ -57,14 +57,21 @@ loginButton.addEventListener("click", async () => {
 });
 
 
-registerButton.addEventListener("click", async () => {
-    const username = usernameInputRegister.value;
-    const password = passwordInputRegister.value;
+regregisterButton.addEventListener("click", async () => {
+    const username = usernameInputRegister.value.trim();
+    const password = passwordInputRegister.value.trim();
     const name = username;
     const email = name;
 
     if (!username || !password) {
         alert("Please enter both username and password");
+        return;
+    }
+
+    // Password validation
+    const passwordRegex = /^(?=.*[\/#$]).{8,}$/;
+    if (!passwordRegex.test(password)) {
+        alert("Password must be at least 8 characters and include at least one of: / # $");
         return;
     }
 
@@ -77,16 +84,16 @@ registerButton.addEventListener("click", async () => {
 
         const result = await response.json();
 
-if (result.success) {
-    alert(result.message);
-    setTimeout(() => {
-        window.location.href = "../HTML/patient_login_page.html";
-    }, 100); 
-} else {
-    alert(result.message);
-}
+        if (result.success) {
+            alert(result.message);
+            setTimeout(() => {
+                window.location.href = "../HTML/patient_login_page.html";
+            }, 100); 
+        } else {
+            alert(result.message);
+        }
     } catch (err) {
-        console.error("Login failed:", err);
+        console.error("Registration failed:", err);
         alert("Unable to connect to server. Try again later.");
     }
 });
