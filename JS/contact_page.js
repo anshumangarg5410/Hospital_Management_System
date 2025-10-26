@@ -2,27 +2,6 @@ const BACKEND = "https://hospitality-management-system-xdyy.onrender.com"
 // const BACKEND = "http://localhost:3000"
 
 let login_status = 0;
-// async function checkLoginStatus() {
-//   try {
-//     const res = await fetch(BACKEND + "/currentUser"); 
-//     const data = await res.json();
-//     if (res.ok) {
-//       if (data.success == true) {
-//         const namee = document.getElementById("name");
-//         const emaill = document.getElementById("email");
-//         namee.value = data.user.name;
-//         emaill.value = data.user.email;
-//         login_status = 1;
-//       } 
-
-//     } else {
-//       console.error("Server error:", res.status, res.statusText);
-//     }
-//   } catch (err) {
-//     console.error("Error fetching login status:", err);
-//   }
-// }
-// checkLoginStatus();
 async function checkLoginStatus() {
   try {
     const res = await fetch(BACKEND + "/currentUser"); 
@@ -33,6 +12,7 @@ async function checkLoginStatus() {
 
     const data = await res.json(); // safe now
     if (data.success) {
+        console.log(data);
         const namee = document.getElementById("name");
         const emaill = document.getElementById("email");
         namee.value = data.user.name;
@@ -43,7 +23,7 @@ async function checkLoginStatus() {
     console.error("Error fetching login status:", err);
   }
 }
-
+checkLoginStatus();
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("reviewForm");
 
