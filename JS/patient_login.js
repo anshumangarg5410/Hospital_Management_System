@@ -94,18 +94,18 @@ registerButton.addEventListener("click", async () => {
         return;
     }
 
-    // Password validation for registration only
-    const passwordRegex = /^(?=.*[\/#$]).{6,}$/;
+    // Password validation
+    const passwordRegex = /^(?=.*[\/#$]).{8,}$/;
     if (!passwordRegex.test(password)) {
-        alert("Password must be at least 6 characters and include at least one of: / # $");
+        alert("Password must be at least 8 characters and include at least one of: / # $");
         return;
     }
 
     try {
-        const response = await fetch(`${backendLink}/signup`, {
+        const response = await fetch(backendLink + "/signup", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ name, email, username, password })
+            body: JSON.stringify({name, email, username, password })
         });
 
         const result = await response.json();
@@ -114,12 +114,12 @@ registerButton.addEventListener("click", async () => {
             alert(result.message);
             setTimeout(() => {
                 window.location.href = "../HTML/patient_login_page.html";
-            }, 100);
+            }, 100); 
         } else {
             alert(result.message);
         }
     } catch (err) {
-        console.error("Patient registration failed:", err);
+        console.error("Registration failed:", err);
         alert("Unable to connect to server. Try again later.");
     }
 });
