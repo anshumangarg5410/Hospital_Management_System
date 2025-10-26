@@ -258,7 +258,7 @@ function displayMedicines(medicines) {
 document.addEventListener("DOMContentLoaded", () => {
   checkLoginStatus();
   setupLogout();
-  loadMedicines("Top Deals");
+  loadMedicines("Back to Routine");
   loadCart();
 
   // Filter listeners
