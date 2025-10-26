@@ -38,7 +38,7 @@ function writeMedicines(data) {
 }
 
 // ====== Basic Routes ======
-app.get("/", (req, res) => res.send("Backend running successfully 🚀"));
+app.get("/", (req, res) => res.send("Backend running successfully"));
 
 // ====== Users ======
 app.get("/usersnum", (req, res) => {
