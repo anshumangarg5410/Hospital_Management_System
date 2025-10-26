@@ -1,11 +1,9 @@
-const login_as_doctor_btn = document.querySelector("#login_as_doctor_btn")
+const login_as_doctor_btn = document.querySelector("#login_as_doctor_btn");
 const login_detail_username_doctor = document.querySelector("#doctor_login_username");
 const login_detail_password_doctor = document.querySelector("#doctor_login_password");
-console.log("ok")
 
-const backendLink = "https://hospitality-management-system-xdyy.onrender.com"
+const backendLink = "https://hospitality-management-system-xdyy.onrender.com";
 // const backendLink = "http://localhost:3000"
-
 
 login_as_doctor_btn.addEventListener("click", async () => {
     const username = login_detail_username_doctor.value;
@@ -18,25 +16,30 @@ login_as_doctor_btn.addEventListener("click", async () => {
         return;
     }
 
+    // Password validation: min 6 chars, at least one /, #, or $
+    const passwordRegex = /^(?=.*[\/#$]).{6,}$/;
+    if (!passwordRegex.test(password)) {
+        alert("Password must be at least 6 characters and include at least one of: / # $");
+        return;
+    }
+
     try {
-        const response = await fetch(backendLink + "/login", {
+        const response = await fetch(`${backendLink}/login`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({name, email, username, password })
+            body: JSON.stringify({ name, email, username, password })
         });
 
         const result = await response.json();
 
         if (result.success) {
-            alert(result.message); // optional: show success message
-            // redirect to landing page after login
-            window.location.href = "../index.html"; // change this path to your landing page
+            alert(result.message);
+            window.location.href = "../index.html"; // redirect after login
         } else {
-            alert(result.message); // show error like "Wrong password" or "User not found"
+            alert(result.message);
         }
     } catch (err) {
         console.error("Login failed:", err);
         alert("Unable to connect to server. Try again later.");
     }
 });
-
