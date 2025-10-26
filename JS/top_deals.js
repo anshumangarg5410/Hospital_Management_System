@@ -26,7 +26,7 @@ async function loadMedicines(categoryFilter = "All") {
           });
     console.log("Filtered Medicines:", filteredMedicines);
 
-    filteredMedicines.medicines.forEach((item) => {
+    filteredMedicines.forEach((item) => {
       const productCard = document.createElement("div");
       productCard.classList.add("product-card");
 
@@ -51,5 +51,5 @@ async function loadMedicines(categoryFilter = "All") {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  loadMedicines("Mom & Baby");
+  loadMedicines("Nutrition");
 });
