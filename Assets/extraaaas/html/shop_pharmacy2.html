@@ -3,37 +3,71 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>HMS Pharmacy</title>
-    <link rel="stylesheet" href="../CSS/shop_pharmacy2.css" />
+    <title>HMS Product Page</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     />
+    <link rel="stylesheet" href="../CSS/shop_pharmacy.css" />
   </head>
   <body>
-    <!-- Header -->
-    <header class="header">
-      <nav class="navbar">
-        <div class="logo">
-          <img src="../Assets/mainlogo.png" alt="HMS Logo" />
-          <h1>HMS Pharmacy</h1>
-        </div>
+    <header>
+      <nav>
+        <a href="#" class="logo">
+          <div class="logo_pic"></div>
+          <span>HMS</span>
+        </a>
+
         <ul class="nav-links">
-          <li><a href="#">Home</a></li>
-          <li><a href="#">Categories</a></li>
-          <li><a href="#">Deals</a></li>
-          <li><a href="#">New Arrivals</a></li>
-          <li><a href="#">Contact</a></li>
+          <li class="here"><a href="#home">Home</a></li>
+          <li class="here"><a href="./HTML/about.html">About</a></li>
+          <li class="here"><a href="./HTML/contactpage.html">Contact</a></li>
+          <li class="here" id="authSection">
+            <a href="./HTML/user_sel.html" id="authLink">Login</a>
+          </li>
+
+          <li class="user-dropdown" id="userDropdown" style="display: none">
+            <div class="user-profile-nav">
+              <div class="user-avatar-small" id="navUserAvatar">U</div>
+              <span id="navUserName">User</span>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="dropdown-menu">
+              <a href="./HTML/user_portal.html" class="dropdown-item">
+                <i class="fas fa-user-circle"></i> My Portal
+              </a>
+              <a
+                href="./HTML/user_portal.html?tab=appointments"
+                class="dropdown-item"
+              >
+                <i class="fas fa-calendar-check"></i> Appointments
+              </a>
+              <a
+                href="./HTML/user_portal.html?tab=prescriptions"
+                class="dropdown-item"
+              >
+                <i class="fas fa-prescription"></i> Prescriptions
+              </a>
+              <a
+                href="./HTML/user_portal.html?tab=profile"
+                class="dropdown-item"
+              >
+                <i class="fas fa-cog"></i> Settings
+              </a>
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-item" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i> Logout
+              </a>
+            </div>
+          </li>
         </ul>
-        <div class="nav-right">
-          <input type="text" placeholder="Search Medicine..." />
-          <a href="#"><i class="fas fa-user"></i></a>
-          <a href="#"><i class="fas fa-shopping-cart"></i></a>
-        </div>
+
+        <button class="mobile-menu">
+          <i class="fas fa-bars"></i>
+        </button>
       </nav>
     </header>
 
-    <!-- Banner -->
     <section class="banner">
       <div class="banner-content">
         <h2>Grab Upto 50% Off On Selected Medicines</h2>
@@ -41,86 +75,77 @@
       </div>
     </section>
 
-    <!-- Filters -->
-    <section class="filters">
-      <div class="filter-group">
-        <select id="filterType">
-          <option value="All">Medicine Type</option>
-          <option value="Tablet">Tablet</option>
-          <option value="Syrup">Syrup</option>
-          <option value="Capsule">Capsule</option>
-          <option value="Ointment">Ointment</option>
-        </select>
-        <select id="filterPrice">
-          <option value="All">Price</option>
-          <option value="0-10">$0 - $10</option>
-          <option value="10-20">$10 - $20</option>
-          <option value="20+">$20+</option>
-        </select>
-        <select id="filterCondition">
-          <option value="All">Health Condition</option>
-          <option value="Allergy">Allergy</option>
-          <option value="Cold & Cough">Cold & Cough</option>
-          <option value="Pain Relief">Pain Relief</option>
-        </select>
-        <select id="filterRating">
-          <option value="All">Rating</option>
-          <option value="5">⭐⭐⭐⭐⭐</option>
-          <option value="4">⭐⭐⭐⭐</option>
-          <option value="3">⭐⭐⭐</option>
-        </select>
-        <button class="sort-btn">Sort by</button>
-      </div>
-    </section>
+    <div class="page-container">
+      <aside class="sidebar">
+        <div class="filter-group">
+          <h3>EXPLORE CATEGORIES</h3>
+          <ul id="categoryFilters">
+            <li>
+              <input type="checkbox" id="cat1" value="Vitamins & Selfcare" />
+              <label for="cat1">Vitamins & Selfcare</label>
+            </li>
+            <li>
+              <input type="checkbox" id="cat2" value="Immunity & Support" />
+              <label for="cat2">Immunity & Support</label>
+            </li>
+            <li>
+              <input type="checkbox" id="cat3" value="Digestive Health" />
+              <label for="cat3">Digestive Health</label>
+            </li>
+            <li>
+              <input type="checkbox" id="cat4" value="Pain Relief" />
+              <label for="cat4">Pain Relief</label>
+            </li>
+          </ul>
+        </div>
 
-    <!-- Product Section -->
-    <main class="product-section">
-      <h2>Medicines For You!</h2>
-      <!-- PRODUCT GRID STARTS EMPTY -->
-      <div class="product-grid"></div>
-    </main>
+        <div class="filter-group">
+          <h3>HEALTH CONDITION</h3>
+          <ul id="conditionFilters">
+            <li>
+              <input type="checkbox" id="con1" value="Allergy & Hayfever" />
+              <label for="con1">Allergy & Hayfever</label>
+            </li>
+            <li>
+              <input type="checkbox" id="con2" value="Cough & Cold" />
+              <label for="con2">Cough & Cold</label>
+            </li>
+            <li>
+              <input type="checkbox" id="con3" value="First Aid" />
+              <label for="con3">First Aid</label>
+            </li>
+          </ul>
+        </div>
 
-    <!-- Footer -->
-    <footer class="footer">
-      <p>© 2025 HMS Pharmacy. All rights reserved.</p>
-    </footer>
+        <div class="filter-group">
+          <h3>PRICE RANGE</h3>
+          <ul id="priceFilters">
+            <li>
+              <input type="checkbox" id="p1" value="0-10" />
+              <label for="p1">$0 - $10</label>
+            </li>
+            <li>
+              <input type="checkbox" id="p2" value="10-20" />
+              <label for="p2">$10 - $20</label>
+            </li>
+            <li>
+              <input type="checkbox" id="p3" value="20-999" />
+              <label for="p3">$20+</label>
+            </li>
+          </ul>
+        </div>
 
-    <!-- SCRIPT TO LOAD MEDICINES FROM JSON -->
-    <script>
-      async function loadMedicines() {
-        try {
-          // fetch your JSON data
-          const response = await fetch("../backend/databases/medicines.json");
-          const data = await response.json();
+        <button class="clear-filters-btn" id="clearFilters">Clear All</button>
+      </aside>
 
-          const productGrid = document.querySelector(".product-grid");
-          productGrid.innerHTML = "";
+      <main class="product-content">
+        <div class="product-grid" id="productGrid">
+          <div class="loading">Loading medicines...</div>
+        </div>
+      </main>
+    </div>
 
-          data.forEach((item) => {
-            const productCard = document.createElement("div");
-            productCard.classList.add("product-card");
-
-            productCard.innerHTML = `
-              <img src="${item.image}" alt="${item.name}" />
-              <h3>${item.name}</h3>
-              <p>${item.description}</p>
-              <span class="rating">${"⭐".repeat(item.rating)} (${
-              item.reviews
-            })</span>
-              <p class="price">$${item.price.toFixed(2)}</p>
-              <button>Add to Cart</button>
-            `;
-
-            productGrid.appendChild(productCard);
-          });
-        } catch (error) {
-          console.error("Error loading medicines:", error);
-          document.querySelector(".product-grid").innerHTML =
-            "<p>Failed to load medicines.</p>";
-        }
-      }
-
-      document.addEventListener("DOMContentLoaded", loadMedicines);
-    </script>
+    <script src="../JS/pharmacy.js"></script>
+    <script src="../JS/navbar.js"></script>
   </body>
 </html>
