@@ -1,5 +1,5 @@
-const BACKEND = "https://hospitality-management-system-xdyy.onrender.com"
-// const BACKEND = "http://localhost:3000"
+// const BACKEND = "https://hospitality-management-system-xdyy.onrender.com"
+const BACKEND = "http://localhost:3000"
 
 let login_status = 0;
 async function checkLoginStatus() {
