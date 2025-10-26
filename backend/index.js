@@ -308,4 +308,4 @@ app.delete("/cart/remove/:medicineId", (req, res) => {
 
 // ====== Start Server ======
 const PORT = 3000;
-app.listen(PORT, () => console.log(`Server running at http://localhost:${PORT} 🚀`));
+app.listen(PORT, () => console.log(`Server running at http://localhost:${PORT}`));
