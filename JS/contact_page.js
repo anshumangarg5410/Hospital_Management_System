@@ -8,7 +8,7 @@ async function checkLoginStatus() {
     if (res.ok) {
       const data = await res.json();
 
-      if (data.login == 0) {
+      if (data.login === 1) {
         const namee = document.getElementById("name");
         const emaill = document.getElementById("email");
         namee.value = data.user.name;
@@ -267,3 +267,4 @@ document.addEventListener("DOMContentLoaded", () => {
 // termsLink.addEventListener('mouseleave', () => {
 //   msg.style.display = 'none';
 // });
+
