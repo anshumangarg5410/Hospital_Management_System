@@ -26,7 +26,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
       if (result.success) {
         alert(result.message);
-        localStorage.setItem("currentUser", JSON.stringify(result.user));
+        // localStorage.setItem("currentUser", JSON.stringify(result.user))
         window.location.href = "../index.html";
       } else {
         alert(result.message);
