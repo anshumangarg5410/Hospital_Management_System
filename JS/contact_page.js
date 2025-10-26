@@ -4,11 +4,11 @@ const BACKEND = "https://hospitality-management-system-xdyy.onrender.com"
 let login_status = 0;
 async function checkLoginStatus() {
   try {
-    const res = await fetch(BACKEND + "/login-status"); 
+    const res = await fetch(BACKEND + "/currentUser"); 
     if (res.ok) {
       const data = await res.json();
 
-      if (data.login === 1) {
+      if (data.success == false) {
         const namee = document.getElementById("name");
         const emaill = document.getElementById("email");
         namee.value = data.user.name;
@@ -74,11 +74,11 @@ document.addEventListener("DOMContentLoaded", () => {
       formMessage.style.color = "red";
       return;
     }
-    if(login_status == 0) {
-      formMessage.textContent = "⚠️ You Need To Login First";
-      formMessage.style.color = "red";
-      return;
-    }
+    // if(login_status == 0) {
+    //   formMessage.textContent = "⚠️ You Need To Login First";
+    //   formMessage.style.color = "red";
+    //   return;
+    // }
     const review = { name, email, message };
 
     try {
