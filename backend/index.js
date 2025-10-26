@@ -353,7 +353,9 @@ function writeMedicines(data) {
 // ====== Basic Routes ======
 app.get("/", (req, res) => res.send("Backend running successfully"));
 
-// ====== ALL DATA DISPLAY ENDPOINT ======
+// ==// Add this to your server file, after your other routes
+
+// ====== RAW DATA DISPLAY ENDPOINT ======
 app.get("/data", (req, res) => {
   try {
     // Read all data sources
@@ -381,463 +383,137 @@ app.get("/data", (req, res) => {
     const totalMedicines = medicinesData.medicines?.length || 0;
     const totalReviews = reviewsData.length;
     const totalSearchItems = searchData.length;
-    
     const loggedInUser = Current_User_Index !== null ? usersData.users[Current_User_Index]?.username : "None";
-    
-    const usersWithCarts = usersData.users.filter(u => u.cart && u.cart.length > 0).length;
-    const usersWithAppointments = usersData.users.filter(u => u.appointments && u.appointments.length > 0).length;
 
-    // Build HTML response
-    const html = `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HMS - All Data</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    // Build plain text response
+    let output = '';
     
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      padding: 20px;
-      min-height: 100vh;
-    }
-    
-    .container {
-      max-width: 1400px;
-      margin: 0 auto;
-    }
-    
-    .header {
-      background: white;
-      padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-      margin-bottom: 30px;
-      text-align: center;
-    }
-    
-    .header h1 {
-      color: #667eea;
-      font-size: 2.5rem;
-      margin-bottom: 10px;
-    }
-    
-    .header p {
-      color: #666;
-      font-size: 1.1rem;
-    }
-    
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-      margin-bottom: 30px;
-    }
-    
-    .stat-card {
-      background: white;
-      padding: 25px;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease;
-    }
-    
-    .stat-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-    }
-    
-    .stat-number {
-      font-size: 2.5rem;
-      font-weight: bold;
-      color: #667eea;
-      margin-bottom: 5px;
-    }
-    
-    .stat-label {
-      color: #666;
-      font-size: 1rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-    
-    .section {
-      background: white;
-      padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-      margin-bottom: 30px;
-    }
-    
-    .section h2 {
-      color: #667eea;
-      font-size: 1.8rem;
-      margin-bottom: 20px;
-      padding-bottom: 10px;
-      border-bottom: 3px solid #667eea;
-    }
-    
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 15px;
-    }
-    
-    th {
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      color: white;
-      padding: 15px;
-      text-align: left;
-      font-weight: 600;
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
-    
-    td {
-      padding: 12px 15px;
-      border-bottom: 1px solid #e9ecef;
-      color: #333;
-    }
-    
-    tr:hover {
-      background: #f8f9fa;
-    }
-    
-    .badge {
-      display: inline-block;
-      padding: 4px 12px;
-      border-radius: 20px;
-      font-size: 0.85rem;
-      font-weight: 600;
-    }
-    
-    .badge-patient {
-      background: #e3f2fd;
-      color: #1976d2;
-    }
-    
-    .badge-doctor {
-      background: #f3e5f5;
-      color: #7b1fa2;
-    }
-    
-    .badge-admin {
-      background: #ffebee;
-      color: #c62828;
-    }
-    
-    .badge-success {
-      background: #e8f5e9;
-      color: #2e7d32;
-    }
-    
-    .review-card {
-      background: #f8f9fa;
-      padding: 20px;
-      border-radius: 10px;
-      margin-bottom: 15px;
-      border-left: 4px solid #667eea;
-    }
-    
-    .review-header {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 10px;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-    
-    .review-name {
-      font-weight: 600;
-      color: #333;
-    }
-    
-    .review-time {
-      color: #999;
-      font-size: 0.9rem;
-    }
-    
-    .review-message {
-      color: #555;
-      line-height: 1.6;
-    }
-    
-    .empty-state {
-      text-align: center;
-      padding: 40px;
-      color: #999;
-    }
-    
-    .medicine-card {
-      display: grid;
-      grid-template-columns: 100px 1fr auto;
-      gap: 20px;
-      padding: 20px;
-      background: #f8f9fa;
-      border-radius: 10px;
-      margin-bottom: 15px;
-      align-items: center;
-    }
-    
-    .medicine-img {
-      width: 100px;
-      height: 100px;
-      object-fit: cover;
-      border-radius: 8px;
-    }
-    
-    .medicine-info h4 {
-      color: #333;
-      margin-bottom: 5px;
-    }
-    
-    .medicine-info p {
-      color: #666;
-      font-size: 0.9rem;
-      margin-bottom: 3px;
-    }
-    
-    .medicine-price {
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: #667eea;
-    }
-    
-    .scroll-container {
-      max-height: 600px;
-      overflow-y: auto;
-    }
-    
-    .scroll-container::-webkit-scrollbar {
-      width: 8px;
-    }
-    
-    .scroll-container::-webkit-scrollbar-track {
-      background: #f1f1f1;
-      border-radius: 10px;
-    }
-    
-    .scroll-container::-webkit-scrollbar-thumb {
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      border-radius: 10px;
-    }
-    
-    @media (max-width: 768px) {
-      body {
-        padding: 10px;
-      }
-      
-      .header h1 {
-        font-size: 1.8rem;
-      }
-      
-      .stats-grid {
-        grid-template-columns: 1fr;
-      }
-      
-      .medicine-card {
-        grid-template-columns: 80px 1fr;
-      }
-      
-      .medicine-price {
-        grid-column: 2;
-        text-align: right;
-        margin-top: 10px;
-      }
-      
-      table {
-        font-size: 0.85rem;
-        display: block;
-        overflow-x: auto;
-      }
-      
-      th, td {
-        padding: 10px 8px;
-        white-space: nowrap;
-      }
-      
-      .section {
-        padding: 20px 15px;
-      }
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <div class="header">
-      <h1>🏥 Hospital Management System</h1>
-      <p>Complete Database Overview</p>
-    </div>
-    
-    <div class="stats-grid">
-      <div class="stat-card">
-        <div class="stat-number">${totalUsers}</div>
-        <div class="stat-label">Total Users</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-number">${totalMedicines}</div>
-        <div class="stat-label">Medicines</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-number">${totalReviews}</div>
-        <div class="stat-label">Reviews</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-number">${loggedInUser}</div>
-        <div class="stat-label">Current User</div>
-      </div>
-    </div>
-    
-    <!-- USERS SECTION -->
-    <div class="section">
-      <h2>👥 All Users (${totalUsers})</h2>
-      <div class="scroll-container">
-        <table>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Username</th>
-              <th>Email</th>
-              <th>Designation</th>
-              <th>Cart Items</th>
-              <th>Appointments</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${usersData.users.map(user => `
-              <tr>
-                <td>${user.ID}</td>
-                <td>${user.name}</td>
-                <td><strong>${user.username}</strong></td>
-                <td>${user.email}</td>
-                <td><span class="badge badge-${user.Designation?.toLowerCase() || 'patient'}">${user.Designation || 'Patient'}</span></td>
-                <td>${user.cart?.length || 0}</td>
-                <td>${user.appointments?.length || 0}</td>
-              </tr>
-            `).join('')}
-          </tbody>
-        </table>
-      </div>
-    </div>
-    
-    <!-- MEDICINES SECTION -->
-    <div class="section">
-      <h2>💊 All Medicines (${totalMedicines})</h2>
-      <div class="scroll-container">
-        ${medicinesData.medicines?.length > 0 ? medicinesData.medicines.map(med => `
-          <div class="medicine-card">
-            <img src="${med.image}" alt="${med.name}" class="medicine-img" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27100%27 height=%27100%27%3E%3Crect fill=%27%23ddd%27 width=%27100%27 height=%27100%27/%3E%3Ctext fill=%27%23999%27 x=%2750%25%27 y=%2750%25%27 text-anchor=%27middle%27 dy=%27.3em%27%3ENo Image%3C/text%3E%3C/svg%3E'">
-            <div class="medicine-info">
-              <h4>${med.name}</h4>
-              <p>${med.description}</p>
-              <p><strong>Category:</strong> ${med.category || 'General'}</p>
-            </div>
-            <div class="medicine-price">$${med.price?.toFixed(2) || '0.00'}</div>
-          </div>
-        `).join('') : '<div class="empty-state">No medicines available</div>'}
-      </div>
-    </div>
-    
-    <!-- REVIEWS SECTION -->
-    <div class="section">
-      <h2>⭐ All Reviews (${totalReviews})</h2>
-      <div class="scroll-container">
-        ${reviewsData.length > 0 ? reviewsData.map(review => `
-          <div class="review-card">
-            <div class="review-header">
-              <span class="review-name">${review.name}</span>
-              <span class="review-time">${review.time}</span>
-            </div>
-            <p style="color: #666; font-size: 0.9rem; margin-bottom: 8px;">${review.email}</p>
-            <div class="review-message">${review.message}</div>
-          </div>
-        `).join('') : '<div class="empty-state">No reviews yet</div>'}
-      </div>
-    </div>
-    
-    <!-- SEARCH DATA SECTION -->
-    <div class="section">
-      <h2>🔍 Search Items (${totalSearchItems})</h2>
-      <div class="scroll-container">
-        <table>
-          <thead>
-            <tr>
-              <th>Keyword</th>
-              <th>Description</th>
-              <th>Category</th>
-              <th>Link</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${searchData.map(item => `
-              <tr>
-                <td><strong>${item.keyword}</strong></td>
-                <td>${item.description || '-'}</td>
-                <td><span class="badge badge-success">${item.category || 'General'}</span></td>
-                <td><a href="${item.link}" style="color: #667eea; text-decoration: none;" target="_blank">View →</a></td>
-              </tr>
-            `).join('')}
-          </tbody>
-        </table>
-      </div>
-    </div>
-    
-    <!-- SYSTEM INFO -->
-    <div class="section">
-      <h2>ℹ️ System Information</h2>
-      <table>
-        <tbody>
-          <tr>
-            <td><strong>Currently Logged In</strong></td>
-            <td>${loggedInUser}</td>
-          </tr>
-          <tr>
-            <td><strong>Users with Items in Cart</strong></td>
-            <td>${usersWithCarts}</td>
-          </tr>
-          <tr>
-            <td><strong>Users with Appointments</strong></td>
-            <td>${usersWithAppointments}</td>
-          </tr>
-          <tr>
-            <td><strong>Server Status</strong></td>
-            <td><span class="badge badge-success">Running</span></td>
-          </tr>
-          <tr>
-            <td><strong>Last Updated</strong></td>
-            <td>${new Date().toLocaleString()}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</body>
-</html>
-    `;
+    // Header
+    output += '═══════════════════════════════════════════════════════════════\n';
+    output += '           HOSPITAL MANAGEMENT SYSTEM - DATABASE DUMP\n';
+    output += '═══════════════════════════════════════════════════════════════\n';
+    output += `Generated: ${new Date().toLocaleString()}\n`;
+    output += `Current User: ${loggedInUser}\n`;
+    output += '───────────────────────────────────────────────────────────────\n\n';
 
-    res.send(html);
+    // Statistics
+    output += '【 SYSTEM STATISTICS 】\n\n';
+    output += `  Total Users:        ${totalUsers}\n`;
+    output += `  Total Medicines:    ${totalMedicines}\n`;
+    output += `  Total Reviews:      ${totalReviews}\n`;
+    output += `  Total Search Items: ${totalSearchItems}\n`;
+    output += '\n═══════════════════════════════════════════════════════════════\n\n';
+
+    // Users Section
+    output += '【 ALL USERS 】\n\n';
+    usersData.users.forEach((user, index) => {
+      output += `─── USER #${index + 1} ─────────────────────────────────────────────\n`;
+      output += `  ID:            ${user.ID}\n`;
+      output += `  Name:          ${user.name}\n`;
+      output += `  Username:      ${user.username}\n`;
+      output += `  Email:         ${user.email}\n`;
+      output += `  Password:      ${user.password}\n`;
+      output += `  Designation:   ${user.Designation || 'Patient'}\n`;
+      output += `  Phone:         ${user.phone || 'N/A'}\n`;
+      output += `  DOB:           ${user.dob || 'N/A'}\n`;
+      output += `  Blood Group:   ${user.bloodGroup || 'N/A'}\n`;
+      output += `  Address:       ${user.address || 'N/A'}\n`;
+      output += `  Cart Items:    ${user.cart?.length || 0}\n`;
+      output += `  Appointments:  ${user.appointments?.length || 0}\n`;
+      output += `  Prescriptions: ${user.prescriptions?.length || 0}\n`;
+      output += `  Orders:        ${user.orders?.length || 0}\n`;
+      output += `  Reports:       ${user.reports?.length || 0}\n`;
+      
+      if (user.cart && user.cart.length > 0) {
+        output += `  \n  Cart Contents:\n`;
+        user.cart.forEach((item, i) => {
+          output += `    ${i + 1}. Medicine ID: ${item.medicineId}, Qty: ${item.quantity}, Added: ${item.addedAt}\n`;
+        });
+      }
+      
+      if (user.appointments && user.appointments.length > 0) {
+        output += `  \n  Appointments:\n`;
+        user.appointments.forEach((apt, i) => {
+          output += `    ${i + 1}. ${JSON.stringify(apt)}\n`;
+        });
+      }
+      
+      output += '\n';
+    });
+
+    output += '═══════════════════════════════════════════════════════════════\n\n';
+
+    // Medicines Section
+    output += '【 ALL MEDICINES 】\n\n';
+    if (medicinesData.medicines && medicinesData.medicines.length > 0) {
+      medicinesData.medicines.forEach((med, index) => {
+        output += `─── MEDICINE #${index + 1} ───────────────────────────────────────\n`;
+        output += `  ID:          ${med.id}\n`;
+        output += `  Name:        ${med.name}\n`;
+        output += `  Description: ${med.description}\n`;
+        output += `  Price:       $${med.price?.toFixed(2) || '0.00'}\n`;
+        output += `  Category:    ${med.category || 'General'}\n`;
+        output += `  Image:       ${med.image}\n`;
+        output += '\n';
+      });
+    } else {
+      output += '  No medicines found.\n\n';
+    }
+
+    output += '═══════════════════════════════════════════════════════════════\n\n';
+
+    // Reviews Section
+    output += '【 ALL REVIEWS 】\n\n';
+    if (reviewsData.length > 0) {
+      reviewsData.forEach((review, index) => {
+        output += `─── REVIEW #${index + 1} ─────────────────────────────────────────\n`;
+        output += `  Name:    ${review.name}\n`;
+        output += `  Email:   ${review.email}\n`;
+        output += `  Time:    ${review.time}\n`;
+        output += `  Message: ${review.message}\n`;
+        output += '\n';
+      });
+    } else {
+      output += '  No reviews found.\n\n';
+    }
+
+    output += '═══════════════════════════════════════════════════════════════\n\n';
+
+    // Search Items Section
+    output += '【 SEARCH ITEMS 】\n\n';
+    if (searchData.length > 0) {
+      searchData.forEach((item, index) => {
+        output += `─── SEARCH ITEM #${index + 1} ───────────────────────────────────\n`;
+        output += `  Keyword:     ${item.keyword}\n`;
+        output += `  Description: ${item.description || 'N/A'}\n`;
+        output += `  Category:    ${item.category || 'General'}\n`;
+        output += `  Icon:        ${item.icon || 'N/A'}\n`;
+        output += `  Link:        ${item.link}\n`;
+        output += '\n';
+      });
+    } else {
+      output += '  No search items found.\n\n';
+    }
+
+    output += '═══════════════════════════════════════════════════════════════\n';
+    output += '                         END OF DATA DUMP\n';
+    output += '═══════════════════════════════════════════════════════════════\n';
+
+    // Send as plain text
+    res.set('Content-Type', 'text/plain; charset=utf-8');
+    res.send(output);
+
   } catch (err) {
     console.error("Error in /data endpoint:", err);
-    res.status(500).send(`
-      <html>
-        <body style="font-family: Arial; padding: 40px; text-align: center;">
-          <h1 style="color: #dc3545;">❌ Error Loading Data</h1>
-          <p style="color: #666;">${err.message}</p>
-        </body>
-      </html>
-    `);
+    res.status(500).set('Content-Type', 'text/plain').send(
+      '═══════════════════════════════════════════════\n' +
+      '              ERROR LOADING DATA\n' +
+      '═══════════════════════════════════════════════\n\n' +
+      `Error: ${err.message}\n\n` +
+      '═══════════════════════════════════════════════\n'
+    );
   }
 });
-
 // ====== Users ======
 app.get("/usersnum", (req, res) => {
   const data = readDB();
