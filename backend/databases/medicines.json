@@ -25,7 +25,7 @@
       "price": 12.99,
       "rating": 4,
       "reviews": 8934,
-      "image": "https://m.media-amazon.com/images/I/71OsEAdPuZL.jpg",
+      "image": "https://ik.imagekit.io/wlfr/wellness/images/products/431368-1.jpg/tr:w-3840,c-at_max,cm-pad_resize,ar-1210-700,pr-true,f-auto,q-70,l-image,i-Wellness_logo_BDwqbQao9.png,lfo-bottom_right,w-200,h-90,c-at_least,cm-pad_resize,l-end",
       "stock": 200,
       "tags": ["Most Clicked"],
       "healthConcern": ["Diaper Rash"]
@@ -40,7 +40,7 @@
       "price": 18.49,
       "rating": 5,
       "reviews": 10230,
-      "image": "https://cdn01.pharmeasy.in/dam/products_otc/I00632/neutrogena-ultra-sheer-dry-touch-sunblock-spf-50-88ml-2-1671741639.jpg",
+      "image": "https://m.media-amazon.com/images/I/511h8xWJ5NS.jpg",
       "stock": 120,
       "tags": [],
       "healthConcern": ["Sun Protection"]
@@ -55,7 +55,7 @@
       "price": 28.99,
       "rating": 4,
       "reviews": 7652,
-      "image": "https://cdn01.pharmeasy.in/dam/products_otc/I02230/omron-hem-7120-fully-automatic-digital-blood-pressure-monitor-with-intellisense-technology-2-1671740924.jpg",
+      "image": "https://m.media-amazon.com/images/I/71XWuWFAqYL.jpg",
       "stock": 80,
       "tags": ["Top Deals"],
       "healthConcern": ["Blood Pressure"]
@@ -70,7 +70,7 @@
       "price": 9.99,
       "rating": 4,
       "reviews": 5432,
-      "image": "https://cdn01.pharmeasy.in/dam/products_otc/I03879/dabur-chyawanprash-awaleha-2x-immunity-1kg-2-1671740930.jpg",
+      "image": "https://m.media-amazon.com/images/I/71tH6y4K-SL.jpg",
       "stock": 180,
       "tags": ["Most Clicked"],
       "healthConcern": ["Immunity", "Cold"]
@@ -85,7 +85,7 @@
       "price": 25.49,
       "rating": 5,
       "reviews": 4321,
-      "image": "https://cdn01.pharmeasy.in/dam/products_otc/D63032/swisse-womens-multivitamin-tablets-bottle-of-60-2-1685603704.jpg",
+      "image": "https://m.media-amazon.com/images/I/61c1Ey1CX2L.jpg",
       "stock": 90,
       "tags": [],
       "healthConcern": ["Fatigue", "Immunity"]
@@ -100,7 +100,7 @@
       "price": 22.99,
       "rating": 5,
       "reviews": 9876,
-      "image": "https://cdn01.pharmeasy.in/dam/products_otc/U80222/cerave-moisturising-cream-for-dry-to-very-dry-skin-454g-2-1671745484.jpg",
+      "image": "https://m.media-amazon.com/images/I/6147cwOvHBL._AC_UF1000,1000_QL80_.jpg",
       "stock": 70,
       "tags": ["Most Clicked"],
       "healthConcern": ["Skin Rash", "Dry Skin"]
@@ -115,7 +115,7 @@
       "price": 7.99,
       "rating": 4,
       "reviews": 12054,
-      "image": "https://cdn01.pharmeasy.in/dam/products_otc/I02263/johnsons-baby-no-more-tears-shampoo-500ml-2-1671742468.jpg",
+      "image": "https://m.media-amazon.com/images/I/51XYbqj57pL.jpg",
       "stock": 150,
       "tags": [],
       "healthConcern": ["General Care"]
