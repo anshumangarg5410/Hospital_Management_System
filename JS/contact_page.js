@@ -1,5 +1,5 @@
-// const BACKEND = "https://hospitality-management-system-xdyy.onrender.com"
-const BACKEND = "http://localhost:3000"
+const BACKEND = "https://hospitality-management-system-xdyy.onrender.com"
+// const BACKEND = "http://localhost:3000"
 
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("reviewForm");
