@@ -89,7 +89,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   } catch (err) {
     console.error("Error fetching search data:", err);
-    // Fallback sample data
   }
 
   // Show/hide clear button
@@ -120,8 +119,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   function updateSuggestions(query) {
     const lowerQuery = query.toLowerCase();
     const matches = searchData.filter(item => 
-      item.keyword.toLowerCase().includes(lowerQuery) ||
-      (item.description && item.description.toLowerCase().includes(lowerQuery))
+      item.keyword.toLowerCase().includes(lowerQuery)
     );
 
     if (matches.length === 0) {
