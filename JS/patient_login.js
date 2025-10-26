@@ -57,7 +57,7 @@ loginButton.addEventListener("click", async () => {
 });
 
 
-regregisterButton.addEventListener("click", async () => {
+registerButton.addEventListener("click", async () => {
     const username = usernameInputRegister.value.trim();
     const password = passwordInputRegister.value.trim();
     const name = username;
