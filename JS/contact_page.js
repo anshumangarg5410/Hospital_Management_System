@@ -1,6 +1,33 @@
 const BACKEND = "https://hospitality-management-system-xdyy.onrender.com"
 // const BACKEND = "http://localhost:3000"
 
+let login_status = 0;
+async function checkLoginStatus() {
+  try {
+    const res = await fetch(BACKEND + "/login-status"); 
+    if (res.ok) {
+      const data = await res.json();
+
+      if (data.login == 0) {
+        const namee = document.getElementById("name");
+        const emaill = document.getElementById("email");
+        namee.value = data.user.name;
+        emaill.value = data.user.email;
+        namee.readOnly = true;
+        email.readOnly = true;
+        login_status = 1;
+      } 
+
+    } else {
+      console.error("Server error:", res.status, res.statusText);
+    }
+  } catch (err) {
+    console.error("Error fetching login status:", err);
+  }
+}
+
+checkLoginStatus();
+
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("reviewForm");
 
@@ -47,13 +74,11 @@ document.addEventListener("DOMContentLoaded", () => {
       formMessage.style.color = "red";
       return;
     }
-
-    if (!name || !email || !message) {
-      formMessage.textContent = "⚠️ Please fill in all fields.";
+    if(login_status == 0) {
+      formMessage.textContent = "⚠️ You Need To Login First";
       formMessage.style.color = "red";
       return;
     }
-
     const review = { name, email, message };
 
     try {
@@ -98,52 +123,147 @@ document.addEventListener("DOMContentLoaded", () => {
       formMessage.style.color = "red";
     }
   });
-
 });
 
-fetch("../backend/databases/Authentication.json")
-  .then(response => response.json())
-  .then(data => {
-    if (data.login == 0) {
-      const idx = data.Current_User_Index;
-      const currentuser = data.users[idx];
-      const namee = document.getElementById("name")
-      const emaill = document.getElementById("email")
-      namee.value = currentuser.name;
-      emaill.value = currentuser.email;
-      namee.readOnly = true;
-      emaill.readOnly = true;
-    }
-  })
-  .catch(error => {
-    console.log("Error fetching data: ", error);
-  });
 
 
-const termsLink = document.querySelector('.checkbox-label a');
 
-// Create the message div
-const msg = document.createElement('div');
-msg.innerText = 'By agreeing, you accept our rules. You must be at least 18 years old. Do not use this website for illegal activities.';
-msg.style.position = 'absolute';
-msg.style.background = '#333';
-msg.style.color = '#fff';
-msg.style.padding = '3px 6px';
-msg.style.fontSize = '12px';
-msg.style.display = 'none'; 
 
-// Add it to the page
-document.body.appendChild(msg);
 
-// Show message on hover
-termsLink.addEventListener('mouseenter', () => {
-  const rect = termsLink.getBoundingClientRect();
-  msg.style.top = rect.bottom + window.scrollY + 1 + 'px'; // 5px below link
-  msg.style.left = rect.left + window.scrollX + 'px';
-  msg.style.display = 'block';
-});
 
-// Hide message on mouse leave
-termsLink.addEventListener('mouseleave', () => {
-  msg.style.display = 'none';
-});
+
+
+
+
+// fetch("../backend/databases/Authentication.json")
+//   .then(response => response.json())
+//   .then(data => {
+//     if (data.login == 1) {
+//       const idx = data.Current_User_Index;
+//       const currentuser = data.users[idx];
+//       const namee = document.getElementById("name")
+//       const emaill = document.getElementById("email")
+//       namee.value = currentuser.name;
+//       emaill.value = currentuser.email;
+//       namee.readOnly = true;
+//       emaill.readOnly = true;
+//     }
+//   })
+//   .catch(error => {
+//     console.log("Error fetching data: ", error);
+//   });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+// // const termsLink = document.querySelector('.checkbox-label a');
+
+// // Create the message div
+// const msg = document.createElement('div');
+// msg.innerText = 'By agreeing, you accept our rules. You must be at least 18 years old. Do not use this website for illegal activities.';
+// msg.style.position = 'absolute';
+// msg.style.background = '#333';
+// msg.style.color = '#fff';
+// msg.style.padding = '3px 6px';
+// msg.style.fontSize = '12px';
+// msg.style.display = 'none'; 
+
+// // Add it to the page
+// document.body.appendChild(msg);
+
+// // Show message on hover
+// termsLink.addEventListener('mouseenter', () => {
+//   const rect = termsLink.getBoundingClientRect();
+//   msg.style.top = rect.bottom + window.scrollY + 1 + 'px'; // 5px below link
+//   msg.style.left = rect.left + window.scrollX + 'px';
+//   msg.style.display = 'block';
+// });
+
+// // Hide message on mouse leave
+// termsLink.addEventListener('mouseleave', () => {
+//   msg.style.display = 'none';
+// });
