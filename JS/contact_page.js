@@ -1,6 +1,33 @@
 const BACKEND = "https://hospitality-management-system-xdyy.onrender.com"
 // const BACKEND = "http://localhost:3000"
 
+let login_status = 0;
+async function checkLoginStatus() {
+  try {
+    const res = await fetch(BACKEND + "/login-status"); 
+    if (res.ok) {
+      const data = await res.json();
+
+      if (data.login == 0) {
+        const namee = document.getElementById("name");
+        const emaill = document.getElementById("email");
+        namee.value = data.user.name;
+        emaill.value = data.user.email;
+        namee.readOnly = true;
+        email.readOnly = true;
+        login_status = 1;
+      } 
+
+    } else {
+      console.error("Server error:", res.status, res.statusText);
+    }
+  } catch (err) {
+    console.error("Error fetching login status:", err);
+  }
+}
+
+checkLoginStatus();
+
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("reviewForm");
 
@@ -47,13 +74,11 @@ document.addEventListener("DOMContentLoaded", () => {
       formMessage.style.color = "red";
       return;
     }
-
-    if (!name || !email || !message) {
-      formMessage.textContent = "⚠️ Please fill in all fields.";
+    if(login_status == 0) {
+      formMessage.textContent = "⚠️ You Need To Login First";
       formMessage.style.color = "red";
       return;
     }
-
     const review = { name, email, message };
 
     try {
@@ -98,27 +123,122 @@ document.addEventListener("DOMContentLoaded", () => {
       formMessage.style.color = "red";
     }
   });
-
 });
 
-fetch("../backend/databases/Authentication.json")
-  .then(response => response.json())
-  .then(data => {
-    if (data.login == 1) {
-      const idx = data.Current_User_Index;
-      const currentuser = data.users[idx];
-      const namee = document.getElementById("name")
-      const emaill = document.getElementById("email")
-      namee.value = currentuser.name;
-      emaill.value = currentuser.email;
-      namee.readOnly = true;
-      emaill.readOnly = true;
-    }
-  })
-  .catch(error => {
-    console.log("Error fetching data: ", error);
-  });
 
+
+
+
+
+
+
+
+
+
+// fetch("../backend/databases/Authentication.json")
+//   .then(response => response.json())
+//   .then(data => {
+//     if (data.login == 1) {
+//       const idx = data.Current_User_Index;
+//       const currentuser = data.users[idx];
+//       const namee = document.getElementById("name")
+//       const emaill = document.getElementById("email")
+//       namee.value = currentuser.name;
+//       emaill.value = currentuser.email;
+//       namee.readOnly = true;
+//       emaill.readOnly = true;
+//     }
+//   })
+//   .catch(error => {
+//     console.log("Error fetching data: ", error);
+//   });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
 
 // const termsLink = document.querySelector('.checkbox-label a');
 
