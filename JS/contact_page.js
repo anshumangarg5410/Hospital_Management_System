@@ -70,11 +70,11 @@ document.addEventListener("DOMContentLoaded", () => {
       formMessage.style.color = "red";
       return;
     }
-    // if(login_status == 0) {
-    //   formMessage.textContent = "⚠️ You Need To Login First";
-    //   formMessage.style.color = "red";
-    //   return;
-    // }
+    if(login_status == 0) {
+      formMessage.textContent = "⚠️ You Need To Login First";
+      formMessage.style.color = "red";
+      return;
+    }
     const review = { name, email, message };
 
     try {
