@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login & Registration Forms</title>
-    <link rel="stylesheet" href="../CSS//login_pat.css">
+    <link rel="stylesheet" href="../CSS/login_pat.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 </head>
 
@@ -13,7 +13,6 @@
     <div class="container">
         <!-- Login Form -->
         <div class="form-container active" id="loginContainer">
-
             <!-- Welcome Section-->
             <div class="welcome-panel main">
                 <div class="welcome-content">
@@ -23,43 +22,34 @@
                 </div>
             </div>
 
-            <!-- Login form section on the right side -->
+            <!-- Login form section -->
             <div class="form-panel">
                 <div class="form-content">
                     <h2>Login</h2>
                     <form id="loginForm">
                         <div class="input-field">
-                            <input id="" type="text" name="username" placeholder="Username" required>
+                            <input id="patient_login_username" type="text" name="username" placeholder="Username" required>
                             <i class="fas fa-user"></i>
                         </div>
 
                         <div class="input-field">
-                            <input id="" type="password" name="password" placeholder="Password" required>
+                            <input id="patient_login_password" type="password" name="password" placeholder="Password" required>
                             <i class="fas fa-lock"></i>
                         </div>
 
                         <div class="forgot-link">
-                            <a href="forgot password">Forgot Password?</a>
+                            <a href="#">Forgot Password?</a>
                         </div>
 
-                        <a href="../" id="login_as_patient_btn" class="submit-button ">Login</a>
-
+                        <button type="button" id="login_as_patient_btn" class="submit-button">Login</button>
 
                         <div class="social-login">
                             <p>or login with social platforms</p>
                             <div class="social-icons">
-                                <button type="button" class="social-btn google">
-                                    <i class="fab fa-google"></i>
-                                </button>
-                                <button type="button" class="social-btn facebook">
-                                    <i class="fab fa-facebook-f"></i>
-                                </button>
-                                <button type="button" class="social-btn github">
-                                    <i class="fab fa-github"></i>
-                                </button>
-                                <button type="button" class="social-btn linkedin">
-                                    <i class="fab fa-linkedin-in"></i>
-                                </button>
+                                <button type="button" class="social-btn google"><i class="fab fa-google"></i></button>
+                                <button type="button" class="social-btn facebook"><i class="fab fa-facebook-f"></i></button>
+                                <button type="button" class="social-btn github"><i class="fab fa-github"></i></button>
+                                <button type="button" class="social-btn linkedin"><i class="fab fa-linkedin-in"></i></button>
                             </div>
                         </div>
                     </form>
@@ -69,72 +59,74 @@
 
         <!-- Registration Form -->
         <div class="form-container" id="registerContainer">
-
-            <!-- Registration form to be on left side-->
+            <!-- Registration form -->
             <div class="form-panel">
                 <div class="form-content">
                     <h2>Registration</h2>
-                    <form id="registerForm" onsubmit="handleRegister(event)">
+                    <form id="registerForm">
                         <div class="input-field">
-                            <input type="text" name="username" placeholder="Username" required>
+                            <input id="patient_register_username" type="text" name="username" placeholder="Username" required>
                             <i class="fas fa-user"></i>
                         </div>
 
                         <div class="input-field">
-                            <input type="email" id="patient_register_email" name="email" placeholder="Email" required>
+                            <input id="patient_register_email" type="email" name="email" placeholder="Email" required>
                             <i class="fas fa-envelope"></i>
                         </div>
 
                         <div class="input-field">
-                            <input type="password" name="password" placeholder="Password" required>
+                            <input id="patient_register_password" type="password" name="password" placeholder="Password" required>
                             <i class="fas fa-lock"></i>
                         </div>
 
-                        <button type="submit" class="submit-button">Register</button>
+                        <button type="button" id="register_as_patient_btn" class="submit-button">Register</button>
 
                         <div class="social-login">
                             <p>or register with social platforms</p>
                             <div class="social-icons">
-                                <button type="button" class="social-btn google">
-                                    <i class="fab fa-google"></i>
-                                </button>
-                                <button type="button" class="social-btn facebook">
-                                    <i class="fab fa-facebook-f"></i>
-                                </button>
-                                <button type="button" class="social-btn github">
-                                    <i class="fab fa-github"></i>
-                                </button>
-                                <button type="button" class="social-btn linkedin">
-                                    <i class="fab fa-linkedin-in"></i>
-                                </button>
+                                <button type="button" class="social-btn google"><i class="fab fa-google"></i></button>
+                                <button type="button" class="social-btn facebook"><i class="fab fa-facebook-f"></i></button>
+                                <button type="button" class="social-btn github"><i class="fab fa-github"></i></button>
+                                <button type="button" class="social-btn linkedin"><i class="fab fa-linkedin-in"></i></button>
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
 
-            <!-- Welcome Back Section on the right side for registration -->
+            <!-- Welcome Back Section -->
             <div class="welcome-panel">
                 <div class="welcome-content">
                     <h2>Welcome Back!</h2>
                     <a href="#">Already have an account?</a>
-                    <a href="../index.html" class="submit-button">Login</a>
+                    <button class="submit-button" onclick="switchToLogin()">Login</button>
                 </div>
             </div>
         </div>
     </div>
+
     <script src="../JS/main.js"></script>
     <script src="../JS/patient_login.js"></script>
+
     <script>
+        // Switch between login and registration
+        function switchToRegister() {
+            document.getElementById("loginContainer").classList.remove("active");
+            document.getElementById("registerContainer").classList.add("active");
+        }
+
+        function switchToLogin() {
+            document.getElementById("registerContainer").classList.remove("active");
+            document.getElementById("loginContainer").classList.add("active");
+        }
+
+        // Automatically open registration if flag is set
         window.onload = () => {
             if (localStorage.getItem("openRegister") === "true") {
-                localStorage.removeItem("openRegister"); // clear flag
-                // your existing function that switches to register
-                switchToRegisterForm();
+                localStorage.removeItem("openRegister");
+                switchToRegister();
             }
         };
     </script>
-
 </body>
-
 </html>
