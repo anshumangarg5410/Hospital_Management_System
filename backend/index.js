@@ -7,20 +7,21 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-// ====== File Paths ======
+// file paths
 const filePath = path.join(__dirname, "databases", "Authentication.json");
 const reviewFilePath = path.join(__dirname, "databases", "reviews.json");
 const searchFilePath = path.join(__dirname, "databases", "searchData.json");
 const medicinesFilePath = path.join(__dirname, "databases", "medicines.json");
 
-// ====== In-memory logged-in user ======
+//present user
 let Current_User_Index = null;
 
-// ====== Utility Functions ======
+// for reading
 function readDB() {
   return JSON.parse(fs.readFileSync(filePath, "utf8"));
 }
 
+// for writing
 function writeDB(data) {
   fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
 }
@@ -37,10 +38,10 @@ function writeMedicines(data) {
   fs.writeFileSync(medicinesFilePath, JSON.stringify(data, null, 2));
 }
 
-// ====== Basic Routes ======
+
 app.get("/", (req, res) => res.send("Backend running successfully"));
 
-// ====== Users ======
+
 app.get("/usersnum", (req, res) => {
   const data = readDB();
   res.send({ success: true, users: data.users });
@@ -56,7 +57,7 @@ app.get("/users", (req, res) => {
   }
 });
 
-// ====== Login Status ======
+//login status
 app.get("/login-status", (req, res) => {
   const data = readDB();
   if (Current_User_Index !== null && data.users[Current_User_Index]) {
@@ -66,7 +67,7 @@ app.get("/login-status", (req, res) => {
   }
 });
 
-// ======LoginWihtoutPassword======
+// forgotpassword
 app.post("/loginwithoutpassword", (req, res) => {
   try {
     let data = readDB();
@@ -85,7 +86,7 @@ app.post("/loginwithoutpassword", (req, res) => {
   }
 });
 
-// ====== Signup ======
+// signup
 app.post("/signup", (req, res) => {
   try {
     let data = readDB();
@@ -123,7 +124,7 @@ app.post("/signup", (req, res) => {
   }
 });
 
-// ====== Login ======
+//login
 app.post("/login", (req, res) => {
   try {
     let data = readDB();
@@ -142,13 +143,13 @@ app.post("/login", (req, res) => {
   }
 });
 
-// ====== Logout ======
+//logout
 app.post("/logout", (req, res) => {
   Current_User_Index = null;
   res.json({ success: true, message: "Logged out successfully" });
 });
 
-// ====== Current User ======
+//crnt user
 app.get("/currentUser", (req, res) => {
   const data = readDB();
   if (Current_User_Index !== null && data.users[Current_User_Index]) {
@@ -158,7 +159,7 @@ app.get("/currentUser", (req, res) => {
   }
 });
 
-// ====== User Data Endpoints ======
+// userdta
 function getUserData(key) {
   const data = readDB();
   if (Current_User_Index !== null && data.users[Current_User_Index]) {
@@ -172,7 +173,7 @@ app.get("/prescriptions", (req, res) => res.json({ success: true, prescriptions:
 app.get("/orders", (req, res) => res.json({ success: true, orders: getUserData("orders") }));
 app.get("/reports", (req, res) => res.json({ success: true, reports: getUserData("reports") }));
 
-// ====== Update User Profile ======
+//user prfile
 app.put("/updateUser", (req, res) => {
   const { username, name, email, phone, dob, bloodGroup, address } = req.body;
   const data = readDB();
@@ -187,7 +188,7 @@ app.put("/updateUser", (req, res) => {
   }
 });
 
-// ====== Change Password ======
+// chngepass
 app.put("/changePassword", (req, res) => {
   const { username, currentPassword, newPassword } = req.body;
   const data = readDB();
@@ -201,7 +202,7 @@ app.put("/changePassword", (req, res) => {
   res.json({ success: true, message: "Password changed successfully!" });
 });
 
-// ====== Reviews ======
+//revw
 app.post("/saveReview", (req, res) => {
   const newReview = { ...req.body, time: new Date().toLocaleString() };
 
@@ -249,7 +250,7 @@ app.get("/reviews", (req, res) => {
   });
 });
 
-// ====== Search ======
+//srch
 app.get("/searchItems", (req, res) => {
   fs.readFile(searchFilePath, "utf8", (err, data) => {
     if (err) return res.status(500).json({ success: false, message: "Failed to load search data" });
@@ -262,7 +263,7 @@ app.get("/searchItems", (req, res) => {
   });
 });
 
-// ====== Medicines ======
+//mmed
 app.get("/medicines", (req, res) => {
   const data = readMedicines();
   res.json({ success: true, medicines: data.medicines || [] });
@@ -275,7 +276,7 @@ app.get("/medicines/:id", (req, res) => {
   else res.status(404).json({ success: false, message: "Medicine not found" });
 });
 
-// ====== CART ======
+//crt
 app.post("/cart/add", (req, res) => {
   if (Current_User_Index === null) return res.status(401).json({ success: false, message: "Login first!" });
 
@@ -321,6 +322,6 @@ app.delete("/cart/remove/:medicineId", (req, res) => {
   res.json({ success: true, message: "Removed from cart", cart: data.users[Current_User_Index].cart });
 });
 
-// ====== Start Server ======
+// listen to server! 
 const PORT = 3000;
 app.listen(PORT, () => console.log(`Server running at http://localhost:${PORT}`));
