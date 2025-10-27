@@ -14,7 +14,7 @@ async function checkLoginStatus() {
     if (data.success) { //if user is logged in already
         console.log(data);
         document.getElementById("displayDoctorName").innerText = data.user.name;
-        document.getElementById("doctorIdText").innerText = data.user.id;
+        document.getElementById("doctorIdText").innerText = data.id;
         document.getElementById("statAppointments").innerText = data.user.appointments;
         document.getElementById("statPatients").innerText = data.user.patients;
         document.getElementById("statReports").innerText = data.user.pending;
