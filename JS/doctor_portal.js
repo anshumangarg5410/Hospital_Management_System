@@ -13,11 +13,11 @@ async function checkLoginStatus() {
     const data = await res.json(); // safe now
     if (data.success) { //if user is logged in already
         console.log(data);
-        document.getElementById("displayDoctorName").innerText = data.name;
-        document.getElementById("doctorIdText").innerText = data.id;
-        document.getElementById("statAppointments").innerText = data.appointments;
-        document.getElementById("statPatients").innerText = data.patients;
-        document.getElementById("statReports").innerText = data.pending;
+        document.getElementById("displayDoctorName").innerText = data.user.name;
+        document.getElementById("doctorIdText").innerText = data.user.id;
+        document.getElementById("statAppointments").innerText = data.user.appointments;
+        document.getElementById("statPatients").innerText = data.user.patients;
+        document.getElementById("statReports").innerText = data.user.pending;
     }
   } catch (err) {
     console.error("Error fetching login status:", err); //handles errors netweork
