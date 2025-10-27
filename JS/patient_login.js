@@ -6,18 +6,17 @@ const passwordInputLogin = document.querySelector("#patient_login_password");
 
 const usernameInputRegister = document.querySelector("#patient_register_username");
 const passwordInputRegister = document.querySelector("#patient_register_password");
-const emailInputRegister = document.querySelector("#patient_register_email"); // 👈 add email input in HTML
+const emailInputRegister = document.querySelector("#patient_register_email"); // 
 
 const backendLink = "https://hospitality-management-system-xdyy.onrender.com";
 // const backendLink = "http://localhost:3000";
 
 
-// ========================== LOGIN ==========================
 loginButton.addEventListener("click", async () => {
     const username = usernameInputLogin.value.trim();
     const password = passwordInputLogin.value.trim();
     const name = username;
-    const email = name; // backend requires it but not used for login
+    const email = name; 
 
     if (!username || !password) {
         alert("Please enter both username and password");
@@ -46,34 +45,34 @@ loginButton.addEventListener("click", async () => {
 });
 
 
-// ========================== REGISTER ==========================
+
 registerButton.addEventListener("click", async () => {
     const username = usernameInputRegister.value.trim();
     const password = passwordInputRegister.value.trim();
     const email = emailInputRegister.value.trim();
     const name = username;
 
-    // 🔹 Check all fields filled
+
     if (!username || !password || !email) {
         alert("Please fill all fields (username, password, and email)");
         return;
     }
 
-    // 🔹 Username validation
+
     const usernameRegex = /^[A-Za-z]{3,}$/;
     if (!usernameRegex.test(username)) {
         alert("Username must contain at least 3 alphabets (letters only).");
         return;
     }
 
-    // 🔹 Password validation
+
     const passwordRegex = /^(?=.*[\/#$]).{8,}$/;
     if (!passwordRegex.test(password)) {
         alert("Password must be at least 8 characters long and include at least one of: / # $");
         return;
     }
 
-    // 🔹 Email validation
+
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
         alert("Please enter a valid email address.");
