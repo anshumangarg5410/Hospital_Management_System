@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const email = name;
 
         if (!username || !password) {
-            alert("⚠️ Please enter both username and password.");
+            alert("⚠️ Please enter all the details.");
             return;
         }
 
