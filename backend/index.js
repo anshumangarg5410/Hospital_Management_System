@@ -91,7 +91,9 @@ app.post("/signup", (req, res) => {
   try {
     let data = readDB();
     const { name, username, password, email } = req.body;
-
+    if (!email) {
+      return res.status(400).json({ success: false, message: "Missing fields" });
+    }
     if (!name || !username || !password || !email) {
       return res.status(400).json({ success: false, message: "Missing fields" });
     }

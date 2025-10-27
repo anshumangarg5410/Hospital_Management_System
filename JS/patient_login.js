@@ -10,18 +10,6 @@ const usernameInputRegister = document.querySelector("#patient_register_username
 const backendLink = "https://hospitality-management-system-xdyy.onrender.com"
 // const backendLink = "http://localhost:3000"
 
-// var lengthOfUsers = 4;
-
-// async function getUsers() {
-//     const response = await fetch(backendLink + "/users");
-//     const data = await response.json();
-//     lengthOfUsers = data.users.length;
-// }
-
-// getUsers();
-
-// console.log(lengthOfUsers)
-
 loginButton.addEventListener("click", async () => {
 
     const username = usernameInputLogin.value;
