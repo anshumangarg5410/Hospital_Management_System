@@ -29,8 +29,8 @@ login_as_doctor_btn.addEventListener("click", async () => {
 
         if (result.success) {
             alert(result.message); 
-            
-            window.location.href = "../index.html"; 
+
+            window.location.href = "../HTML/doctor_portal.html"; 
         } else {
             alert(result.message); 
         }
