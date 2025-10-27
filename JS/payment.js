@@ -2,7 +2,7 @@
         const API_URL = 'http://localhost:3000';
         let currentPaymentMethod = 'card';
 
-        // Payment method selection
+
         document.querySelectorAll('.payment-method').forEach(method => {
             method.addEventListener('click', function() {
                 document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('active'));
@@ -25,14 +25,14 @@
             });
         });
 
-        // Card number formatting
+
         document.getElementById('cardNumber').addEventListener('input', function(e) {
             let value = e.target.value.replace(/\s/g, '');
             let formattedValue = value.match(/.{1,4}/g)?.join(' ') || value;
             e.target.value = formattedValue;
         });
 
-        // Expiry date formatting
+
         document.getElementById('expiry').addEventListener('input', function(e) {
             let value = e.target.value.replace(/\D/g, '');
             if (value.length >= 2) {
@@ -41,12 +41,12 @@
             e.target.value = value;
         });
 
-        // CVV validation
+
         document.getElementById('cvv').addEventListener('input', function(e) {
             e.target.value = e.target.value.replace(/\D/g, '');
         });
 
-        // Form submission
+
         document.getElementById('paymentForm').addEventListener('submit', async function(e) {
             e.preventDefault();
 
@@ -55,17 +55,17 @@
             const errorMsg = document.getElementById('errorMessage');
             const submitBtn = e.target.querySelector('.btn');
 
-            // Hide messages
+
             successMsg.style.display = 'none';
             errorMsg.style.display = 'none';
             
-            // Show loading
+
             loading.style.display = 'block';
             submitBtn.disabled = true;
 
-            // Prepare order data - matches your database structure
+
             const orderData = {
-                prescriptionId: 1, // You can pass this via URL params
+                prescriptionId: 1,
                 prescriptionName: document.getElementById('prescriptionName').textContent,
                 doctorName: document.getElementById('doctorName').textContent,
                 medicines: [
@@ -98,7 +98,7 @@
                     successMsg.style.display = 'block';
                     e.target.reset();
                     
-                    // Redirect after 2 seconds
+
                     setTimeout(() => {
                         window.location.href = 'dashboard.html';
                     }, 2000);
@@ -116,13 +116,12 @@
             }
         });
 
-        // Load prescription data from URL params if available
+
         window.addEventListener('DOMContentLoaded', function() {
             const urlParams = new URLSearchParams(window.location.search);
             const prescriptionId = urlParams.get('prescriptionId');
             
             if (prescriptionId) {
-                // In a real app, you would fetch prescription details from the backend
                 console.log('Loading prescription:', prescriptionId);
             }
         });
