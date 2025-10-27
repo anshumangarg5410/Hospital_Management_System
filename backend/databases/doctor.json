@@ -5,6 +5,7 @@
     "specialization": "Cardiologist",
     "experience": 12,
     "hospital": "City Heart Hospital",
+    "password": "something",
     "contact": {
       "phone": "+91-9876543210",
       "email": "ramesh.kumar@cityheart.com"
@@ -21,6 +22,7 @@
     "specialization": "Dermatologist",
     "experience": 8,
     "hospital": "Skin Care Clinic",
+    "password": "something",
     "contact": {
       "phone": "+91-9123456780",
       "email": "anita.sharma@skincare.com"
@@ -37,6 +39,7 @@
     "specialization": "Pediatrician",
     "experience": 15,
     "hospital": "Sunshine Children Hospital",
+    "password": "something",
     "contact": {
       "phone": "+91-9988776655",
       "email": "vikram.singh@sunshine.com"
@@ -53,6 +56,7 @@
     "specialization": "Neurologist",
     "experience": 10,
     "hospital": "NeuroCare Clinic",
+    "password": "something",
     "contact": {
       "phone": "+91-9871234567",
       "email": "priya.verma@neurocare.com"
@@ -67,6 +71,7 @@
     "name": "Dr. Arjun Mehta",
     "specialization": "Orthopedic Surgeon",
     "experience": 18,
+    "password": "something",
     "hospital": "OrthoLife Hospital",
     "contact": {
       "phone": "+91-9123765480",
