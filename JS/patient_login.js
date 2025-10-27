@@ -14,7 +14,6 @@ const passwordInputRegister = document.querySelectorAll("#patient_register_passw
 const backendLink = "https://hospitality-management-system-xdyy.onrender.com";
 // const backendLink = "http://localhost:3000";
 
-// -------------------- LOGIN --------------------
 loginButton.addEventListener("click", async () => {
     const username = usernameInputLogin.value.trim();
     const password = passwordInputLogin.value.trim();
@@ -50,7 +49,7 @@ loginButton.addEventListener("click", async () => {
     }
 });
 
-// -------------------- REGISTER --------------------
+
 registerButton.addEventListener("click", async () => {
     const username = usernameInputRegister.value.trim();
     const email = emailInputRegister.value.trim();
@@ -61,7 +60,7 @@ registerButton.addEventListener("click", async () => {
         return;
     }
 
-    // Password validation (at least 8 characters & includes / or # or $)
+
     const passwordRegex = /^(?=.*[\/#$]).{8,}$/;
     if (!passwordRegex.test(password)) {
         alert("Password must be at least 8 characters and include at least one of: / # $");

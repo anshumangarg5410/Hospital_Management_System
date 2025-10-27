@@ -1,4 +1,4 @@
-// navbar.js - Complete version with all functionality
+
 
 const navbarAuth = document.querySelector("#authSection");
 const userDropdown = document.querySelector("#userDropdown");
@@ -112,7 +112,6 @@ function logout(e) {
         });
 }
 
-// ========== MOBILE MENU TOGGLE ==========
 function setupMobileMenu() {
     if (!mobileMenuBtn || !navLinks) return;
 

@@ -3,28 +3,28 @@
 const BACKEND = "https://hospitality-management-system-xdyy.onrender.com"
 // const BACKEND = "http://localhost:3000"
 
-// ========== TAB SWITCHING ==========
+
 function showTab(event, tabName) {
-  // Hide all tabs
+
   const tabs = document.querySelectorAll('.tab-content');
   tabs.forEach(tab => tab.classList.remove('active'));
 
-  // Remove active class from all nav items
+
   const navItems = document.querySelectorAll('.nav-item');
   navItems.forEach(item => item.classList.remove('active'));
 
-  // Show selected tab
+
   const selectedTab = document.getElementById(tabName);
   if (selectedTab) {
     selectedTab.classList.add('active');
   }
 
-  // Add active class to clicked nav item
+
   if (event && event.currentTarget) {
     event.currentTarget.classList.add('active');
   }
 
-  // Update page title dynamically
+
   const titles = {
     dashboard: 'Dashboard',
     appointments: 'Appointments',
@@ -39,14 +39,14 @@ function showTab(event, tabName) {
     titleElement.textContent = titles[tabName] || 'Dashboard';
   }
 
-  // Load data for specific tabs
+
   loadTabData(tabName);
 
-  // Scroll to top
+
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// ========== LOAD TAB DATA ==========
+
 function loadTabData(tabName) {
   switch(tabName) {
     case 'appointments':
@@ -64,7 +64,7 @@ function loadTabData(tabName) {
   }
 }
 
-// ========== HELPER FUNCTIONS ==========
+
 function setText(id, text) {
   const el = document.getElementById(id);
   if (el) el.textContent = text;
@@ -75,7 +75,7 @@ function setValue(id, val) {
   if (el) el.value = val ?? "";
 }
 
-// ========== LOAD CURRENT USER ==========
+
 async function loadCurrentUser() {
   try {
     const res = await fetch(`${BACKEND}/currentUser`);
@@ -83,8 +83,6 @@ async function loadCurrentUser() {
     
     if (!json.success) {
       console.log("No logged in user:", json.message);
-      // Uncomment to redirect to login
-      // window.location.href = "../HTML/patient_login_page.html";
       return;
     }
     
@@ -95,7 +93,7 @@ async function loadCurrentUser() {
 }
 
 function populateUser(user) {
-  // Display name and ID
+
   setText("displayUserName", user.name || user.username || "Patient");
   
   const idText = user.ID !== undefined 
@@ -115,7 +113,7 @@ function populateUser(user) {
     avatarEl.textContent = initials;
   }
 
-  // Fill profile form inputs
+
   setValue("userName", user.name || "");
   setValue("userEmail", user.email || "");
   setValue("userPhone", user.phone || "");
@@ -123,11 +121,11 @@ function populateUser(user) {
   setValue("userBlood", user.bloodGroup || "");
   setValue("userAddress", user.address || "");
 
-  // Store username for updates
+
   document.body.dataset.currentUsername = user.username;
 }
 
-// ========== UPDATE PROFILE ==========
+
 async function updateProfile() {
   const username = document.body.dataset.currentUsername;
   const name = document.getElementById("userName")?.value?.trim();
