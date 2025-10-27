@@ -48,8 +48,6 @@ loginButton.addEventListener("click", async () => {
 registerButton.addEventListener("click", async () => {
     const username = usernameInputRegister.value.trim();
     const password = passwordInputRegister.value.trim();
-    const name = username;
-    const email = name;
 
     if (!username || !password) {
         alert("Please enter both username and password");
