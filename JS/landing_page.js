@@ -6,7 +6,7 @@ const navLinks = document.querySelector('.nav-links');
 const backendLink = "https://hospitality-management-system-xdyy.onrender.com";
 // const backendLink = "http://localhost:3000"; 
 
-// ========== LOAD NAVBAR BASED ON LOGIN STATUS ==========
+
 async function loadNavbar() {
     try {
         const response = await fetch(`${backendLink}/currentUser`);
@@ -25,7 +25,7 @@ async function loadNavbar() {
     }
 }
 
-// ========== SHOW USER PROFILE DROPDOWN ==========
+
 function showUserProfile(user) {
     if (navbarAuth) navbarAuth.style.display = "none";
     if (userDropdown) userDropdown.style.display = "block";
@@ -49,7 +49,7 @@ function showUserProfile(user) {
         navUserAvatar.textContent = initials;
     }
 
-    // Add Cart Link Dynamically
+
     const dropdownMenu = userDropdown.querySelector(".dropdown-menu");
     if (dropdownMenu) {
         const existingCart = dropdownMenu.querySelector(".dropdown-item.cart-link");
@@ -69,13 +69,13 @@ function showUserProfile(user) {
     }
 }
 
-// ========== SHOW LOGIN BUTTON ==========
+
 function showLoginButton() {
     if (navbarAuth) navbarAuth.style.display = "block";
     if (userDropdown) userDropdown.style.display = "none";
 }
 
-// ========== LOGOUT FUNCTION ==========
+
 function logout(e) {
     if (e) e.preventDefault();
     
@@ -94,7 +94,7 @@ function logout(e) {
         });
 }
 
-// ========== MOBILE MENU TOGGLE ==========
+
 function setupMobileMenu() {
     if (!mobileMenuBtn || !navLinks) return;
 
@@ -113,7 +113,7 @@ function setupMobileMenu() {
     });
 }
 
-// ========== MOBILE DROPDOWN TOGGLE ==========
+
 function setupMobileDropdown() {
     if (!userDropdown) return;
 
@@ -129,7 +129,7 @@ function setupMobileDropdown() {
     }
 }
 
-// ========== CLOSE MENU WHEN CLICKING NAV ITEMS ==========
+
 function setupNavItemClicks() {
     const navItems = document.querySelectorAll('.nav-links .here a');
     
@@ -147,7 +147,7 @@ function setupNavItemClicks() {
     });
 }
 
-// ========== CLOSE MENU WHEN CLICKING OUTSIDE ==========
+
 function setupOutsideClick() {
     document.addEventListener('click', (e) => {
         if (mobileMenuBtn && navLinks && window.innerWidth <= 968) {
@@ -170,7 +170,7 @@ function setupOutsideClick() {
     });
 }
 
-// ========== HANDLE WINDOW RESIZE ==========
+
 function setupResizeHandler() {
     window.addEventListener('resize', () => {
         if (window.innerWidth > 968) {
@@ -188,17 +188,14 @@ function setupResizeHandler() {
     });
 }
 
-// ========================================
-// SEARCH FUNCTIONALITY (Landing Page Only)
-// ========================================
 function initializeSearch() {
     const searchInput = document.querySelector(".search-input");
     const searchContainer = document.querySelector(".search-container");
     
-    // Exit if search elements don't exist (not on landing page)
+
     if (!searchInput || !searchContainer) return;
 
-    // Create clear button
+
     const clearBtn = document.createElement('button');
     clearBtn.className = 'clear-search-btn';
     clearBtn.innerHTML = '<i class="fas fa-times"></i>';
@@ -209,7 +206,7 @@ function initializeSearch() {
         searchWrapper.appendChild(clearBtn);
     }
 
-    // Create suggestions container
+
     const suggestionsContainer = document.createElement('div');
     suggestionsContainer.className = 'suggestions-container';
     searchContainer.appendChild(suggestionsContainer);
@@ -217,7 +214,7 @@ function initializeSearch() {
     let selectedIndex = -1;
     let searchData = [];
 
-    // Load search data from backend
+
     async function loadSearchData() {
         try {
             const response = await fetch(`${backendLink}/searchItems`);
@@ -231,7 +228,7 @@ function initializeSearch() {
         }
     }
 
-    // Show/hide clear button
+
     searchInput.addEventListener('input', () => {
         if (searchInput.value.trim()) {
             clearBtn.classList.add('show');
@@ -242,7 +239,7 @@ function initializeSearch() {
         }
     });
 
-    // Clear button functionality
+
     clearBtn.addEventListener('click', () => {
         searchInput.value = '';
         clearBtn.classList.remove('show');
@@ -296,7 +293,7 @@ function initializeSearch() {
         suggestionsContainer.classList.add('show');
         selectedIndex = -1;
 
-        // Add click handlers
+
         document.querySelectorAll('.suggestion-item').forEach(item => {
             item.addEventListener('click', () => {
                 const link = item.getAttribute('data-link');
@@ -315,7 +312,7 @@ function initializeSearch() {
         suggestionsContainer.classList.add('show');
     }
 
-    // Keyboard navigation
+
     searchInput.addEventListener('keydown', (e) => {
         const items = document.querySelectorAll('.suggestion-item');
         
@@ -356,45 +353,45 @@ function initializeSearch() {
         });
     }
 
-    // Close on click outside
+
     document.addEventListener('click', (e) => {
         if (!searchContainer.contains(e.target)) {
             clearSuggestions();
         }
     });
 
-    // Focus behavior
+
     searchInput.addEventListener('focus', () => {
         if (searchInput.value.trim()) {
             updateSuggestions(searchInput.value.trim());
         }
     });
 
-    // Load search data on initialization
+
     loadSearchData();
 }
 
-// ========== INITIALIZE ON PAGE LOAD ==========
+
 document.addEventListener("DOMContentLoaded", () => {
-    // Load user data and setup navbar
+
     loadNavbar();
     
-    // Setup all navbar event handlers
+
     setupMobileMenu();
     setupMobileDropdown();
     setupNavItemClicks();
     setupOutsideClick();
     setupResizeHandler();
 
-    // Setup logout button
+
     const logoutBtn = document.getElementById("logoutBtn");
     if (logoutBtn) {
         logoutBtn.addEventListener("click", logout);
     }
 
-    // Initialize search functionality (only on landing page)
+
     initializeSearch();
 });
 
-// Expose logout globally
+
 window.logout = logout;

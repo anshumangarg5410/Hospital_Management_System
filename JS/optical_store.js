@@ -6,7 +6,7 @@ async function loadMedicines(categoryFilter = "All") {
     const productGrid = document.querySelector(".product-grid");
     productGrid.innerHTML = "";
 
-    // Filter
+
     const filteredMedicines =
       categoryFilter === "All"
         ? data.medicines
@@ -51,14 +51,14 @@ async function loadMedicines(categoryFilter = "All") {
       "<p>Failed to load medicines.</p>";
   }
 }
-// ===================== CONFIG =====================
+
 const API_BASE = "https://hospitality-management-system-xdyy.onrender.com";
 // const API_BASE = "http://localhost:3000";
 
 let allMedicines = [];
 let currentUser = null;
 
-// ===================== CHECK LOGIN STATUS =====================
+
 async function checkLoginStatus() {
   try {
     const response = await fetch(`${API_BASE}/login-status`);
@@ -88,7 +88,7 @@ async function checkLoginStatus() {
   }
 }
 
-// ===================== LOGOUT =====================
+
 async function setupLogout() {
   const logoutBtn = document.getElementById("logoutBtn");
   if (!logoutBtn) return;
@@ -106,7 +106,7 @@ async function setupLogout() {
   });
 }
 
-// ===================== ADD TO CART =====================
+
 async function addToCart(medicineId) {
   if (!currentUser) {
     alert("Please login to add items to your cart");
@@ -134,7 +134,7 @@ async function addToCart(medicineId) {
   }
 }
 
-// ===================== LOAD CART =====================
+
 async function loadCart() {
   const cartContainer = document.getElementById("cartContainer");
   if (!cartContainer) return;
@@ -171,7 +171,7 @@ async function loadCart() {
   }
 }
 
-// ===================== REMOVE FROM CART =====================
+
 async function removeFromCart(medicineId) {
   try {
     const response = await fetch(`${API_BASE}/cart/remove/${medicineId}`, {
@@ -190,7 +190,7 @@ async function removeFromCart(medicineId) {
   }
 }
 
-// ===================== FILTERS =====================
+
 function filterMedicines() {
   const selectedCategories = Array.from(
     document.querySelectorAll("#categoryFilters input:checked")
@@ -225,7 +225,7 @@ function filterMedicines() {
   displayMedicines(filtered);
 }
 
-// ===================== DISPLAY FILTERED MEDICINES =====================
+
 function displayMedicines(medicines) {
   const productGrid = document.querySelector(".product-grid");
   if (!productGrid) return;
@@ -254,14 +254,14 @@ function displayMedicines(medicines) {
     .join("");
 }
 
-// ===================== INITIALIZE =====================
+
 document.addEventListener("DOMContentLoaded", () => {
   checkLoginStatus();
   setupLogout();
   loadMedicines("Optical Store");
   loadCart();
 
-  // Filter listeners
+
   document
     .querySelectorAll(
       "#categoryFilters input, #conditionFilters input, #priceFilters input"

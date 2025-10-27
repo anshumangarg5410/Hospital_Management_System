@@ -169,8 +169,6 @@ async function updateProfile() {
   }
 }
 
-// ========== CHANGE PASSWORD ==========
-// ========== CHANGE PASSWORD ==========
 async function changePassword() {
   const username = document.body.dataset.currentUsername;
   const currentPassword = document.getElementById("currentPassword")?.value?.trim();
@@ -187,7 +185,7 @@ async function changePassword() {
     return;
   }
 
-  // Password validation
+
   const passwordRegex = /^(?=.*[\/#$]).{8,}$/;
   if (!passwordRegex.test(newPassword)) {
     alert("Password must be at least 8 characters and include at least one of: / # $");
@@ -205,7 +203,7 @@ async function changePassword() {
     
     if (json.success) {
       alert(json.message || "Password changed successfully!");
-      // Clear password fields
+
       setValue("currentPassword", "");
       setValue("newPassword", "");
       setValue("confirmPassword", "");
@@ -217,7 +215,7 @@ async function changePassword() {
     alert("Error changing password. Please check your connection.");
   }
 }
-// ========== LOGOUT ==========
+
 async function logout() {
   if (!confirm("Are you sure you want to logout?")) return;
   
@@ -226,12 +224,12 @@ async function logout() {
     window.location.href = "../HTML/patient_login_page.html";
   } catch (err) {
     console.error("Logout error:", err);
-    // Redirect anyway
+
     window.location.href = "../HTML/patient_login_page.html";
   }
 }
 
-// ========== LOAD DASHBOARD DATA ==========
+
 async function loadDashboardData() {
   try {
     const [apRes, pRes, oRes, rRes] = await Promise.all([
@@ -246,7 +244,7 @@ async function loadDashboardData() {
     const oJson = await oRes.json();
     const rJson = await rRes.json();
 
-    // Update stat cards
+
     if (apJson.success) {
       setText("statAppointments", apJson.appointments.length);
       renderDashboardAppointments(apJson.appointments.slice(0, 2));
@@ -270,7 +268,7 @@ async function loadDashboardData() {
   }
 }
 
-// ========== RENDER DASHBOARD APPOINTMENTS ==========
+
 function renderDashboardAppointments(appointments) {
   const container = document.getElementById("dashboardAppointmentsList");
   if (!container) return;
@@ -307,7 +305,7 @@ function renderDashboardAppointments(appointments) {
   `).join('');
 }
 
-// ========== RENDER DASHBOARD PRESCRIPTIONS ==========
+
 function renderDashboardPrescriptions(prescriptions) {
   const container = document.getElementById("dashboardPrescriptionsList");
   if (!container) return;
@@ -343,7 +341,7 @@ function renderDashboardPrescriptions(prescriptions) {
   `).join('');
 }
 
-// ========== LOAD ALL APPOINTMENTS ==========
+
 async function loadAllAppointments() {
   try {
     const res = await fetch(`${BACKEND}/appointments`);
@@ -387,7 +385,7 @@ async function loadAllAppointments() {
   }
 }
 
-// ========== LOAD ALL PRESCRIPTIONS ==========
+
 async function loadAllPrescriptions() {
   try {
     const res = await fetch(`${BACKEND}/prescriptions`);
@@ -429,7 +427,7 @@ async function loadAllPrescriptions() {
   }
 }
 
-// ========== LOAD MEDICINE ORDERS ==========
+
 async function loadMedicineOrders() {
   try {
     const res = await fetch(`${BACKEND}/orders`);
@@ -473,7 +471,7 @@ async function loadMedicineOrders() {
   }
 }
 
-// ========== LOAD MEDICAL REPORTS ==========
+
 async function loadMedicalReports() {
   try {
     const res = await fetch(`${BACKEND}/reports`);
@@ -507,7 +505,7 @@ async function loadMedicalReports() {
   }
 }
 
-// ========== UTILITY: FORMAT DATE TIME ==========
+
 function formatDateTime(dateTimeStr) {
   try {
     const date = new Date(dateTimeStr);
@@ -524,13 +522,13 @@ function formatDateTime(dateTimeStr) {
   }
 }
 
-// ========== INITIALIZE ON PAGE LOAD ==========
+
 document.addEventListener("DOMContentLoaded", () => {
   loadCurrentUser();
   loadDashboardData();
 });
 
-// ========== EXPOSE FUNCTIONS TO GLOBAL SCOPE ==========
+
 window.showTab = showTab;
 window.updateProfile = updateProfile;
 window.changePassword = changePassword;

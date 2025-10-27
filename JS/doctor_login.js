@@ -28,11 +28,11 @@ login_as_doctor_btn.addEventListener("click", async () => {
         const result = await response.json();
 
         if (result.success) {
-            alert(result.message); // optional: show success message
-            // redirect to landing page after login
-            window.location.href = "../index.html"; // change this path to your landing page
+            alert(result.message); 
+
+            window.location.href = "../index.html"; 
         } else {
-            alert(result.message); // show error like "Wrong password" or "User not found"
+            alert(result.message); 
         }
     } catch (err) {
         console.error("Login failed:", err);
