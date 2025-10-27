@@ -19,17 +19,17 @@ login_as_doctor_btn.addEventListener("click", async () => {
     }
 
     try {
-        const response = await fetch(backendLink + "/login", {
+        const response = await fetch(backendLink + "/doctor/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({name, email, username, password })
+            body: JSON.stringify({username, password })
         });
 
         const result = await response.json();
 
         if (result.success) {
             alert(result.message); 
-
+            
             window.location.href = "../index.html"; 
         } else {
             alert(result.message); 

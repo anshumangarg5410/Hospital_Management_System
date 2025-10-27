@@ -12,6 +12,7 @@ const filePath = path.join(__dirname, "databases", "Authentication.json");
 const reviewFilePath = path.join(__dirname, "databases", "reviews.json");
 const searchFilePath = path.join(__dirname, "databases", "searchData.json");
 const medicinesFilePath = path.join(__dirname, "databases", "medicines.json");
+const doctorsFilePath = path.join(__dirname, "databases", "doctor.json");
 
 //present user
 let Current_User_Index = null;
@@ -322,6 +323,40 @@ app.delete("/cart/remove/:medicineId", (req, res) => {
   writeDB(data);
 
   res.json({ success: true, message: "Removed from cart", cart: data.users[Current_User_Index].cart });
+});
+
+let Current_Doctor_Index = null;
+
+
+function readDoctorsDB() {
+  return JSON.parse(fs.readFileSync(doctorsFilePath, "utf8"));
+}
+
+// Doctor ka login 
+app.post("/doctor/login", (req, res) => {
+  try {
+    const data = readDoctorsDB();
+    const { username, password } = req.body;
+
+    const doctorIndex = data.findIndex(d => d.username === username);
+
+    if (doctorIndex === -1)
+      return res.json({ success: false, message: "Doctor not found!" });
+
+    if (data[doctorIndex].password !== password)
+      return res.json({ success: false, message: "Wrong password!" });
+
+    Current_Doctor_Index = doctorIndex;
+
+    res.json({
+      success: true,
+      message: "Login successful!",
+      user: data[doctorIndex],
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, message: "Internal Server Error" });
+  }
 });
 
 // listen to server! 
