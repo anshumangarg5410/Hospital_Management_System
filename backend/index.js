@@ -375,6 +375,16 @@ app.get("/doctor/current", (req, res) => {
   }
 });
 
+app.post("/doctor/logout", (req, res) => {
+  try {
+    Current_Doctor_Index = null; 
+    res.json({ success: true, message: "Doctor logged out successfully" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, message: "Internal Server Error" });
+  }
+});
+
 
 // listen to server! 
 const PORT = 3000;
