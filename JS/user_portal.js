@@ -1,7 +1,7 @@
 // user_portal.js
 // const BACKEND = "http://localhost:3000";
-const BACKEND = "https://hospitality-management-system-xdyy.onrender.com"
-// const BACKEND = "http://localhost:3000"
+
+import BACKEND from '../backend/databases/server_data'
 
 
 function showTab(event, tabName) {

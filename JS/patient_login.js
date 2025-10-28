@@ -11,8 +11,7 @@ const usernameInputRegister = document.querySelector("#patient_register_username
 const emailInputRegister = document.querySelector('input[name="email"]');
 const passwordInputRegister = document.querySelectorAll("#patient_register_password")[1];
 
-const backendLink = "https://hospitality-management-system-xdyy.onrender.com";
-// const backendLink = "http://localhost:3000";
+import backendLink from '../backend/databases/server_data'
 
 loginButton.addEventListener("click", async () => {
     const username = usernameInputLogin.value.trim();

@@ -5,9 +5,7 @@ const userDropdown = document.querySelector("#userDropdown");
 const mobileMenuBtn = document.querySelector('.mobile-menu');
 const navLinks = document.querySelector('.nav-links');
 
-const backendLink = "https://hospitality-management-system-xdyy.onrender.com"
-// const backendLink = "http://localhost:3000"; 
-
+import backendLink from '../backend/databases/server_data'
 
 async function loadNavbar() {
     try {

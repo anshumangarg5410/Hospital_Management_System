@@ -1,5 +1,5 @@
-const API_BASE = "https://hospitality-management-system-xdyy.onrender.com";
-// const API_BASE = "http://localhost:3000";
+
+import API_BASE from '../backend/databases/server_data'
 
 async function loadMedicines(categoryFilter = "All") {
   try {

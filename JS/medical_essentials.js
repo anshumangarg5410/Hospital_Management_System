@@ -1,3 +1,5 @@
+import API_BASE from '../backend/databases/server_data'
+
 async function loadMedicines(categoryFilter = "All") {
   try {
     const response = await fetch("../backend/databases/medicines.json");
@@ -52,8 +54,7 @@ async function loadMedicines(categoryFilter = "All") {
   }
 }
 
-const API_BASE = "https://hospitality-management-system-xdyy.onrender.com";
-// const API_BASE = "http://localhost:3000";
+
 
 let allMedicines = [];
 let currentUser = null;

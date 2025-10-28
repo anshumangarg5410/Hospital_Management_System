@@ -1,5 +1,5 @@
-const BACKEND = "https://hospitality-management-system-xdyy.onrender.com";
-// const BACKEND = "http://localhost:3000"
+
+import BACKEND from '../backend/databases/server_data'
 
 window.addEventListener("DOMContentLoaded", () => {
   const loginButton = document.querySelector("#login_as_patient_btn");
