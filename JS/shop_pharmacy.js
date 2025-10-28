@@ -1,7 +1,6 @@
 // ===================== CONFIG =====================
-
-
-import API_BASE from '../backend/databases/server_data'
+const API_BASE = "https://hospitality-management-system-xdyy.onrender.com";
+// const API_BASE = "http://localhost:3000";
 
 
 let allMedicines = [];

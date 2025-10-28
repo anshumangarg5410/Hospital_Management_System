@@ -1,5 +1,5 @@
 
-        import API_URL from '../backend/databases/server_data'
+        const API_URL = 'http://localhost:3000';
         let currentPaymentMethod = 'card';
 
 
