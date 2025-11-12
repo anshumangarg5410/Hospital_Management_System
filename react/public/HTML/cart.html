@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping Cart - HMS</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: #f8f9fa;
+      padding: 1rem;
+    }
+
+    .cart-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      color: #2563eb;
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: clamp(1.5rem, 4vw, 2rem);
+    }
+
+    .cart-items {
+      margin-bottom: 2rem;
+    }
+
+    .cart-item {
+      display: grid;
+      grid-template-columns: 100px 1fr auto;
+      gap: 1.5rem;
+      padding: 1.5rem;
+      border: 1px solid #e9ecef;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      align-items: center;
+      transition: box-shadow 0.3s ease;
+    }
+
+    .cart-item:hover {
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .cart-item img {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+
+    .item-details h3 {
+      font-size: clamp(1rem, 2vw, 1.1rem);
+      margin-bottom: 0.5rem;
+      color: #374151;
+    }
+
+    .item-details p {
+      color: #6c757d;
+      font-size: clamp(0.8rem, 1.5vw, 0.9rem);
+      margin-bottom: 0.25rem;
+    }
+
+    .item-price {
+      font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+      font-weight: bold;
+      color: #0b3d2e;
+    }
+
+    .item-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      align-items: flex-end;
+    }
+
+    .quantity-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .quantity-controls button {
+      width: 32px;
+      height: 32px;
+      border: 1px solid #dee2e6;
+      background: white;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: all 0.2s ease;
+    }
+
+    .quantity-controls button:hover {
+      background: #f8f9fa;
+      transform: scale(1.05);
+    }
+
+    .quantity-controls button:active {
+      transform: scale(0.95);
+    }
+
+    .quantity-controls span {
+      min-width: 40px;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    .remove-btn {
+      background: none;
+      border: none;
+      color: #dc3545;
+      cursor: pointer;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: color 0.2s ease;
+    }
+
+    .remove-btn:hover {
+      color: #c82333;
+    }
+
+    .cart-summary {
+      border-top: 2px solid #e9ecef;
+      padding-top: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .total {
+      font-size: clamp(1.2rem, 3vw, 1.5rem);
+      font-weight: bold;
+      color: #374151;
+    }
+
+    .total span {
+      color: #0b3d2e;
+    }
+
+    .checkout-btn {
+      background: #0b3d2e;
+      color: white;
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 8px;
+      font-size: clamp(0.95rem, 2vw, 1.1rem);
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .checkout-btn:hover {
+      background: #145a40;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(11, 61, 46, 0.3);
+    }
+
+    .checkout-btn:active {
+      transform: translateY(0);
+    }
+
+    .empty-cart {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: #6c757d;
+    }
+
+    .empty-cart i {
+      font-size: clamp(3rem, 8vw, 4rem);
+      margin-bottom: 1rem;
+      color: #dee2e6;
+    }
+
+    .empty-cart h2 {
+      font-size: clamp(1.3rem, 3vw, 1.8rem);
+      margin-bottom: 0.5rem;
+    }
+
+    .empty-cart p {
+      font-size: clamp(0.9rem, 2vw, 1rem);
+      margin-bottom: 1.5rem;
+    }
+
+    .continue-shopping {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.75rem 1.5rem;
+      background: #2563eb;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      font-size: clamp(0.9rem, 2vw, 1rem);
+    }
+
+    .continue-shopping:hover {
+      background: #1d4ed8;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    }
+
+    .loading {
+      text-align: center;
+      padding: 3rem;
+      color: #6c757d;
+      font-size: clamp(0.9rem, 2vw, 1rem);
+    }
+
+    /* Tablet View */
+    @media (max-width: 768px) {
+      body {
+        padding: 0.5rem;
+      }
+
+      .cart-container {
+        padding: 1.5rem;
+        border-radius: 8px;
+      }
+
+      h1 {
+        margin-bottom: 1.5rem;
+        gap: 8px;
+      }
+
+      .cart-item {
+        grid-template-columns: 80px 1fr;
+        gap: 1rem;
+        padding: 1rem;
+      }
+
+      .cart-item img {
+        width: 80px;
+        height: 80px;
+      }
+
+      .item-actions {
+        grid-column: 1 / -1;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        margin-top: 0.5rem;
+        padding-top: 0.5rem;
+        border-top: 1px solid #e9ecef;
+      }
+
+      .item-price {
+        order: -1;
+      }
+
+      .quantity-controls {
+        order: 0;
+      }
+
+      .remove-btn {
+        order: 1;
+      }
+
+      .cart-summary {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .checkout-btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+
+    /* Mobile View */
+    @media (max-width: 480px) {
+      body {
+        padding: 0.25rem;
+      }
+
+      .cart-container {
+        padding: 1rem;
+        border-radius: 6px;
+      }
+
+      h1 {
+        margin-bottom: 1rem;
+        gap: 6px;
+      }
+
+      .cart-item {
+        grid-template-columns: 70px 1fr;
+        gap: 0.75rem;
+        padding: 0.75rem;
+      }
+
+      .cart-item img {
+        width: 70px;
+        height: 70px;
+      }
+
+      .item-details h3 {
+        margin-bottom: 0.25rem;
+      }
+
+      .item-details p {
+        line-height: 1.4;
+      }
+
+      .item-actions {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+        margin-top: 0.25rem;
+        padding-top: 0.75rem;
+      }
+
+      .item-price {
+        width: 100%;
+        text-align: left;
+      }
+
+      .quantity-controls {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      .quantity-controls button {
+        width: 36px;
+        height: 36px;
+      }
+
+      .remove-btn {
+        width: 100%;
+        justify-content: center;
+        padding: 0.5rem;
+        background: #fff5f5;
+        border-radius: 4px;
+      }
+
+      .cart-summary {
+        padding-top: 1rem;
+      }
+
+      .total {
+        width: 100%;
+        text-align: center;
+      }
+
+      .checkout-btn {
+        padding: 0.85rem 1.5rem;
+      }
+
+      .empty-cart {
+        padding: 3rem 1rem;
+      }
+    }
+
+    /* Extra Small Devices */
+    @media (max-width: 360px) {
+      .cart-container {
+        padding: 0.75rem;
+      }
+
+      .cart-item {
+        grid-template-columns: 60px 1fr;
+        gap: 0.5rem;
+        padding: 0.5rem;
+      }
+
+      .cart-item img {
+        width: 60px;
+        height: 60px;
+      }
+
+      .quantity-controls button {
+        width: 32px;
+        height: 32px;
+        font-size: 0.9rem;
+      }
+
+      .quantity-controls span {
+        min-width: 30px;
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="cart-container">
+    <h1>
+      <i class="fas fa-shopping-cart"></i>
+      Shopping Cart
+    </h1>
+    
+    <div id="cartContent">
+      <div class="loading">
+        <i class="fas fa-spinner fa-spin"></i> Loading your cart...
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // const API_BASE = 'http://localhost:3000';
+    const API_BASE = 'https://hospitality-management-system-xdyy.onrender.com';
+
+    async function loadCart() {
+      try {
+        const response = await fetch(`${API_BASE}/cart`);
+        const data = await response.json();
+
+        if (!data.success) {
+          if (response.status === 401) {
+            window.location.href = '/HTML/user_sel.html';
+            return;
+          }
+          throw new Error(data.message);
+        }
+
+        displayCart(data.cart);
+      } catch (error) {
+        console.error('Error loading cart:', error);
+        document.getElementById('cartContent').innerHTML = 
+          '<div class="empty-cart"><i class="fas fa-exclamation-circle"></i><h2>Error loading cart</h2><p>Please try again later</p></div>';
+      }
+    }
+
+    function displayCart(cartItems) {
+      const container = document.getElementById('cartContent');
+
+      if (cartItems.length === 0) {
+        container.innerHTML = `
+          <div class="empty-cart">
+            <i class="fas fa-shopping-cart"></i>
+            <h2>Your cart is empty</h2>
+            <p>Add some medicines to get started</p>
+            <a href="/HTML/shop_pharmacy.html" class="continue-shopping">
+              <i class="fas fa-shopping-bag"></i> Continue Shopping
+            </a>
+          </div>
+        `;
+        return;
+      }
+
+      const total = cartItems.reduce((sum, item) => 
+        sum + (item.medicine?.price || 0) * item.quantity, 0
+      );
+
+      container.innerHTML = `
+        <div class="cart-items">
+          ${cartItems.map(item => `
+            <div class="cart-item">
+              <img src="${item.medicine.image}" alt="${item.medicine.name}">
+              <div class="item-details">
+                <h3>${item.medicine.name}</h3>
+                <p>${item.medicine.description}</p>
+                <p>Price: $${item.medicine.price.toFixed(2)}</p>
+              </div>
+              <div class="item-actions">
+                <div class="item-price">$${(item.medicine.price * item.quantity).toFixed(2)}</div>
+                <div class="quantity-controls">
+                  <button onclick="updateQuantity(${item.medicineId}, ${item.quantity - 1})" aria-label="Decrease quantity">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <span>${item.quantity}</span>
+                  <button onclick="updateQuantity(${item.medicineId}, ${item.quantity + 1})" aria-label="Increase quantity">
+                    <i class="fas fa-plus"></i>
+                  </button>
+                </div>
+                <button class="remove-btn" onclick="removeFromCart(${item.medicineId})">
+                  <i class="fas fa-trash"></i> Remove
+                </button>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+        <div class="cart-summary">
+          <div class="total">Total: <span>$${total.toFixed(2)}</span></div>
+          <button class="checkout-btn" onclick="checkout()">
+            <i class="fas fa-credit-card"></i> Proceed to Checkout
+          </button>
+        </div>
+      `;
+    }
+
+    async function updateQuantity(medicineId, newQuantity) {
+      if (newQuantity < 1) {
+        removeFromCart(medicineId);
+        return;
+      }
+
+      try {
+        const response = await fetch(`${API_BASE}/cart/update`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ medicineId, quantity: newQuantity })
+        });
+
+        const data = await response.json();
+        if (data.success) {
+          loadCart();
+        }
+      } catch (error) {
+        console.error('Error updating quantity:', error);
+        alert('Failed to update quantity. Please try again.');
+      }
+    }
+
+    async function removeFromCart(medicineId) {
+      if (!confirm('Remove this item from cart?')) return;
+
+      try {
+        const response = await fetch(`${API_BASE}/cart/remove/${medicineId}`, {
+          method: 'DELETE'
+        });
+
+        const data = await response.json();
+        if (data.success) {
+          loadCart();
+        }
+      } catch (error) {
+        console.error('Error removing item:', error);
+        alert('Failed to remove item. Please try again.');
+      }
+    }
+
+    function checkout() {
+      alert('Checkout functionality coming soon!');
+    }
+
+    loadCart();
+  </script>
+</body>
+</html>

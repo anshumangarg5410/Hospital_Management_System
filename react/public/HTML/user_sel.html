@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Registration Forms</title>
+    <link rel="stylesheet" href="../CSS/user_sel.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Login Form -->
+        <div class="form-container active" id="loginContainer">
+
+            <!-- Welcome Section-->
+            <div class="welcome-panel">
+                <div class="welcome-content">
+                    <h2>Hello, Welcome!</h2>
+                    <a href="#">Please Select your user type...</a>
+                </div>
+            </div>
+
+            <!-- Login form section on the right side -->
+            <div class="form-panel">
+                <div class="form-content">
+                    <h2>Login As</h2>
+                    <form id="loginForm" onsubmit="handleLogin(event)">
+                        <div class="input-field">
+                <a href="../HTML/patient_login_page.html" class="submit-button">Patient</a>
+                <a href="../HTML/login_doc.html" class="submit-button">Doctor</a>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+        </div>
+    </div>
+    	<script src="../JS/main.js"></script>
+</body>
+
+</html>

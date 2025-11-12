@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HMS Pharmacy</title>
+    <link rel="stylesheet" href="../CSS/shop_pharmacy2.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <nav>
+        <a href="#" class="logo">
+          <div class="logo_pic"></div>
+          <span>HMS</span>
+        </a>
+
+        <ul class="nav-links">
+          <li class="here"><a href="../index.html">Home</a></li>
+          <li class="here"><a href="../HTML/about.html">About</a></li>
+          <li class="here"><a href="../HTML/contactpage.html">Contact</a></li>
+          <li class="here" id="authSection">
+            <a href="../HTML/user_sel.html" id="authLink">Login</a>
+          </li>
+
+          <li class="user-dropdown" id="userDropdown" style="display: none">
+            <div class="user-profile-nav">
+              <div class="user-avatar-small" id="navUserAvatar">U</div>
+              <span id="navUserName">User</span>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="dropdown-menu">
+              <a href="../HTML/user_portal.html" class="dropdown-item">
+                <i class="fas fa-user-circle"></i> My Portal
+              </a>
+              <a
+                href="../HTML/user_portal.html?tab=appointments"
+                class="dropdown-item"
+              >
+                <i class="fas fa-calendar-check"></i> Appointments
+              </a>
+              <a
+                href="../HTML/user_portal.html?tab=prescriptions"
+                class="dropdown-item"
+              >
+                <i class="fas fa-prescription"></i> Prescriptions
+              </a>
+              <a
+                href="../HTML/user_portal.html?tab=profile"
+                class="dropdown-item"
+              >
+                <i class="fas fa-cog"></i> Settings
+              </a>
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-item" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i> Logout
+              </a>
+            </div>
+          </li>
+        </ul>
+        <button class="mobile-menu">
+          <i class="fas fa-bars"></i>
+        </button>
+      </nav>
+    </header>
+
+    <!-- Banner -->
+    <section class="banner">
+      <div class="banner-content">
+        <h2>Grab Upto 50% Off On Selected Medicines</h2>
+        <button>Buy Now</button>
+      </div>
+    </section>
+
+    <!-- Filters -->
+    <section class="filters">
+      <div class="filter-group">
+        <select id="filterType">
+          <option value="All">Medicine Type</option>
+          <option value="Tablet">Tablet</option>
+          <option value="Syrup">Syrup</option>
+          <option value="Capsule">Capsule</option>
+          <option value="Ointment">Ointment</option>
+        </select>
+        <select id="filterPrice">
+          <option value="All">Price</option>
+          <option value="0-10">$0 - $10</option>
+          <option value="10-20">$10 - $20</option>
+          <option value="20+">$20+</option>
+        </select>
+        <select id="filterCondition">
+          <option value="All">Health Condition</option>
+          <option value="Allergy">Allergy</option>
+          <option value="Cold & Cough">Cold & Cough</option>
+          <option value="Pain Relief">Pain Relief</option>
+        </select>
+        <select id="filterRating">
+          <option value="All">Rating</option>
+          <option value="5">⭐⭐⭐⭐⭐</option>
+          <option value="4">⭐⭐⭐⭐</option>
+          <option value="3">⭐⭐⭐</option>
+        </select>
+        <button class="sort-btn">Sort by</button>
+      </div>
+    </section>
+
+    <!-- Product Section -->
+    <main class="product-section">
+      <h2>Medicines For You!</h2>
+      <!-- PRODUCT GRID STARTS EMPTY -->
+      <div class="product-grid" id="productGrid"></div>
+    </main>
+
+    <!-- Footer -->
+
+    <script src="../JS/most_clicked.js"></script>
+    <script src="../JS/navbar.js"></script>
+  </body>
+</html>
