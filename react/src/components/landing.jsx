@@ -88,7 +88,6 @@ export default function LandingPage() {
         body {
           font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
           color: #333;
-          background: #f8f9fa;
         }
 
         /* Hero Section */
@@ -172,9 +171,10 @@ export default function LandingPage() {
         .hero-image {
           flex: 1;
           height: 400px;
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          background-image: url('/Assets/hosheartclipart.png');
+          background-size: cover;
+          background-repeat: no-repeat;
           border-radius: 20px;
-          box-shadow: 0 20px 60px rgba(102, 126, 234, 0.3);
         }
 
         /* Row Title */
