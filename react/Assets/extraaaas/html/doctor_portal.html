@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Doctor Dashboard | HealthCare+</title>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+		<link rel="stylesheet" href="../CSS/doctor_portal.css" />
+        		<link rel="icon" type="image/png" href="../Assets/mainlogo.png" />
+	</head>
+	<body>
+		<main class="dashboard-container">
+			<!-- Sidebar -->
+			<aside class="sidebar">
+				<section class="doctor-profile">
+					<a href="../index.html" ><span class="doctor-avatar"></span></a>
+					<!-- <article>
+                    <h2 class="doctor-name">Dr. Sarah Mitchell</h2>
+                    <p class="doctor-title">Cardiologist</p>
+                </article> -->
+				</section>
+
+				<nav class="nav-menu">
+					<ul>
+						<li class="nav-item active" data-section="overview">
+							<i class="fas fa-th-large nav-icon"></i>
+							<!-- <span>Overview</span> -->
+						</li>
+						<li class="nav-item" data-section="appointments">
+							<i class="fas fa-calendar-alt nav-icon"></i>
+							<!-- <span>Appointments</span> -->
+						</li>
+						<li class="nav-item" data-section="schedule">
+							<i class="fas fa-clock nav-icon"></i>
+							<!-- <span>My Schedule</span> -->
+						</li>
+						<li class="nav-item" data-section="medicines">
+							<i class="fas fa-pills nav-icon"></i>
+							<!-- <span>Medicine Inventory</span> -->
+						</li>
+						<li class="nav-item" data-section="prescriptions">
+							<i class="fas fa-prescription nav-icon"></i>
+							<!-- <span>Prescriptions</span> -->
+						</li>
+						<li class="nav-item" data-section="patients">
+							<i class="fas fa-users nav-icon"></i>
+							<!-- <span>My Patients</span> -->
+						</li>
+						<li class="nav-item" data-section="ratings">
+							<i class="fas fa-star nav-icon"></i>
+							<!-- <span>Ratings & Reviews</span> -->
+						</li>
+						<li class="nav-item" data-section="salary">
+							<i class="fas fa-wallet nav-icon"></i>
+							<!-- <span>Salary & Payments</span> -->
+						</li>
+					</ul>
+				</nav>
+			</aside>
+
+			<!-- Main Content -->
+			<section class="main-content">
+				<!-- Header -->
+				<!-- <header class="dashboard-header">
+					<h1 class="page-title" id="pageTitle">Welcome Soham</h1>
+					<article class="date-time">
+						<p class="current-date" id="currentDate">
+							Saturday, August 30, 2025
+						</p>
+						<p class="current-time" id="currentTime">10:30 AM</p>
+					</article>
+				</header> -->
+
+				<header class="dashboard-header">
+					<h1
+						class="page-title"
+						id="name_of_the_doctor"
+						style="display: flex; gap: 10px">
+						<p style="color: #667eea">Welcome</p>
+						Dr. Soham
+					</h1>
+					<article class="date-time">
+						<p class="current-date" id="currentDate"></p>
+						<!-- <p class="current-time" id="currentTime"></p> -->
+						<p class="current-time" id="currentTime">10:30 AM</p>
+					</article>
+				</header>
+
+				<!-- Overview Section -->
+				<section class="content-section active" id="overview">
+					<ul class="stats-grid">
+						<li class="stat-card">
+							<header class="stat-header">
+								<span class="stat-icon appointments">
+									<i class="fas fa-calendar-check"></i>
+								</span>
+								<article class="stat-info">
+									<h3>12</h3>
+									<p>Today's Appointments</p>
+								</article>
+							</header>
+						</li>
+						<li class="stat-card">
+							<header class="stat-header">
+								<span class="stat-icon patients">
+									<i class="fas fa-users"></i>
+								</span>
+								<article class="stat-info">
+									<h3>847</h3>
+									<p>Total Patients</p>
+								</article>
+							</header>
+						</li>
+						<li class="stat-card">
+							<header class="stat-header">
+								<span class="stat-icon rating">
+									<i class="fas fa-star"></i>
+								</span>
+								<article class="stat-info">
+									<h3>4.9</h3>
+									<p>Average Rating</p>
+								</article>
+							</header>
+						</li>
+						<li class="stat-card">
+							<header class="stat-header">
+								<span class="stat-icon earnings">
+									<i class="fas fa-dollar-sign"></i>
+								</span>
+								<article class="stat-info">
+									<h3>$8,540</h3>
+									<p>This Month</p>
+								</article>
+							</header>
+						</li>
+					</ul>
+
+					<article class="data-section">
+						<h3 class="section-title">
+							<i class="fas fa-clock"></i>
+							Recent Activity
+						</h3>
+						<ul class="activity-list">
+							<li class="activity-item">
+								<strong>10:00 AM</strong> - Appointment with John Smith
+								completed
+							</li>
+							<li class="activity-item">
+								<strong>9:30 AM</strong> - Prescription issued for Sarah Johnson
+							</li>
+							<li class="activity-item">
+								<strong>9:00 AM</strong> - New appointment request from Mike
+								Wilson
+							</li>
+						</ul>
+					</article>
+
+					<!-- <article class="ongoing-patients">
+                    <h3 class="ongoing-title"> 
+                        <i class="fa-solid fa-clock-rotate-left"></i>
+                        Ongoing Patients
+                    </h3>
+                    
+                    <ul class="ongoing-items">
+                        
+                        <li class="ongoing-list">
+                            <heading>1. </heading>
+
+                        </li>
+                    </ul>
+                </article> -->
+
+					<section class="appoint-patient">
+						<!-- ongoing patients -->
+						<article class="ongoing-patients">
+							<h3 class="ongoing-title">
+								<i class="fa-solid fa-clock-rotate-left"></i>
+								Ongoing Patients
+							</h3>
+
+							<!-- Table header -->
+							<div class="ongoing-header">
+								<span>Patient Name</span>
+								<span>Age</span>
+								<span>Disease</span>
+								<span>Room</span>
+								<span>Status</span>
+							</div>
+
+							<!-- Patient rows -->
+							<div class="ongoing-row">
+								<span>Rahul Verma</span>
+								<span>35</span>
+								<span>Fever</span>
+								<span>203</span>
+								<span class="status">Under Treatment</span>
+							</div>
+
+							<div class="ongoing-row">
+								<span>Priya Singh</span>
+								<span>28</span>
+								<span>Fracture</span>
+								<span>110</span>
+								<span class="status">Observation</span>
+							</div>
+
+							<div class="ongoing-row">
+								<span>Amit Kumar</span>
+								<span>42</span>
+								<span>Diabetes</span>
+								<span>307</span>
+								<span class="status">Regular Checkup</span>
+							</div>
+						</article>
+
+						<!-- upcoming appointments -->
+						<article class="upcoming-appointment">
+							<h3 class="upcoming-title">
+								<i class="fa-solid fa-clock-rotate-left"></i>
+								Upcoming Appointments
+							</h3>
+
+							<!-- Table header -->
+							<div class="upcoming-header">
+								<span>Patient Name</span>
+								<span>Age</span>
+								<span>Date</span>
+								<span>Slot</span>
+							</div>
+
+							<!-- Patient rows -->
+							<div class="upcoming-row">
+								<span>Rahul Verma</span>
+								<span>35</span>
+								<span>30 Feb 2026</span>
+								<span>12:00 PM</span>
+							</div>
+
+							<div class="upcoming-row">
+								<span>Priya Singh</span>
+								<span>28</span>
+								<span>30 Feb 2026</span>
+								<span>5:00 PM</span>
+							</div>
+
+							<div class="upcoming-row">
+								<span>Amit Kumar</span>
+								<span>42</span>
+								<span>30 Feb 2026</span>
+								<span>7:00 PM</span>
+							</div>
+						</article>
+					</section>
+				</section>
+
+				<!-- Appointments Section -->
+				<!-- <section class="content-section" id="appointments">
+                <article class="data-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-calendar-alt"></i>
+                        Pending Appointments
+                    </h3>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Patient Name</th>
+                                    <th>Time</th>
+                                    <th>Type</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>John Smith</td>
+                                    <td>11:00 AM</td>
+                                    <td>Consultation</td>
+                                    <td><span class="status pending">Pending</span></td>
+                                    <td>
+                                        <button class="btn btn-accept">Accept</button>
+                                        <button class="btn btn-reject">Reject</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Emily Davis</td>
+                                    <td>2:30 PM</td>
+                                    <td>Follow-up</td>
+                                    <td><span class="status confirmed">Confirmed</span></td>
+                                    <td>
+                                        <button class="btn btn-view">View Details</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Michael Johnson</td>
+                                    <td>4:00 PM</td>
+                                    <td>Emergency</td>
+                                    <td><span class="status pending">Pending</span></td>
+                                    <td>
+                                        <button class="btn btn-accept">Accept</button>
+                                        <button class="btn btn-reject">Reject</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </article>
+            </section> -->
+
+				<!-- Schedule Section -->
+				<!-- <section class="content-section" id="schedule">
+                <article class="data-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-calendar"></i>
+                        Weekly Schedule
+                    </h3>
+                    <ul class="schedule-calendar">
+                        <li class="calendar-day">
+                            <strong>Mon</strong><br>8 appointments
+                        </li>
+                        <li class="calendar-day">
+                            <strong>Tue</strong><br>6 appointments
+                        </li>
+                        <li class="calendar-day">
+                            <strong>Wed</strong><br>10 appointments
+                        </li>
+                        <li class="calendar-day">
+                            <strong>Thu</strong><br>7 appointments
+                        </li>
+                        <li class="calendar-day">
+                            <strong>Fri</strong><br>9 appointments
+                        </li>
+                        <li class="calendar-day today has-appointments">
+                            <strong>Sat</strong><br>12 appointments
+                        </li>
+                        <li class="calendar-day">
+                            <strong>Sun</strong><br>Off Day
+                        </li>
+                    </ul>
+                </article>
+            </section> -->
+
+				<!-- Medicines Section -->
+				<!-- <section class="content-section" id="medicines">
+                <article class="data-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-pills"></i>
+                        Medicine Inventory
+                    </h3>
+                    <ul class="medicine-grid">
+                        <li class="medicine-card in-stock">
+                            <h4 class="medicine-name">Aspirin 75mg</h4>
+                            <p class="medicine-details">Pain reliever & blood thinner</p>
+                            <p class="stock-indicator in-stock">In Stock: 250 units</p>
+                        </li>
+                        <li class="medicine-card low-stock">
+                            <h4 class="medicine-name">Metformin 500mg</h4>
+                            <p class="medicine-details">Diabetes medication</p>
+                            <p class="stock-indicator low-stock">Low Stock: 45 units</p>
+                        </li>
+                        <li class="medicine-card in-stock">
+                            <h4 class="medicine-name">Lisinopril 10mg</h4>
+                            <p class="medicine-details">Blood pressure medication</p>
+                            <p class="stock-indicator in-stock">In Stock: 180 units</p>
+                        </li>
+                        <li class="medicine-card out-of-stock">
+                            <h4 class="medicine-name">Amoxicillin 250mg</h4>
+                            <p class="medicine-details">Antibiotic</p>
+                            <p class="stock-indicator out-of-stock">Out of Stock</p>
+                        </li>
+                    </ul>
+                </article>
+            </section> -->
+
+				<!-- Prescriptions Section -->
+				<!-- <section class="content-section" id="prescriptions">
+                <article class="data-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-prescription"></i>
+                        Recent Prescriptions
+                    </h3>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Patient</th>
+                                    <th>Medicine</th>
+                                    <th>Dosage</th>
+                                    <th>Date</th>
+                                    <th>Duration</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>John Smith</td>
+                                    <td>Aspirin</td>
+                                    <td>75mg daily</td>
+                                    <td>Aug 29, 2025</td>
+                                    <td>30 days</td>
+                                </tr>
+                                <tr>
+                                    <td>Emily Davis</td>
+                                    <td>Metformin</td>
+                                    <td>500mg twice daily</td>
+                                    <td>Aug 28, 2025</td>
+                                    <td>90 days</td>
+                                </tr>
+                                <tr>
+                                    <td>Michael Johnson</td>
+                                    <td>Lisinopril</td>
+                                    <td>10mg daily</td>
+                                    <td>Aug 27, 2025</td>
+                                    <td>60 days</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </article>
+            </section> -->
+
+				<!-- Patients Section -->
+				<!-- <section class="content-section" id="patients">
+                <article class="data-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-users"></i>
+                        Recent Patients
+                    </h3>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Patient Name</th>
+                                    <th>Last Visit</th>
+                                    <th>Condition</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>John Smith</td>
+                                    <td>Aug 29, 2025</td>
+                                    <td>Hypertension</td>
+                                    <td><span class="status completed">Treated</span></td>
+                                    <td><button class="btn btn-view">View History</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Emily Davis</td>
+                                    <td>Aug 28, 2025</td>
+                                    <td>Diabetes Type 2</td>
+                                    <td><span class="status completed">Treated</span></td>
+                                    <td><button class="btn btn-view">View History</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Michael Johnson</td>
+                                    <td>Aug 27, 2025</td>
+                                    <td>Heart Palpitations</td>
+                                    <td><span class="status completed">Treated</span></td>
+                                    <td><button class="btn btn-view">View History</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </article>
+            </section> -->
+
+				<!-- Ratings Section -->
+				<!-- <section class="content-section" id="ratings">
+                <ul class="stats-grid">
+                    <li class="stat-card">
+                        <header class="stat-header">
+                            <span class="stat-icon rating">
+                                <i class="fas fa-star"></i>
+                            </span>
+                            <article class="stat-info">
+                                <h3>4.9/5.0</h3>
+                                <p>Overall Rating</p>
+                            </article>
+                        </header>
+                    </li>
+                    <li class="stat-card">
+                        <header class="stat-header">
+                            <span class="stat-icon patients">
+                                <i class="fas fa-thumbs-up"></i>
+                            </span>
+                            <article class="stat-info">
+                                <h3>234</h3>
+                                <p>Total Reviews</p>
+                            </article>
+                        </header>
+                    </li>
+                </ul>
+
+                <article class="data-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-comments"></i>
+                        Recent Reviews
+                    </h3>
+                    <ul class="reviews-list">
+                        <li class="review-item">
+                            <header class="review-header">
+                                <strong>Sarah Johnson</strong>
+                                <span class="rating-stars">★★★★★</span>
+                            </header>
+                            <p class="review-text">"Excellent doctor! Very thorough and caring. Highly recommend."</p>
+                        </li>
+                        <li class="review-item">
+                            <header class="review-header">
+                                <strong>Robert Brown</strong>
+                                <span class="rating-stars">★★★★☆</span>
+                            </header>
+                            <p class="review-text">"Great experience. Wait time was minimal and treatment was effective."</p>
+                        </li>
+                    </ul>
+                </article>
+            </section> -->
+
+				<!-- Salary Section -->
+				<!-- <section class="content-section" id="salary">
+                <ul class="stats-grid">
+                    <li class="stat-card">
+                        <header class="stat-header">
+                            <span class="stat-icon earnings">
+                                <i class="fas fa-dollar-sign"></i>
+                            </span>
+                            <article class="stat-info">
+                                <h3>$12,500</h3>
+                                <p>Monthly Salary</p>
+                            </article>
+                        </header>
+                    </li>
+                    <li class="stat-card">
+                        <header class="stat-header">
+                            <span class="stat-icon appointments">
+                                <i class="fas fa-credit-card"></i>
+                            </span>
+                            <article class="stat-info">
+                                <h3>$2,340</h3>
+                                <p>Bonus Earnings</p>
+                            </article>
+                        </header>
+                    </li>
+                </ul>
+
+                <article class="data-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-money-check-alt"></i>
+                        Payment History
+                    </h3>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Month</th>
+                                    <th>Base Salary</th>
+                                    <th>Bonus</th>
+                                    <th>Total</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>August 2025</td>
+                                    <td>$12,500</td>
+                                    <td>$2,340</td>
+                                    <td>$14,840</td>
+                                    <td><span class="status unpaid">Pending</span></td>
+                                </tr>
+                                <tr>
+                                    <td>July 2025</td>
+                                    <td>$12,500</td>
+                                    <td>$1,890</td>
+                                    <td>$14,390</td>
+                                    <td><span class="status paid">Paid</span></td>
+                                </tr>
+                                <tr>
+                                    <td>June 2025</td>
+                                    <td>$12,500</td>
+                                    <td>$2,100</td>
+                                    <td>$14,600</td>
+                                    <td><span class="status paid">Paid</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </article>
+            </section> -->
+			</section>
+		</main>
+
+		<script>
+			function updateDateTime() {
+				const now = new Date();
+
+				// Format date
+				const options = {
+					weekday: "long",
+					year: "numeric",
+					month: "long",
+					day: "numeric",
+				};
+				document.getElementById("currentDate").textContent =
+					now.toLocaleDateString("en-US", options);
+
+				// Format time
+				// const timeOptions = {
+				// 	hour: "numeric",
+				// 	minute: "numeric",
+				// 	second: "numeric",
+				// 	hour12: true,
+				// };
+				// document.getElementById("currentTime").textContent =
+				// 	now.toLocaleTimeString("en-US", timeOptions);
+			}
+
+			// Initial call
+			updateDateTime();
+
+			// Update every second
+			setInterval(updateDateTime, 1000);
+		</script>
+        	<script src="../JS/main.js"></script>
+            <script src="../JS/doctor_portal.js"></script>
+	</body>
+</html>

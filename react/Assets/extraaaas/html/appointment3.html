@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Appointment</title>
+		<link rel="stylesheet" href="../CSS/appointment3.css" />
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
+			integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer" />
+					<link rel="icon" type="image/png" href="../Assets/mainlogo.png" />
+	</head>
+	<body>
+		<main>
+			<div class="main">
+				<div class="main_head">
+					<p>Book Appointment</p>
+					<i class="fa-regular fa-circle-xmark"></i>
+				</div>
+				<ul class="row">
+					<ul class="subrow">
+						<!-- Doctor selection -->
+						<li class="doctor_selection common_selection">
+							<label for="doctor">Doctor</label>
+							<select name="doctors" id="doctor">
+								<option value="sohamSood">Dr. Soham Sood</option>
+								<option value="riaGupta">Dr. Ria Gupta</option>
+								<option value="parthSohal">Dr. Parth Sohal</option>
+								<option value="renuSingh">Dr. Renu Singh</option>
+							</select>
+						</li>
+
+						<!-- Category selection -->
+						<li class="hygeine_selection common_selection">
+							<label for="category">Category</label>
+							<select name="category" id="category">
+								<option value="cardiology">Cardiology</option>
+								<option value="orthopedic">Orthopedic</option>
+								<option value="dermatology">Dermatology</option>
+								<option value="pediatrics">Pediatrics</option>
+								<option value="neurology">Neurology</option>
+								<option value="gynecology">Gynecology</option>
+							</select>
+						</li>
+					</ul>
+				</ul>
+
+				<ul class="row">
+					<ul class="subrow">
+						<li class="doctor_selection common_selection">
+							<label for="doctor">Date</label>
+							<input type="date" class="date_option" />
+						</li>
+
+						<li class="hygeine_selection common_selection time">
+							<label for="hygeine">From</label>
+							<select name="Hygeine ">
+								<option value="08:00">8:00 AM</option>
+								<option value="09:00">9:00 AM</option>
+								<option value="10:00">10:00 AM</option>
+								<option value="11:00">11:00 AM</option>
+								<option value="12:00">12:00 PM</option>
+							</select>
+						</li>
+
+						<li class="hygeine_selection common_selection time">
+							<label for="hygeine">To</label>
+							<select name="Hygeine time">
+								<option value="08:00">8:00 AM</option>
+								<option value="09:00">9:00 AM</option>
+								<option value="10:00">10:00 AM</option>
+								<option value="11:00">11:00 AM</option>
+								<option value="12:00">12:00 PM</option>
+							</select>
+						</li>
+					</ul>
+				</ul>
+
+				<ul class="row">
+					<ul class="subrow">
+						<li class="duration common_selection">
+							<label for="doctor">Duration</label>
+							<ul class="minutes">
+								<li class="single_minute first">30 Min</li>
+								<li class="single_minute second">15 Min</li>
+								<li class="single_minute third">60 Min</li>
+							</ul>
+						</li>
+					</ul>
+				</ul>
+
+				<ul class="row">
+					<ul class="subrow">
+						<li class="doctor_selection common_selection">
+							<label for="doctor">Treatment</label>
+							<select name="doctors">
+								<option value="SohamSood">Dr. Soham Sood</option>
+								<option value="SohamSood">Dr. Soham Sood</option>
+								<option value="SohamSood">Dr. Soham Sood</option>
+								<option value="SohamSood">Dr. Soham Sood</option>
+							</select>
+						</li>
+					</ul>
+				</ul>
+
+				<div class="low_head">
+					<ul class="low_row">
+						<li class="cancel">Cancel</li>
+
+						<li class="create">Create</li>
+					</ul>
+				</div>
+			</div>
+		</main>
+			<script src="../JS/main.js"></script>
+				<script src="/JS/navbar.js"></script>
+	</body>
+
+</html>

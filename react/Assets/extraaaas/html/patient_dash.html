@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Patient Portal - HMS</title>
+		<link rel="stylesheet" href="../CSS/patient_dash.css" />
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+					<link rel="icon" type="image/png" href="../Assets/mainlogo.png" />
+	</head>
+	<body>
+		<aside class="sidebar">
+			<!-- <h1 class="logo">HMS</h1> -->
+			<section class="doctor-profile">
+		<a href="../index.html" ><span class="doctor-avatar"></span></a>
+				<!-- <article>
+                    <h2 class="doctor-name">Dr. Sarah Mitchell</h2>
+                    <p class="doctor-title">Cardiologist</p>
+                </article> -->
+			</section>
+			<nav class="nav-menu">
+				<ul>
+					<li class="nav-item active" data-section="overview">
+						<i class="fas fa-th-large nav-icon"></i>
+						<!-- 📅 -->
+						<!-- <span>Overview</span> -->
+					</li>
+					<li class="nav-item" data-section="appointments">
+						<i class="fas fa-calendar-alt nav-icon"></i>
+						<!-- 📋 -->
+						<!-- <span>Appointments</span> -->
+					</li>
+					<li class="nav-item" data-section="schedule">
+						<i class="fas fa-clock nav-icon"></i>
+						<!-- 📋 -->
+						<!-- <span>My Schedule</span> -->
+					</li>
+					<li class="nav-item" data-section="medicines">
+						<i class="fas fa-pills nav-icon"></i>
+						<!-- 💳 -->
+						<!-- <span>Medicine Inventory</span> -->
+					</li>
+					<li class="nav-item" data-section="prescriptions">
+						<i class="fas fa-prescription nav-icon"></i>
+						<!-- ⚙️ -->
+						<!-- <span>Prescriptions</span> -->
+					</li>
+					<li class="nav-item" data-section="patients">
+						<i class="fas fa-users nav-icon"></i>
+						<!-- 👤 -->
+						<!-- <span>My Patients</span> -->
+					</li>
+					<li class="nav-item" data-section="ratings">
+						<i class="fas fa-star nav-icon"></i>
+						<!-- <span>Ratings & Reviews</span> -->
+					</li>
+					<li class="nav-item" data-section="salary">
+						<!-- <i class="fas fa-wallet nav-icon"></i> -->
+						<!-- <span>Salary & Payments</span> -->
+					</li>
+				</ul>
+			</nav>
+		</aside>
+
+		<main class="main-content">
+			<header class="header">
+				<section class="welcome-section" >
+					<!-- <span class="patient-avatar">JS</span> -->
+					<span class="welcome-text">
+						<h1 id="name_of_the_patient">Welcome Ria Gupta</h1>
+						<p>Hope you're feeling well today!</p>
+					</span>
+				</section>
+
+				<section class="date-time">
+					<time class="date">Sunday, August 31, 2025</time>
+					<time class="time">10:30 AM</time>
+				</section>
+			</header>
+
+			<section class="stats-grid">
+				<article class="stat-card">
+					<span class="stat-icon">📅</span>
+					<span class="stas-div">
+						<span class="stat-value">Aug 5</span>
+						<span class="stat-label">Next Appointment</span>
+					</span>
+				</article>
+
+				<article class="stat-card">
+					<span class="stat-icon">❤️</span>
+					<span class="stas-div">
+						<span class="stat-value">Good</span>
+						<span class="stat-label">Health Status</span>
+					</span>
+				</article>
+
+				<article class="stat-card">
+					<span class="stat-icon">🩺</span>
+					<span class="stas-div">
+						<span class="stat-value">2</span>
+						<span class="stat-label">Pending Tests</span>
+					</span>
+				</article>
+
+				<article class="stat-card">
+					<span class="stat-icon">💬</span>
+					<span class="stas-div">
+						<span class="stat-value">3</span>
+						<span class="stat-label">New Messages</span>
+					</span>
+				</article>
+			</section>
+
+			<section class="content-grid">
+				<article class="section-card">
+					<header class="section-header">
+						<span class="section-icon">🕐</span>
+						<h2 class="section-title">Recent Activity</h2>
+					</header>
+
+					<ul class="activity-list">
+						<li class="activity-item">
+							<time class="activity-time">Today</time>
+							<span class="activity-text">Blood test results available</span>
+						</li>
+						<li class="activity-item">
+							<time class="activity-time">Aug 28</time>
+							<span class="activity-text">Prescription refill approved</span>
+						</li>
+						<li class="activity-item">
+							<time class="activity-time">Aug 25</time>
+							<span class="activity-text"
+								>Appointment completed with Dr. Sarah Wilson</span
+							>
+						</li>
+						<li class="activity-item">
+							<time class="activity-time">Aug 20</time>
+							<span class="activity-text">Health summary report updated</span>
+						</li>
+					</ul>
+				</article>
+
+				<article class="section-card">
+					<header class="section-header">
+						<span class="section-icon">📅</span>
+						<h2 class="section-title">Upcoming Appointments</h2>
+					</header>
+
+					<ul class="appointment-list">
+						<li class="appointment-item">
+							<time class="appointment-time">Aug 5<br />2:00 PM</time>
+							<section class="appointment-info">
+								<span class="appointment-doctor">Dr. Sarah Wilson</span>
+								<span class="appointment-type">Routine Checkup</span>
+							</section>
+							<span class="status-badge status-scheduled">Scheduled</span>
+						</li>
+						<li class="appointment-item">
+							<time class="appointment-time">Aug 12<br />10:30 AM</time>
+							<section class="appointment-info">
+								<span class="appointment-doctor">Dr. Michael Chen</span>
+								<span class="appointment-type">Cardiology Consultation</span>
+							</section>
+							<span class="status-badge status-scheduled">Scheduled</span>
+						</li>
+						<li class="appointment-item">
+							<time class="appointment-time">Aug 18<br />3:45 PM</time>
+							<section class="appointment-info">
+								<span class="appointment-doctor">Dr. Emily Rodriguez</span>
+								<span class="appointment-type">Lab Work Follow-up</span>
+							</section>
+							<span class="status-badge status-scheduled">Scheduled</span>
+						</li>
+					</ul>
+				</article>
+			</section>
+		</main>
+			<script src="../JS/main.js"></script>
+			<script src="../JS/patient_portal.js"></script>
+	</body>
+</html>

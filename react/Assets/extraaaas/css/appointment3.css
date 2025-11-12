@@ -1,0 +1,217 @@
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+
+/* main full container  */
+main {
+    background-color: rgb(226, 233, 241);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+}
+
+.main {
+    /* height and width to be adjusted in percents */
+    height: 550px;
+    width: 750px; 
+    background-color: rgb(255, 255, 255);
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* container top row  */
+.main_head {
+    height: 15%;
+    width: 100%;
+    /* background-color: red; */
+    border-bottom: 1px solid rgb(228, 229, 231);
+    /* background-color: blueviolet; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.main_head p {
+    margin-left: 30px;
+    font-weight: 500;
+    font-weight: 600;
+    font-family: sans-serif;
+    font-size: 1.8rem;
+}
+
+.main_head i {
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+.main_head i {
+    font-size: 1.8rem;
+    color: gray
+}
+
+
+/* sub rows containing selecting options  */
+ul.row {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-color: chartreuse; */
+    height: 17%;
+    width: 100%;
+}
+
+ul {
+    list-style: none;
+}
+
+.subrow {
+    height: 100%;
+    width: 90%;
+    /* background-color: red; */
+    display: flex;
+}
+
+.row li {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    /* background-color: cadetblue; */
+    width: 100%; 
+    /* baad mei puchu ga.. thoda dbt hai idhar */
+    align-items: center;
+    justify-content: center;
+}
+
+.common_selection {
+    display: flex;
+    /* background-color: bisque; */
+}
+
+.common_selection label {
+    height: 40%;
+    width: 100%;
+    background-color: transparent;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.common_selection select {
+    background-color:  transparent;
+    border: 1px solid rgb(245, 245, 245);
+    color: rgb(184, 184, 184);
+    border-radius: 30px;
+
+    padding: 12px;
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+}
+
+.common_selection.time select{
+    color: black;
+}
+
+.date_option {
+    background-color:  transparent;
+    border: 1px solid rgb(245, 245, 245);
+    color: rgb(184, 184, 184);
+    border-radius: 30px;
+    padding: 12px;
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+}
+
+.duration .minutes {
+    height: 60%;
+    width: 100%;
+    border-radius: 40px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: rgb(226, 233, 241);
+}
+
+.duration .single_minute {
+    height: 80%;
+    width: 32%;
+    cursor: pointer;
+    background-color: transparent;
+    border-radius: 40px;
+    color: rgb(152, 159, 167);
+}
+
+.duration .single_minute.first{
+    background-color: rgb(255, 255, 255);
+}
+
+/* .duration .single_minute.second{
+    background-color: rgb(255, 255, 255);
+}
+
+.duration .single_minute.third{
+    background-color: rgb(255, 255, 255);
+} */
+
+
+/* last row containing crate and cancel buttons */
+.low_head {
+    height: 12%;
+    width: 100%;
+    border-top: 1px solid rgb(228, 229, 231);
+    /* background-color: blueviolet; */
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    /* padding: 5%; */
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.low_row {
+    height: 90%;
+    width: 60%;
+    justify-content: space-evenly;
+    align-items: center;
+    /* background-color: dodgerblue; */
+    display: flex;
+    border-radius: 20px;
+}
+
+.low_row li {
+    /* background-color: orange; */
+    display: flex;
+    cursor: pointer;
+    border: 1px solid rgb(238, 240, 239);
+    border-radius: 50px;
+    font-size: 16px;
+    font-family: sans-serif
+    /* font-weight: 1000; */;
+    justify-content: center;
+    align-items: center;
+    height: 80%;
+    width: 40%;
+}
+
+.low_row .create {
+    color: white;
+    background-color: rgb(7, 47, 23);
+}
