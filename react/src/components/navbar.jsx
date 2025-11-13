@@ -1,29 +1,112 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 export default function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userName, setUserName] = useState('User');
-  const [userAvatar, setUserAvatar] = useState('U');
+  const [user, setUser] = useState(null);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const dropdownRef = useRef(null);
+  
+  const backendLink = "http://localhost:3000";
 
   useEffect(() => {
-    // Check if user is logged in (you can replace this with actual auth logic)
-    const user = null; // Replace with: JSON.parse(localStorage.getItem('user'))
-    if (user) {
-      setIsLoggedIn(true);
-      setUserName(user.name || 'User');
-      setUserAvatar(user.name?.charAt(0).toUpperCase() || 'U');
-    }
+    loadNavbar();
   }, []);
 
-  const handleLogout = () => {
-    // Add logout logic here
-    setIsLoggedIn(false);
-    setUserName('User');
-    setUserAvatar('U');
-    setDropdownOpen(false);
-  };
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownOpen(false);
+      }
+      
+      if (mobileMenuOpen && window.innerWidth <= 968) {
+        const nav = document.querySelector('.nav-links');
+        const btn = document.querySelector('.mobile-menu');
+        if (nav && btn && !nav.contains(event.target) && !btn.contains(event.target)) {
+          setMobileMenuOpen(false);
+        }
+      }
+    }
+
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, [dropdownOpen, mobileMenuOpen]);
+
+  useEffect(() => {
+    function handleResize() {
+      if (window.innerWidth > 968) {
+        setMobileMenuOpen(false);
+        setDropdownOpen(false);
+      }
+    }
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  async function loadNavbar() {
+    try {
+      const response = await fetch(`${backendLink}/currentUser`);
+      const result = await response.json();
+      
+      const userData = result.user || result;
+      if (userData && userData.username) {
+        setIsLoggedIn(true);
+        setUser(userData);
+      } else {
+        setIsLoggedIn(false);
+        setUser(null);
+      }
+    } catch (err) {
+      console.error("Error fetching login status:", err);
+      setIsLoggedIn(false);
+      setUser(null);
+    }
+  }
+
+  function getDisplayName() {
+    if (!user) return "User";
+    const name = user.name || user.username || "User";
+    return name.split(" ")[0];
+  }
+
+  function getInitials() {
+    if (!user) return "U";
+    const name = user.name || user.username || "U";
+    return name
+      .split(" ")
+      .map(s => s[0])
+      .join("")
+      .slice(0, 2)
+      .toUpperCase();
+  }
+
+  async function handleLogout(e) {
+    e.preventDefault();
+    
+if (!window.confirm("Are you sure you want to logout?")) return;
+
+    try {
+      const response = await fetch(`${backendLink}/logout`, { method: "POST" });
+      const data = await response.json();
+      console.log("Logout successful:", data);
+      alert("Logged out successfully!");
+      setIsLoggedIn(false);
+      setUser(null);
+      setDropdownOpen(false);
+      loadNavbar();
+    } catch (err) {
+      console.error("Logout error:", err);
+      setIsLoggedIn(false);
+      setUser(null);
+    }
+  }
+
+  function handleNavLinkClick() {
+    if (window.innerWidth <= 968) {
+      setMobileMenuOpen(false);
+    }
+  }
 
   return (
     <>
@@ -60,7 +143,7 @@ export default function Navbar() {
           color: #333;
         }
 
-        .logo-pic {
+        .logo_pic {
           width: 45px;
           height: 45px;
           background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -71,6 +154,10 @@ export default function Navbar() {
           color: #fff;
           font-weight: bold;
           font-size: 24px;
+        }
+
+        .logo_pic::before {
+          content: 'H';
         }
 
         .logo span {
@@ -84,6 +171,7 @@ export default function Navbar() {
           list-style: none;
           align-items: center;
           gap: 40px;
+          transition: all 0.3s ease;
         }
 
         .nav-links a {
@@ -96,6 +184,10 @@ export default function Navbar() {
 
         .nav-links a:hover {
           color: #667eea;
+        }
+
+        .here a {
+          position: relative;
         }
 
         .auth-link {
@@ -147,13 +239,13 @@ export default function Navbar() {
           color: #333;
         }
 
-        .chevron {
-          width: 16px;
-          height: 16px;
+        .fa-chevron-down {
+          font-size: 12px;
+          color: #666;
           transition: transform 0.3s;
         }
 
-        .chevron.open {
+        .dropdown-open .fa-chevron-down {
           transform: rotate(180deg);
         }
 
@@ -168,18 +260,16 @@ export default function Navbar() {
           box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
           border: 1px solid #e5e5e5;
           padding: 8px 0;
-          animation: dropdownSlide 0.3s ease;
+          opacity: 0;
+          visibility: hidden;
+          transform: translateY(-10px);
+          transition: all 0.3s ease;
         }
 
-        @keyframes dropdownSlide {
-          from {
-            opacity: 0;
-            transform: translateY(-10px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
+        .dropdown-menu.show {
+          opacity: 1;
+          visibility: visible;
+          transform: translateY(0);
         }
 
         .dropdown-item {
@@ -190,16 +280,17 @@ export default function Navbar() {
           text-decoration: none;
           transition: background 0.2s;
           gap: 12px;
+          cursor: pointer;
         }
 
         .dropdown-item:hover {
           background: #f8f9ff;
         }
 
-        .dropdown-item svg {
+        .dropdown-item i {
           width: 20px;
-          height: 20px;
           color: #667eea;
+          font-size: 18px;
         }
 
         .dropdown-divider {
@@ -208,208 +299,163 @@ export default function Navbar() {
           margin: 8px 0;
         }
 
-        .logout-btn {
-          color: #dc3545 !important;
+        .dropdown-item.logout {
+          color: #dc3545;
         }
 
-        .logout-btn:hover {
-          background: #fff5f5 !important;
+        .dropdown-item.logout:hover {
+          background: #fff5f5;
         }
 
-        .logout-btn svg {
-          color: #dc3545 !important;
+        .dropdown-item.logout i {
+          color: #dc3545;
         }
 
-        .mobile-menu-btn {
+        .mobile-menu {
           display: none;
           background: none;
           border: none;
           cursor: pointer;
           padding: 8px;
-        }
-
-        .mobile-menu-btn svg {
-          width: 28px;
-          height: 28px;
+          font-size: 24px;
           color: #333;
         }
 
-        .mobile-nav {
-          display: none;
-          padding: 20px;
-          border-top: 1px solid #e5e5e5;
-          animation: slideDown 0.3s ease;
-        }
-
-        @keyframes slideDown {
-          from {
-            opacity: 0;
-            max-height: 0;
-          }
-          to {
-            opacity: 1;
-            max-height: 500px;
-          }
-        }
-
-        .mobile-nav.open {
-          display: block;
-        }
-
-        .mobile-nav a,
-        .mobile-nav button {
-          display: block;
-          padding: 12px 0;
-          color: #555;
-          text-decoration: none;
-          font-weight: 500;
-          border: none;
-          background: none;
-          width: 100%;
-          text-align: left;
-          cursor: pointer;
-          font-size: 16px;
-        }
-
-        .mobile-nav a:hover,
-        .mobile-nav button:hover {
-          color: #667eea;
-        }
-
-        .mobile-user-info {
-          display: flex;
-          align-items: center;
-          gap: 10px;
-          padding: 12px 0;
-          border-bottom: 1px solid #e5e5e5;
-          margin-bottom: 10px;
-        }
-
-        @media (max-width: 768px) {
+        @media (max-width: 968px) {
           .nav-links {
-            display: none;
+            position: fixed;
+            left: -100%;
+            top: 70px;
+            flex-direction: column;
+            background-color: #fff;
+            width: 100%;
+            text-align: center;
+            transition: 0.3s;
+            box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+            padding: 20px 0;
+            align-items: flex-start;
+            padding-left: 20px;
+            gap: 0;
           }
 
-          .mobile-menu-btn {
+          .nav-links.active {
+            left: 0;
+          }
+
+          .nav-links li {
+            width: 100%;
+            padding: 10px 0;
+          }
+
+          .mobile-menu {
             display: block;
           }
+
+          .user-dropdown .dropdown-menu {
+            position: static;
+            box-shadow: none;
+            border: none;
+            padding: 0;
+            margin-top: 10px;
+            width: 100%;
+          }
+
+          .user-dropdown.active .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+          }
+
+          .user-dropdown .user-profile-nav {
+            justify-content: flex-start;
+          }
+        }
+
+        .cart-link {
+          /* Cart link styles */
         }
       `}</style>
 
       <header>
         <nav>
           <a href="#" className="logo">
-            <div className="logo-pic">H</div>
+            <div className="logo_pic"></div>
             <span>HMS</span>
           </a>
 
-          <ul className="nav-links">
-            <li><a href="#home">Home</a></li>
-            <li><a href="./HTML/about.html">About</a></li>
-            <li><a href="./HTML/contactpage.html">Contact</a></li>
-            
+          <ul className={`nav-links ${mobileMenuOpen ? 'active' : ''}`}>
+            <li className="here">
+              <a href="../index.html" onClick={handleNavLinkClick}>Home</a>
+            </li>
+            <li className="here">
+              <a href="./about.html" onClick={handleNavLinkClick}>About</a>
+            </li>
+            <li className="here">
+              <a href="./contactpage.html" onClick={handleNavLinkClick}>Contact</a>
+            </li>
+
             {!isLoggedIn ? (
-              <li>
-                <a href="./HTML/user_sel.html" className="auth-link">Login</a>
+              <li className="here">
+                <a href="./HTML/user_sel.html" className="auth-link" onClick={handleNavLinkClick}>
+                  Login
+                </a>
               </li>
             ) : (
-              <li className="user-dropdown">
+              <li 
+                className={`user-dropdown ${dropdownOpen ? 'active' : ''}`}
+                ref={dropdownRef}
+              >
                 <div 
-                  className="user-profile-nav"
-                  onClick={() => setDropdownOpen(!dropdownOpen)}
+                  className={`user-profile-nav ${dropdownOpen ? 'dropdown-open' : ''}`}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setDropdownOpen(!dropdownOpen);
+                  }}
                 >
-                  <div className="user-avatar-small">{userAvatar}</div>
-                  <span>{userName}</span>
-                  <svg 
-                    className={`chevron ${dropdownOpen ? 'open' : ''}`}
-                    fill="none" 
-                    stroke="currentColor" 
-                    viewBox="0 0 24 24"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
+                  <div className="user-avatar-small">{getInitials()}</div>
+                  <span>{getDisplayName()}</span>
+                  <i className="fas fa-chevron-down"></i>
                 </div>
 
-                {dropdownOpen && (
-                  <div className="dropdown-menu">
-                    <a href="./HTML/user_portal.html" className="dropdown-item">
-                      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                      </svg>
-                      My Portal
-                    </a>
-                    <a href="./HTML/user_portal.html?tab=appointments" className="dropdown-item">
-                      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                      </svg>
-                      Appointments
-                    </a>
-                    <a href="./HTML/user_portal.html?tab=prescriptions" className="dropdown-item">
-                      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                      </svg>
-                      Prescriptions
-                    </a>
-                    <a href="./HTML/user_portal.html?tab=profile" className="dropdown-item">
-                      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                      </svg>
-                      Settings
-                    </a>
-                    <div className="dropdown-divider"></div>
-                    <a href="#" onClick={handleLogout} className="dropdown-item logout-btn">
-                      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                      </svg>
-                      Logout
-                    </a>
-                  </div>
-                )}
+                <div className={`dropdown-menu ${dropdownOpen ? 'show' : ''}`}>
+                  <a href="./user_portal.html" className="dropdown-item" onClick={handleNavLinkClick}>
+                    <i className="fas fa-user-circle"></i> My Portal
+                  </a>
+                  <a href="./user_portal.html?tab=appointments" className="dropdown-item" onClick={handleNavLinkClick}>
+                    <i className="fas fa-calendar-check"></i> Appointments
+                  </a>
+                  <a href="./user_portal.html?tab=prescriptions" className="dropdown-item" onClick={handleNavLinkClick}>
+                    <i className="fas fa-prescription"></i> Prescriptions
+                  </a>
+                  <a href="./HTML/cart.html" className="dropdown-item cart-link" onClick={handleNavLinkClick}>
+                    <i className="fas fa-shopping-cart"></i> Cart
+                  </a>
+                  <a href="./user_portal.html?tab=profile" className="dropdown-item" onClick={handleNavLinkClick}>
+                    <i className="fas fa-cog"></i> Settings
+                  </a>
+                  <div className="dropdown-divider"></div>
+                  <a 
+                    href="#" 
+                    className="dropdown-item logout" 
+                    onClick={handleLogout}
+                  >
+                    <i className="fas fa-sign-out-alt"></i> Logout
+                  </a>
+                </div>
               </li>
             )}
           </ul>
 
           <button 
-            className="mobile-menu-btn"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="mobile-menu"
+            onClick={(e) => {
+              e.stopPropagation();
+              setMobileMenuOpen(!mobileMenuOpen);
+            }}
           >
-            {mobileMenuOpen ? (
-              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            ) : (
-              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            )}
+            <i className={`fas ${mobileMenuOpen ? 'fa-times' : 'fa-bars'}`}></i>
           </button>
         </nav>
-
-        <div className={`mobile-nav ${mobileMenuOpen ? 'open' : ''}`}>
-          {isLoggedIn && (
-            <div className="mobile-user-info">
-              <div className="user-avatar-small">{userAvatar}</div>
-              <span style={{ fontWeight: 500, color: '#333' }}>{userName}</span>
-            </div>
-          )}
-          
-          <a href="#home">Home</a>
-          <a href="./HTML/about.html">About</a>
-          <a href="./HTML/contactpage.html">Contact</a>
-          
-          {!isLoggedIn ? (
-            <a href="./HTML/user_sel.html" style={{ color: '#667eea', fontWeight: 600 }}>Login</a>
-          ) : (
-            <>
-              <a href="./HTML/user_portal.html">My Portal</a>
-              <a href="./HTML/user_portal.html?tab=appointments">Appointments</a>
-              <a href="./HTML/user_portal.html?tab=prescriptions">Prescriptions</a>
-              <a href="./HTML/user_portal.html?tab=profile">Settings</a>
-              <button onClick={handleLogout} style={{ color: '#dc3545', fontWeight: 600 }}>Logout</button>
-            </>
-          )}
-        </div>
       </header>
     </>
   );
