@@ -1,6 +1,5 @@
 const express = require("express");
 const { ApolloServer, gql } = require("apollo-server-express");
-const fetch = require("node-fetch");
 const cors = require("cors");
 
 const app = express();
@@ -24,6 +23,7 @@ const typeDefs = gql`
 const resolvers = {
   Query: {
     doctor: async () => {
+      // Node 18+ supports fetch globally (no import needed)
       const res = await fetch("http://localhost:3000/doctor/current");
       const json = await res.json();
       return json.success ? json.user : null;
@@ -43,3 +43,4 @@ async function start() {
 }
 
 start();
+
