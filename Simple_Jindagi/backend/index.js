@@ -198,7 +198,14 @@ app.post("/doctor/logout", (req, res) => {
   Current_Doctor_Index = null;
   res.json({ success: true });
 });
-
+app.get("/searchItems", (req, res) => {
+  try {
+    const data = JSON.parse(fs.readFileSync(searchFilePath, "utf8"));
+    res.json({ success: true, searchItems: data.searchItems });
+  } catch (err) {
+    res.status(500).json({ success: false, message: "Error reading search data" });
+  }
+});
 // ---------------------- SERVER ----------------------
 const PORT = 3000;
 app.listen(PORT, () => console.log(`Server running at http://localhost:${PORT}`));

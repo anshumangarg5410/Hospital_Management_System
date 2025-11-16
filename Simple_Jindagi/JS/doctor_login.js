@@ -4,8 +4,8 @@ const login_detail_password_doctor = document.querySelector("#doctor_login_passw
 console.log("ok")
 // import backendLink from '../backend/databases/server_data'
 
-const backendLink = "https://hospitality-management-system-xdyy.onrender.com"
-// const backendLink = "http://localhost:3000" 
+// const backendLink = "https://hospitality-management-system-xdyy.onrender.com"
+const backendLink = "http://localhost:3000" 
 
 login_as_doctor_btn.addEventListener("click", async () => {
     const username = login_detail_username_doctor.value;
