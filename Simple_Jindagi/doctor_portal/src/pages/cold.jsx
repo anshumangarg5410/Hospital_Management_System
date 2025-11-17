@@ -1,6 +1,36 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 export default function Cold() {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [readingProgress, setReadingProgress] = useState(0);
+  const [viewCount, setViewCount] = useState(0);
+  const [expandedSections, setExpandedSections] = useState({
+    symptoms: true,
+    causes: true,
+    prevention: true,
+    treatment: true
+  });
+
+  // Track scroll position
+  useEffect(() => {
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Simulate view count on mount
+  useEffect(() => {
+    const randomViews = Math.floor(Math.random() * 2000) + 1500;
+    setViewCount(randomViews);
+  }, []);
+
+  const toggleSection = (section) => {
+    setExpandedSections(prev => ({
+      ...prev,
+      [section]: !prev[section]
+    }));
+  };
+
   return (
     <div style={{
       minHeight: '100vh',
@@ -8,6 +38,47 @@ export default function Cold() {
       fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif'
     }}>
 
+
+      {/* Sticky Navigation */}
+      <nav style={{
+        position: 'sticky',
+        top: 0,
+        background: isScrolled ? 'rgba(255, 255, 255, 0.95)' : 'transparent',
+        backdropFilter: isScrolled ? 'blur(10px)' : 'none',
+        boxShadow: isScrolled ? '0 1px 3px rgba(0,0,0,0.1)' : 'none',
+        transition: 'all 0.3s ease',
+        zIndex: 999,
+        padding: '16px 20px'
+      }}>
+        <div style={{
+          maxWidth: '900px',
+          margin: '0 auto',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center'
+        }}>
+          <div style={{
+            fontSize: '18px',
+            fontWeight: '600',
+            color: '#111827'
+          }}>
+            🤧 Common Cold Guide
+          </div>
+          <div style={{
+            display: 'inline-block',
+            background: '#dbeafe',
+            padding: '6px 14px',
+            borderRadius: '20px',
+            fontSize: '13px',
+            color: '#1e40af',
+            fontWeight: '500'
+          }}>
+            👁️ {viewCount.toLocaleString()} views
+          </div>
+        </div>
+      </nav>
+
+      {/* Header */}
       <div style={{
         background: '#2563eb',
         padding: '60px 20px',
@@ -42,16 +113,14 @@ export default function Cold() {
         </div>
       </div>
 
-
+      {/* Content */}
       <div style={{
         maxWidth: '900px',
         margin: '0 auto',
         padding: '50px 20px'
       }}>
-
-        <div style={{
-          marginBottom: '50px'
-        }}>
+        {/* What is Common Cold */}
+        <div style={{ marginBottom: '50px' }}>
           <h2 style={{
             fontSize: '26px',
             fontWeight: '600',
@@ -80,222 +149,228 @@ export default function Cold() {
           </p>
         </div>
 
-
-        <div style={{
-          marginBottom: '50px'
-        }}>
-          <h2 style={{
-            fontSize: '26px',
-            fontWeight: '600',
-            color: '#111827',
-            marginBottom: '20px',
-            paddingBottom: '10px',
-            borderBottom: '2px solid #e5e7eb'
-          }}>
-            Common Symptoms
-          </h2>
-          <ul style={{
-            fontSize: '16px',
-            lineHeight: '2',
-            color: '#4b5563',
-            paddingLeft: '20px',
-            margin: 0
-          }}>
-            <li>Runny or stuffy nose</li>
-            <li>Sneezing</li>
-            <li>Sore throat</li>
-            <li>Cough</li>
-            <li>Mild headache</li>
-            <li>Body aches</li>
-            <li>Fatigue</li>
-            <li>Low-grade fever</li>
-            <li>Watery eyes</li>
-          </ul>
+        {/* Common Symptoms - Collapsible */}
+        <div style={{ marginBottom: '50px' }}>
+          <div 
+            onClick={() => toggleSection('symptoms')}
+            style={{
+              fontSize: '26px',
+              fontWeight: '600',
+              color: '#111827',
+              marginBottom: '20px',
+              paddingBottom: '10px',
+              borderBottom: '2px solid #e5e7eb',
+              cursor: 'pointer',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center'
+            }}
+          >
+            <span>Common Symptoms</span>
+            <span style={{ fontSize: '20px' }}>{expandedSections.symptoms ? '−' : '+'}</span>
+          </div>
+          {expandedSections.symptoms && (
+            <ul style={{
+              fontSize: '16px',
+              lineHeight: '2',
+              color: '#4b5563',
+              paddingLeft: '20px',
+              margin: 0
+            }}>
+              <li>Runny or stuffy nose</li>
+              <li>Sneezing</li>
+              <li>Sore throat</li>
+              <li>Cough</li>
+              <li>Mild headache</li>
+              <li>Body aches</li>
+              <li>Fatigue</li>
+              <li>Low-grade fever</li>
+              <li>Watery eyes</li>
+            </ul>
+          )}
         </div>
 
-
-        <div style={{
-          marginBottom: '50px'
-        }}>
-          <h2 style={{
-            fontSize: '26px',
-            fontWeight: '600',
-            color: '#111827',
-            marginBottom: '20px',
-            paddingBottom: '10px',
-            borderBottom: '2px solid #e5e7eb'
-          }}>
-            Why Does Cold Occur?
-          </h2>
-
-          <h3 style={{
-            fontSize: '18px',
-            fontWeight: '600',
-            color: '#374151',
-            marginBottom: '12px',
-            marginTop: '20px'
-          }}>
-            Transmission Methods:
-          </h3>
-          <ul style={{
-            fontSize: '16px',
-            lineHeight: '1.9',
-            color: '#4b5563',
-            paddingLeft: '20px',
-            marginBottom: '24px'
-          }}>
-            <li style={{marginBottom: '8px'}}>
-              <strong>Airborne droplets:</strong> When an infected person coughs or sneezes, virus particles spread through the air
-            </li>
-            <li style={{marginBottom: '8px'}}>
-              <strong>Direct contact:</strong> Touching contaminated surfaces then touching your face
-            </li>
-            <li>
-              <strong>Person-to-person:</strong> Close contact like handshakes or hugs with infected individuals
-            </li>
-          </ul>
-
-          <h3 style={{
-            fontSize: '18px',
-            fontWeight: '600',
-            color: '#374151',
-            marginBottom: '12px'
-          }}>
-            Risk Factors:
-          </h3>
-          <ul style={{
-            fontSize: '16px',
-            lineHeight: '1.9',
-            color: '#4b5563',
-            paddingLeft: '20px',
-            margin: 0
-          }}>
-            <li>Weakened immune system</li>
-            <li>Age (children and elderly are more susceptible)</li>
-            <li>Seasonal changes (more common in fall and winter)</li>
-            <li>Crowded environments (schools, offices, public transport)</li>
-            <li>Stress and lack of sleep</li>
-            <li>Smoking or exposure to secondhand smoke</li>
-          </ul>
+        {/* Why Does Cold Occur - Collapsible */}
+        <div style={{ marginBottom: '50px' }}>
+          <div 
+            onClick={() => toggleSection('causes')}
+            style={{
+              fontSize: '26px',
+              fontWeight: '600',
+              color: '#111827',
+              marginBottom: '20px',
+              paddingBottom: '10px',
+              borderBottom: '2px solid #e5e7eb',
+              cursor: 'pointer',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center'
+            }}
+          >
+            <span>Why Does Cold Occur?</span>
+            <span style={{ fontSize: '20px' }}>{expandedSections.causes ? '−' : '+'}</span>
+          </div>
+          {expandedSections.causes && (
+            <>
+              <h3 style={{
+                fontSize: '18px',
+                fontWeight: '600',
+                color: '#374151',
+                marginBottom: '12px',
+                marginTop: '20px'
+              }}>
+                Transmission Methods:
+              </h3>
+              <ul style={{
+                fontSize: '16px',
+                lineHeight: '1.9',
+                color: '#4b5563',
+                paddingLeft: '20px',
+                marginBottom: '24px'
+              }}>
+                <li style={{marginBottom: '8px'}}>
+                  <strong>Airborne droplets:</strong> When an infected person coughs or sneezes
+                </li>
+                <li style={{marginBottom: '8px'}}>
+                  <strong>Direct contact:</strong> Touching contaminated surfaces then touching your face
+                </li>
+                <li>
+                  <strong>Person-to-person:</strong> Close contact like handshakes with infected individuals
+                </li>
+              </ul>
+              <h3 style={{
+                fontSize: '18px',
+                fontWeight: '600',
+                color: '#374151',
+                marginBottom: '12px'
+              }}>
+                Risk Factors:
+              </h3>
+              <ul style={{
+                fontSize: '16px',
+                lineHeight: '1.9',
+                color: '#4b5563',
+                paddingLeft: '20px',
+                margin: 0
+              }}>
+                <li>Weakened immune system</li>
+                <li>Age (children and elderly are more susceptible)</li>
+                <li>Seasonal changes (more common in fall and winter)</li>
+                <li>Crowded environments</li>
+                <li>Stress and lack of sleep</li>
+              </ul>
+            </>
+          )}
         </div>
 
-
-        <div style={{
-          marginBottom: '50px'
-        }}>
-          <h2 style={{
-            fontSize: '26px',
-            fontWeight: '600',
-            color: '#111827',
-            marginBottom: '20px',
-            paddingBottom: '10px',
-            borderBottom: '2px solid #e5e7eb'
-          }}>
-            Prevention Tips
-          </h2>
-          <ul style={{
-            fontSize: '16px',
-            lineHeight: '1.9',
-            color: '#4b5563',
-            paddingLeft: '20px',
-            margin: 0
-          }}>
-            <li>Wash hands frequently with soap and water for at least 20 seconds</li>
-            <li>Avoid touching your face, especially eyes, nose, and mouth</li>
-            <li>Maintain distance from people who are sick</li>
-            <li>Get adequate sleep (7-9 hours) to boost immunity</li>
-            <li>Eat a balanced diet rich in vitamins and minerals</li>
-            <li>Stay physically active and exercise regularly</li>
-            <li>Manage stress levels</li>
-            <li>Keep your living space clean and well-ventilated</li>
-          </ul>
+        {/* Prevention Tips - Collapsible */}
+        <div style={{ marginBottom: '50px' }}>
+          <div 
+            onClick={() => toggleSection('prevention')}
+            style={{
+              fontSize: '26px',
+              fontWeight: '600',
+              color: '#111827',
+              marginBottom: '20px',
+              paddingBottom: '10px',
+              borderBottom: '2px solid #e5e7eb',
+              cursor: 'pointer',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center'
+            }}
+          >
+            <span>Prevention Tips</span>
+            <span style={{ fontSize: '20px' }}>{expandedSections.prevention ? '−' : '+'}</span>
+          </div>
+          {expandedSections.prevention && (
+            <ul style={{
+              fontSize: '16px',
+              lineHeight: '1.9',
+              color: '#4b5563',
+              paddingLeft: '20px',
+              margin: 0
+            }}>
+              <li>Wash hands frequently with soap and water for at least 20 seconds</li>
+              <li>Avoid touching your face, especially eyes, nose, and mouth</li>
+              <li>Maintain distance from people who are sick</li>
+              <li>Get adequate sleep (7-9 hours) to boost immunity</li>
+              <li>Eat a balanced diet rich in vitamins and minerals</li>
+              <li>Stay physically active and exercise regularly</li>
+              <li>Manage stress levels</li>
+            </ul>
+          )}
         </div>
 
-
-        <div style={{
-          marginBottom: '50px'
-        }}>
-          <h2 style={{
-            fontSize: '26px',
-            fontWeight: '600',
-            color: '#111827',
-            marginBottom: '20px',
-            paddingBottom: '10px',
-            borderBottom: '2px solid #e5e7eb'
-          }}>
-            Treatment & Care
-          </h2>
-
-          <h3 style={{
-            fontSize: '18px',
-            fontWeight: '600',
-            color: '#374151',
-            marginBottom: '12px',
-            marginTop: '20px'
-          }}>
-            Home Remedies:
-          </h3>
-          <ul style={{
-            fontSize: '16px',
-            lineHeight: '1.9',
-            color: '#4b5563',
-            paddingLeft: '20px',
-            marginBottom: '24px'
-          }}>
-            <li>Stay hydrated - drink plenty of water, warm tea, and soup</li>
-            <li>Get adequate rest to help your body fight the infection</li>
-            <li>Use a humidifier to ease congestion</li>
-            <li>Gargle with salt water for sore throat relief</li>
-            <li>Use saline nasal drops or spray</li>
-            <li>Drink warm liquids like herbal tea with honey and lemon</li>
-          </ul>
-
-          <h3 style={{
-            fontSize: '18px',
-            fontWeight: '600',
-            color: '#374151',
-            marginBottom: '12px'
-          }}>
-            Over-the-Counter Medications:
-          </h3>
-          <ul style={{
-            fontSize: '16px',
-            lineHeight: '1.9',
-            color: '#4b5563',
-            paddingLeft: '20px',
-            marginBottom: '24px'
-          }}>
-            <li>Pain relievers (acetaminophen, ibuprofen) for aches and fever</li>
-            <li>Decongestants for nasal congestion</li>
-            <li>Cough suppressants or expectorants</li>
-            <li>Throat lozenges for sore throat</li>
-          </ul>
-
-          <h3 style={{
-            fontSize: '18px',
-            fontWeight: '600',
-            color: '#374151',
-            marginBottom: '12px'
-          }}>
-            Important Precautions:
-          </h3>
-          <ul style={{
-            fontSize: '16px',
-            lineHeight: '1.9',
-            color: '#4b5563',
-            paddingLeft: '20px',
-            margin: 0
-          }}>
-            <li>Don't use antibiotics (they don't work on viruses)</li>
-            <li>Cover your mouth when coughing or sneezing</li>
-            <li>Use tissues and dispose of them properly</li>
-            <li>Stay home when sick to avoid spreading the virus</li>
-            <li>Disinfect frequently touched surfaces</li>
-            <li>Avoid smoking and alcohol</li>
-          </ul>
+        {/* Treatment & Care - Collapsible */}
+        <div style={{ marginBottom: '50px' }}>
+          <div 
+            onClick={() => toggleSection('treatment')}
+            style={{
+              fontSize: '26px',
+              fontWeight: '600',
+              color: '#111827',
+              marginBottom: '20px',
+              paddingBottom: '10px',
+              borderBottom: '2px solid #e5e7eb',
+              cursor: 'pointer',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center'
+            }}
+          >
+            <span>Treatment & Care</span>
+            <span style={{ fontSize: '20px' }}>{expandedSections.treatment ? '−' : '+'}</span>
+          </div>
+          {expandedSections.treatment && (
+            <>
+              <h3 style={{
+                fontSize: '18px',
+                fontWeight: '600',
+                color: '#374151',
+                marginBottom: '12px',
+                marginTop: '20px'
+              }}>
+                Home Remedies:
+              </h3>
+              <ul style={{
+                fontSize: '16px',
+                lineHeight: '1.9',
+                color: '#4b5563',
+                paddingLeft: '20px',
+                marginBottom: '24px'
+              }}>
+                <li>Stay hydrated - drink plenty of water, warm tea, and soup</li>
+                <li>Get adequate rest to help your body fight the infection</li>
+                <li>Use a humidifier to ease congestion</li>
+                <li>Gargle with salt water for sore throat relief</li>
+                <li>Drink warm liquids like herbal tea with honey and lemon</li>
+              </ul>
+              <h3 style={{
+                fontSize: '18px',
+                fontWeight: '600',
+                color: '#374151',
+                marginBottom: '12px'
+              }}>
+                Over-the-Counter Medications:
+              </h3>
+              <ul style={{
+                fontSize: '16px',
+                lineHeight: '1.9',
+                color: '#4b5563',
+                paddingLeft: '20px',
+                margin: 0
+              }}>
+                <li>Pain relievers (acetaminophen, ibuprofen) for aches and fever</li>
+                <li>Decongestants for nasal congestion</li>
+                <li>Cough suppressants or expectorants</li>
+                <li>Throat lozenges for sore throat</li>
+              </ul>
+            </>
+          )}
         </div>
 
-
+        {/* When to See a Doctor */}
         <div style={{
           background: '#fef2f2',
           padding: '30px',
@@ -328,15 +403,12 @@ export default function Cold() {
           }}>
             <li>Fever above 101.3°F (38.5°C) lasting more than 3 days</li>
             <li>Symptoms lasting more than 10 days without improvement</li>
-            <li>Severe headache or sinus pain</li>
             <li>Difficulty breathing or wheezing</li>
             <li>Persistent chest pain or pressure</li>
-            <li>Ear pain or discharge</li>
-            <li>Symptoms in infants under 3 months</li>
           </ul>
         </div>
 
-
+        {/* Recovery Timeline */}
         <div style={{
           background: '#f9fafb',
           padding: '30px',
@@ -363,6 +435,31 @@ export default function Cold() {
           </p>
         </div>
       </div>
+
+      {/* Scroll to Top Button */}
+      {isScrolled && (
+        <button
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          style={{
+            position: 'fixed',
+            bottom: '30px',
+            right: '30px',
+            background: '#2563eb',
+            color: 'white',
+            border: 'none',
+            width: '50px',
+            height: '50px',
+            borderRadius: '25px',
+            fontSize: '20px',
+            cursor: 'pointer',
+            boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+            transition: 'all 0.3s ease',
+            zIndex: 998
+          }}
+        >
+          ↑
+        </button>
+      )}
     </div>
   );
 }
