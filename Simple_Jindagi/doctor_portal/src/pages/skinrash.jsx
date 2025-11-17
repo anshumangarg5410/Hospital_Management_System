@@ -12,13 +12,6 @@ export default function SkinRash() {
     treatment: true
   });
 
-  // Track scroll position
-  useEffect(() => {
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   // Simulate view count on mount
   useEffect(() => {
     const randomViews = Math.floor(Math.random() * 2500) + 1800;

@@ -11,12 +11,6 @@ export default function Cold() {
     treatment: true
   });
 
-  // Track scroll position
-  useEffect(() => {
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   // Simulate view count on mount
   useEffect(() => {
