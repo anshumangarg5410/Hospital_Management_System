@@ -1,3 +1,6 @@
+// ---------------------------------------------------------
+// IMPORTS
+// ---------------------------------------------------------
 const fs = require("fs");
 const path = require("path");
 const express = require("express");
@@ -7,169 +10,335 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-// ---------------------- FILE PATHS ----------------------
-const filePath = path.join(__dirname, "databases", "Authentication.json");
-const reviewFilePath = path.join(__dirname, "databases", "reviews.json");
-const searchFilePath = path.join(__dirname, "databases", "searchData.json");
-const medicinesFilePath = path.join(__dirname, "databases", "medicines.json");
-const doctorsFilePath = path.join(__dirname, "databases", "doctor.json");
+// ---------------------------------------------------------
+// FILE PATHS
+// ---------------------------------------------------------
+const patientsFile = path.join(__dirname, "databases", "Authentication.json");
+const doctorsFile = path.join(__dirname, "databases", "doctor.json");
+const reviewsFile = path.join(__dirname, "databases", "reviews.json");
+const searchFile = path.join(__dirname, "databases", "searchData.json");
+const medicinesFile = path.join(__dirname, "databases", "medicines.json");
 
-// ---------------------- PATIENT LOGIN ----------------------
-let Current_User_Index = null;
-
-function readDB() {
-  return JSON.parse(fs.readFileSync(filePath, "utf8"));
+// ---------------------------------------------------------
+// UTIL FUNCTIONS
+// ---------------------------------------------------------
+function readJSON(filePath, fallback = {}) {
+  try {
+    return JSON.parse(fs.readFileSync(filePath, "utf8"));
+  } catch {
+    return fallback;
+  }
 }
 
-function writeDB(data) {
+function writeJSON(filePath, data) {
   fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
 }
 
-function readMedicines() {
-  try {
-    return JSON.parse(fs.readFileSync(medicinesFilePath, "utf8"));
-  } catch (err) {
-    return { medicines: [] };
-  }
-}
+// ---------------------------------------------------------
+// LOGIN STATES
+// ---------------------------------------------------------
+let Current_User_Index = null;
+let Current_Doctor_Index = null;
 
-function writeMedicines(data) {
-  fs.writeFileSync(medicinesFilePath, JSON.stringify(data, null, 2));
-}
-
-app.get("/", (req, res) => res.send("Backend running successfully"));
-
-// ---------------------- USERS (ALL PATIENTS CODE SAME AS YOURS) ----------------------
-app.get("/usersnum", (req, res) => {
-  const data = readDB();
-  res.send({ success: true, users: data.users });
+// ---------------------------------------------------------
+// ROOT
+// ---------------------------------------------------------
+app.get("/", (req, res) => {
+  res.send("Backend running successfully");
 });
 
+// ---------------------------------------------------------
+// ---------------------- PATIENT SYSTEM --------------------
+// ---------------------------------------------------------
+
+// Get all users
 app.get("/users", (req, res) => {
-  try {
-    const data = readDB();
-    res.send({ success: true, users: data.users });
-  } catch {
-    res.status(500).send({ success: false, message: "Error reading users" });
-  }
+  const data = readJSON(patientsFile, { users: [] });
+  res.json({ success: true, users: data.users });
 });
 
-// login status
+// Login status
 app.get("/login-status", (req, res) => {
-  const data = readDB();
+  const data = readJSON(patientsFile, { users: [] });
   if (Current_User_Index !== null && data.users[Current_User_Index]) {
-    res.json({ login: 1, user: data.users[Current_User_Index] });
-  } else {
-    res.json({ login: 0 });
+    return res.json({ login: 1, user: data.users[Current_User_Index] });
   }
+  res.json({ login: 0 });
 });
 
-// forgotpassword login
+// Forgot password login
 app.post("/loginwithoutpassword", (req, res) => {
-  try {
-    let data = readDB();
-    const { username, email } = req.body;
-    const userIndex = data.users.findIndex(u => u.username === username);
+  const { username, email } = req.body;
+  const data = readJSON(patientsFile, { users: [] });
 
-    if (userIndex === -1) return res.json({ success: false, message: "User not found!" });
-    if (data.users[userIndex].email !== email)
-      return res.json({ success: false, message: "Wrong email!" });
+  const index = data.users.findIndex(u => u.username === username);
+  if (index === -1) return res.json({ success: false, message: "User not found" });
 
-    Current_User_Index = userIndex;
-    res.json({ success: true, user: data.users[userIndex] });
-  } catch {
-    res.status(500).json({ success: false, message: "Internal Error" });
-  }
+  if (data.users[index].email !== email)
+    return res.json({ success: false, message: "Wrong email" });
+
+  Current_User_Index = index;
+  res.json({ success: true, user: data.users[index] });
 });
 
-// signup
+// Signup
 app.post("/signup", (req, res) => {
-  try {
-    let data = readDB();
-    const { name, username, password, email } = req.body;
+  const { name, username, password, email } = req.body;
 
-    if (!name || !username || !password || !email)
-      return res.status(400).json({ success: false, message: "Missing fields" });
+  if (!name || !username || !password || !email)
+    return res.json({ success: false, message: "Missing fields" });
 
-    if (data.users.some(u => u.username === username))
-      return res.json({ success: false, message: "User already exists!" });
+  const data = readJSON(patientsFile, { users: [] });
 
-    const newUser = {
-      name,
-      username,
-      password,
-      email,
-      ID: data.users.length,
-      Designation: "Patient",
-      appointments: [],
-      prescriptions: [],
-      orders: [],
-      reports: [],
-      cart: []
-    };
+  if (data.users.some(u => u.username === username))
+    return res.json({ success: false, message: "User already exists" });
 
-    data.users.push(newUser);
-    writeDB(data);
+  const newUser = {
+    name,
+    username,
+    password,
+    email,
+    ID: data.users.length,
+    Designation: "Patient",
+    appointments: [],
+    prescriptions: [],
+    orders: [],
+    reports: [],
+    cart: []
+  };
 
-    res.json({ success: true, message: "User registered successfully!" });
-  } catch {
-    res.status(500).json({ success: false, message: "Internal Error" });
-  }
+  data.users.push(newUser);
+  writeJSON(patientsFile, data);
+
+  res.json({ success: true, message: "User registered successfully" });
 });
 
-// login
+// Login
 app.post("/login", (req, res) => {
-  try {
-    let data = readDB();
-    const { username, password } = req.body;
+  const { username, password } = req.body;
+  const data = readJSON(patientsFile, { users: [] });
 
-    const userIndex = data.users.findIndex(u => u.username === username);
-    if (userIndex === -1) return res.json({ success: false, message: "User not found!" });
-    if (data.users[userIndex].password !== password)
-      return res.json({ success: false, message: "Wrong password!" });
+  const index = data.users.findIndex(u => u.username === username);
+  if (index === -1) return res.json({ success: false, message: "User not found" });
 
-    Current_User_Index = userIndex;
-    res.json({ success: true, user: data.users[userIndex] });
-  } catch {
-    res.status(500).json({ success: false, message: "Internal Error" });
-  }
+  if (data.users[index].password !== password)
+    return res.json({ success: false, message: "Wrong password" });
+
+  Current_User_Index = index;
+  res.json({ success: true, user: data.users[index] });
 });
 
-// logout
+// Logout
 app.post("/logout", (req, res) => {
   Current_User_Index = null;
   res.json({ success: true });
 });
 
-// current user
+// Current user
 app.get("/currentUser", (req, res) => {
-  const data = readDB();
-  if (Current_User_Index !== null && data.users[Current_User_Index]) {
-    res.json({ success: true, user: data.users[Current_User_Index] });
-  } else {
-    res.json({ success: false, message: "No user logged in" });
-  }
+  const data = readJSON(patientsFile, { users: [] });
+
+  if (Current_User_Index !== null && data.users[Current_User_Index])
+    return res.json({ success: true, user: data.users[Current_User_Index] });
+
+  res.json({ success: false, message: "No user logged in" });
 });
 
-// ---------------------- CART, MEDICINES, REVIEWS — SAME AS YOURS ----------------------
-/* I kept all your logic exactly same — nothing changed. */
-/* Code skipped for brevity because it's already correct. */
-
-// ---------------------- CLEAN DOCTOR SYSTEM ----------------------
-let Current_Doctor_Index = null;
-
-function readDoctorDB() {
-  return JSON.parse(fs.readFileSync(doctorsFilePath, "utf8"));
+// ---------------------------------------------------------
+// Patient Data (Appointments, Reports, Orders, Prescriptions)
+// ---------------------------------------------------------
+function getUserData(key) {
+  const data = readJSON(patientsFile, { users: [] });
+  if (Current_User_Index !== null) {
+    return data.users[Current_User_Index][key] || [];
+  }
+  return [];
 }
 
-function writeDoctorDB(data) {
-  fs.writeFileSync(doctorsFilePath, JSON.stringify(data, null, 2));
-}
+app.get("/appointments", (req, res) =>
+  res.json({ success: true, appointments: getUserData("appointments") })
+);
+app.get("/prescriptions", (req, res) =>
+  res.json({ success: true, prescriptions: getUserData("prescriptions") })
+);
+app.get("/orders", (req, res) =>
+  res.json({ success: true, orders: getUserData("orders") })
+);
+app.get("/reports", (req, res) =>
+  res.json({ success: true, reports: getUserData("reports") })
+);
 
-// Doctor Login
+// ---------------------------------------------------------
+// Update User
+// ---------------------------------------------------------
+app.put("/updateUser", (req, res) => {
+  const { username, ...rest } = req.body;
+
+  const data = readJSON(patientsFile, { users: [] });
+  const index = data.users.findIndex(u => u.username === username);
+
+  if (index === -1)
+    return res.json({ success: false, message: "User not found" });
+
+  data.users[index] = { ...data.users[index], ...rest };
+  writeJSON(patientsFile, data);
+
+  res.json({ success: true, message: "User updated", user: data.users[index] });
+});
+
+// ---------------------------------------------------------
+// Change Password
+// ---------------------------------------------------------
+app.put("/changePassword", (req, res) => {
+  const { username, currentPassword, newPassword } = req.body;
+
+  const data = readJSON(patientsFile, { users: [] });
+  const index = data.users.findIndex(u => u.username === username);
+
+  if (index === -1) return res.json({ success: false, message: "User not found" });
+
+  if (data.users[index].password !== currentPassword)
+    return res.json({ success: false, message: "Incorrect current password" });
+
+  data.users[index].password = newPassword;
+  writeJSON(patientsFile, data);
+
+  res.json({ success: true, message: "Password changed successfully" });
+});
+
+// ---------------------------------------------------------
+// ---------------------- REVIEWS --------------------------
+// ---------------------------------------------------------
+app.post("/saveReview", (req, res) => {
+  const reviews = readJSON(reviewsFile, []);
+  const newReview = { ...req.body, time: new Date().toLocaleString() };
+
+  reviews.push(newReview);
+  writeJSON(reviewsFile, reviews);
+
+  res.send("Review saved successfully");
+});
+
+app.get("/reviews", (req, res) => {
+  const reviews = readJSON(reviewsFile, []);
+
+  let html = `
+    <html>
+      <head>
+        <title>All Reviews</title>
+        <style>
+          body { font-family: Arial; padding: 20px; }
+          .review { border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; border-radius: 5px; }
+          .time { font-size: 0.9em; color: gray; }
+        </style>
+      </head>
+      <body>
+        <h1>All Reviews</h1>
+        ${
+          reviews.length === 0
+            ? "<p>No reviews yet.</p>"
+            : reviews
+                .map(
+                  r => `
+          <div class="review">
+            <p><strong>Name:</strong> ${r.name}</p>
+            <p><strong>Email:</strong> ${r.email}</p>
+            <p><strong>Message:</strong> ${r.message}</p>
+            <p class="time">${r.time}</p>
+          </div>`
+                )
+                .join("")
+        }
+      </body>
+    </html>
+  `;
+
+  res.send(html);
+});
+
+// ---------------------------------------------------------
+// ---------------------- SEARCH ---------------------------
+// ---------------------------------------------------------
+app.get("/searchItems", (req, res) => {
+  const data = readJSON(searchFile, { searchItems: [] });
+  res.json({ success: true, searchItems: data.searchItems });
+});
+
+// ---------------------------------------------------------
+// ---------------------- MEDICINES ------------------------
+// ---------------------------------------------------------
+app.get("/medicines", (req, res) => {
+  const data = readJSON(medicinesFile, { medicines: [] });
+  res.json({ success: true, medicines: data.medicines });
+});
+
+app.get("/medicines/:id", (req, res) => {
+  const data = readJSON(medicinesFile, { medicines: [] });
+  const med = data.medicines.find(m => m.id == req.params.id);
+
+  if (med) return res.json({ success: true, medicine: med });
+  res.status(404).json({ success: false, message: "Medicine not found" });
+});
+
+// ---------------------------------------------------------
+// ---------------------- CART -----------------------------
+// ---------------------------------------------------------
+app.post("/cart/add", (req, res) => {
+  if (Current_User_Index === null)
+    return res.json({ success: false, message: "Login first" });
+
+  const { medicineId, quantity = 1 } = req.body;
+
+  const data = readJSON(patientsFile, { users: [] });
+  const cart = data.users[Current_User_Index].cart || [];
+
+  const existing = cart.find(c => c.medicineId === medicineId);
+
+  if (existing) existing.quantity += quantity;
+  else cart.push({ medicineId, quantity, addedAt: new Date().toISOString() });
+
+  data.users[Current_User_Index].cart = cart;
+  writeJSON(patientsFile, data);
+
+  res.json({ success: true, cart });
+});
+
+app.get("/cart", (req, res) => {
+  if (Current_User_Index === null)
+    return res.json({ success: false, message: "Login first" });
+
+  const userData = readJSON(patientsFile, { users: [] }).users[Current_User_Index];
+  const medicines = readJSON(medicinesFile, { medicines: [] }).medicines;
+
+  const cartDetails = userData.cart.map(item => ({
+    ...item,
+    medicine: medicines.find(m => m.id === item.medicineId)
+  }));
+
+  res.json({ success: true, cart: cartDetails });
+});
+
+app.delete("/cart/remove/:id", (req, res) => {
+  if (Current_User_Index === null)
+    return res.json({ success: false, message: "Login first" });
+
+  const medId = parseInt(req.params.id);
+  const data = readJSON(patientsFile, { users: [] });
+
+  data.users[Current_User_Index].cart = data.users[Current_User_Index].cart.filter(
+    item => item.medicineId !== medId
+  );
+
+  writeJSON(patientsFile, data);
+  res.json({ success: true });
+});
+
+// ---------------------------------------------------------
+// ------------------ DOCTOR SYSTEM ------------------------
+// ---------------------------------------------------------
 app.post("/doctor/login", (req, res) => {
   const { username, password } = req.body;
-  const data = readDoctorDB(); // { doctors: [...] }
+  const data = readJSON(doctorsFile, { doctors: [] });
 
   const index = data.doctors.findIndex(d => d.username === username);
 
@@ -183,9 +352,8 @@ app.post("/doctor/login", (req, res) => {
   res.json({ success: true, user: data.doctors[index] });
 });
 
-// Doctor Current
 app.get("/doctor/current", (req, res) => {
-  const data = readDoctorDB();
+  const data = readJSON(doctorsFile, { doctors: [] });
 
   if (Current_Doctor_Index === null)
     return res.json({ success: false, message: "No doctor logged in" });
@@ -193,20 +361,15 @@ app.get("/doctor/current", (req, res) => {
   res.json({ success: true, user: data.doctors[Current_Doctor_Index] });
 });
 
-// Doctor Logout
 app.post("/doctor/logout", (req, res) => {
   Current_Doctor_Index = null;
   res.json({ success: true });
 });
-app.get("/searchItems", (req, res) => {
-  try {
-    const data = JSON.parse(fs.readFileSync(searchFilePath, "utf8"));
-    res.json({ success: true, searchItems: data.searchItems });
-  } catch (err) {
-    res.status(500).json({ success: false, message: "Error reading search data" });
-  }
-});
-// ---------------------- SERVER ----------------------
-const PORT = 3000;
-app.listen(PORT, () => console.log(`Server running at http://localhost:${PORT}`));
 
+// ---------------------------------------------------------
+// START SERVER
+// ---------------------------------------------------------
+const PORT = 3000;
+app.listen(PORT, () =>
+  console.log(`Server running at http://localhost:${PORT}`)
+);

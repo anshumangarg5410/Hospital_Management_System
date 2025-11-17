@@ -76,7 +76,13 @@
           "status": "Available"
         }
       ],
-      "cart": []
+      "cart": [
+        {
+          "medicineId": 1,
+          "quantity": 1,
+          "addedAt": "2025-11-17T05:51:23.213Z"
+        }
+      ]
     },
     {
       "name": "Soham",
