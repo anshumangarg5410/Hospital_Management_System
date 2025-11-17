@@ -27,7 +27,7 @@ export default function Nextgen_info() {
           <span style={{ fontWeight: '500' }}>Next-Gen Healthcare Software</span>
         </div>
 
-        {/* Main Heading */}
+
         <h1 style={{
           fontSize: '72px',
           fontWeight: '700',
@@ -40,7 +40,7 @@ export default function Nextgen_info() {
           Better Care
         </h1>
 
-        {/* Description */}
+
         <p style={{
           fontSize: '20px',
           color: '#374151',
@@ -53,7 +53,7 @@ export default function Nextgen_info() {
           delivery.
         </p>
 
-        {/* Search Bar */}
+
         <div style={{
           position: 'relative',
           maxWidth: '672px',
@@ -95,14 +95,14 @@ export default function Nextgen_info() {
           />
         </div>
 
-        {/* Additional Content Section */}
+
         <div style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
           gap: '32px',
           marginTop: '80px'
         }}>
-          {/* Card 1 */}
+
           <div style={{
             background: 'white',
             padding: '32px',
@@ -138,7 +138,7 @@ export default function Nextgen_info() {
             </p>
           </div>
 
-          {/* Card 2 */}
+
           <div style={{
             background: 'white',
             padding: '32px',
@@ -174,7 +174,7 @@ export default function Nextgen_info() {
             </p>
           </div>
 
-          {/* Card 3 */}
+
           <div style={{
             background: 'white',
             padding: '32px',

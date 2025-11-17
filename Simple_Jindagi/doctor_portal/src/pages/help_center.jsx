@@ -36,7 +36,7 @@ export default function Help_center() {
       background: '#ffffff',
       fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif'
     }}>
-      {/* Header Section */}
+
       <div style={{
         background: '#2563eb',
         padding: '60px 20px',
@@ -51,7 +51,7 @@ export default function Help_center() {
             fontSize: '60px',
             marginBottom: '20px'
           }}>
-            ❓
+          
           </div>
           <h1 style={{
             fontSize: '42px',
@@ -71,13 +71,13 @@ export default function Help_center() {
         </div>
       </div>
 
-      {/* Main Content */}
+
       <div style={{
         maxWidth: '900px',
         margin: '0 auto',
         padding: '50px 20px'
       }}>
-        {/* Getting Started */}
+
         <div style={{
           marginBottom: '50px'
         }}>
@@ -129,7 +129,7 @@ export default function Help_center() {
           </p>
         </div>
 
-        {/* Booking Appointments */}
+
         <div style={{
           marginBottom: '50px'
         }}>
@@ -192,7 +192,7 @@ export default function Help_center() {
           </ul>
         </div>
 
-        {/* Patient Portal Features */}
+
         <div style={{
           marginBottom: '50px'
         }}>
@@ -280,7 +280,7 @@ export default function Help_center() {
           </p>
         </div>
 
-        {/* FAQs */}
+
         <div style={{
           marginBottom: '50px'
         }}>
@@ -343,7 +343,7 @@ export default function Help_center() {
           ))}
         </div>
 
-        {/* Privacy & Security */}
+
         <div style={{
           marginBottom: '50px'
         }}>
@@ -418,7 +418,7 @@ export default function Help_center() {
           </ul>
         </div>
 
-        {/* Terms & Conditions */}
+
         <div style={{
           marginBottom: '50px'
         }}>
@@ -500,7 +500,7 @@ export default function Help_center() {
           </ul>
         </div>
 
-        {/* Contact Support */}
+
         <div style={{
           background: '#f0f9ff',
           padding: '30px',

@@ -7,7 +7,7 @@ export default function Cold() {
       background: '#ffffff',
       fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif'
     }}>
-      {/* Header Section */}
+
       <div style={{
         background: '#2563eb',
         padding: '60px 20px',
@@ -42,13 +42,13 @@ export default function Cold() {
         </div>
       </div>
 
-      {/* Main Content */}
+
       <div style={{
         maxWidth: '900px',
         margin: '0 auto',
         padding: '50px 20px'
       }}>
-        {/* What is Cold Section */}
+
         <div style={{
           marginBottom: '50px'
         }}>
@@ -80,7 +80,7 @@ export default function Cold() {
           </p>
         </div>
 
-        {/* Symptoms Section */}
+
         <div style={{
           marginBottom: '50px'
         }}>
@@ -113,7 +113,7 @@ export default function Cold() {
           </ul>
         </div>
 
-        {/* Why It Occurs Section */}
+
         <div style={{
           marginBottom: '50px'
         }}>
@@ -179,7 +179,7 @@ export default function Cold() {
           </ul>
         </div>
 
-        {/* Prevention Section */}
+
         <div style={{
           marginBottom: '50px'
         }}>
@@ -211,7 +211,7 @@ export default function Cold() {
           </ul>
         </div>
 
-        {/* Treatment Section */}
+
         <div style={{
           marginBottom: '50px'
         }}>
@@ -295,7 +295,7 @@ export default function Cold() {
           </ul>
         </div>
 
-        {/* When to See Doctor */}
+
         <div style={{
           background: '#fef2f2',
           padding: '30px',
@@ -336,7 +336,7 @@ export default function Cold() {
           </ul>
         </div>
 
-        {/* Recovery Timeline */}
+
         <div style={{
           background: '#f9fafb',
           padding: '30px',
