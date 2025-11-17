@@ -1,34 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export default function Help_center() {
   const [expandedSection, setExpandedSection] = useState(null);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  // Track scroll position
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const toggleSection = (section) => {
     setExpandedSection(expandedSection === section ? null : section);
   };
-
-  const faqs = [
-    {
-      question: "How do I book an appointment?",
-      answer: "To book an appointment, navigate to the 'Book Appointment' section on the homepage. Select your preferred doctor, choose an available time slot, fill in your details, and confirm your booking. You will receive a confirmation email with appointment details."
-    },
-    {
-      question: "Can I cancel or reschedule my appointment?",
-      answer: "Yes, you can cancel or reschedule your appointment up to 24 hours before the scheduled time. Go to 'My Appointments' section, select the appointment, and choose either 'Cancel' or 'Reschedule' option."
-    },
-    {
-      question: "How do I access my medical records?",
-      answer: "Log in to your patient portal and navigate to 'Medical Records' section. Here you can view, download, and share your medical history, test results, prescriptions, and treatment plans."
-    },
-    {
-      question: "What payment methods do you accept?",
-      answer: "We accept all major credit/debit cards, UPI payments, net banking, and digital wallets. Payment can be made online during booking or at the hospital reception."
-    },
-    {
-      question: "How do I contact my doctor?",
-      answer: "You can contact your doctor through the 'Message Doctor' feature in your patient portal. For urgent matters, please call our emergency helpline or visit the hospital directly."
-    }
-  ];
 
   return (
     <div style={{
@@ -37,6 +25,7 @@ export default function Help_center() {
       fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif'
     }}>
 
+      {/* Header */}
       <div style={{
         background: '#2563eb',
         padding: '60px 20px',
@@ -51,7 +40,7 @@ export default function Help_center() {
             fontSize: '60px',
             marginBottom: '20px'
           }}>
-          
+            💬
           </div>
           <h1 style={{
             fontSize: '42px',
@@ -71,16 +60,14 @@ export default function Help_center() {
         </div>
       </div>
 
-
+      {/* Content */}
       <div style={{
         maxWidth: '900px',
         margin: '0 auto',
         padding: '50px 20px'
       }}>
-
-        <div style={{
-          marginBottom: '50px'
-        }}>
+        {/* Getting Started */}
+        <div style={{ marginBottom: '50px' }}>
           <h2 style={{
             fontSize: '26px',
             fontWeight: '600',
@@ -129,10 +116,8 @@ export default function Help_center() {
           </p>
         </div>
 
-
-        <div style={{
-          marginBottom: '50px'
-        }}>
+        {/* Booking Appointments */}
+        <div style={{ marginBottom: '50px' }}>
           <h2 style={{
             fontSize: '26px',
             fontWeight: '600',
@@ -169,33 +154,10 @@ export default function Help_center() {
             <li>Make payment (if applicable)</li>
             <li>Receive confirmation via email and SMS</li>
           </ol>
-
-          <h3 style={{
-            fontSize: '18px',
-            fontWeight: '600',
-            color: '#374151',
-            marginBottom: '12px'
-          }}>
-            Appointment Types
-          </h3>
-          <ul style={{
-            fontSize: '16px',
-            lineHeight: '1.9',
-            color: '#4b5563',
-            paddingLeft: '20px',
-            margin: 0
-          }}>
-            <li><strong>In-Person Visit:</strong> Regular consultation at the hospital</li>
-            <li><strong>Video Consultation:</strong> Online consultation via video call</li>
-            <li><strong>Emergency:</strong> Immediate care for urgent medical situations</li>
-            <li><strong>Follow-up:</strong> Scheduled follow-up after previous treatment</li>
-          </ul>
         </div>
 
-
-        <div style={{
-          marginBottom: '50px'
-        }}>
+        {/* Patient Portal Features */}
+        <div style={{ marginBottom: '50px' }}>
           <h2 style={{
             fontSize: '26px',
             fontWeight: '600',
@@ -238,52 +200,14 @@ export default function Help_center() {
             fontSize: '16px',
             lineHeight: '1.7',
             color: '#4b5563',
-            marginBottom: '14px'
-          }}>
-            Access your complete medical history including diagnoses, prescriptions, lab reports, imaging results, and treatment plans. You can download or share these records with other healthcare providers.
-          </p>
-
-          <h3 style={{
-            fontSize: '18px',
-            fontWeight: '600',
-            color: '#374151',
-            marginBottom: '12px',
-            marginTop: '20px'
-          }}>
-            Prescription Management
-          </h3>
-          <p style={{
-            fontSize: '16px',
-            lineHeight: '1.7',
-            color: '#4b5563',
-            marginBottom: '14px'
-          }}>
-            View current and past prescriptions, request refills, and set medication reminders. You can also order medications for home delivery through our pharmacy partners.
-          </p>
-
-          <h3 style={{
-            fontSize: '18px',
-            fontWeight: '600',
-            color: '#374151',
-            marginBottom: '12px',
-            marginTop: '20px'
-          }}>
-            Billing & Payments
-          </h3>
-          <p style={{
-            fontSize: '16px',
-            lineHeight: '1.7',
-            color: '#4b5563',
             margin: 0
           }}>
-            View all bills, make payments online, download invoices, and track your payment history. You can also set up payment plans for larger bills.
+            Access your complete medical history including diagnoses, prescriptions, lab reports, imaging results, and treatment plans.
           </p>
         </div>
 
-
-        <div style={{
-          marginBottom: '50px'
-        }}>
+        {/* Frequently Asked Questions */}
+        <div style={{ marginBottom: '50px' }}>
           <h2 style={{
             fontSize: '26px',
             fontWeight: '600',
@@ -295,58 +219,244 @@ export default function Help_center() {
             Frequently Asked Questions
           </h2>
 
-          {faqs.map((faq, index) => (
-            <div key={index} style={{
-              background: '#f9fafb',
-              border: '1px solid #e5e7eb',
-              borderRadius: '8px',
-              marginBottom: '12px',
-              overflow: 'hidden'
-            }}>
-              <button
-                onClick={() => toggleSection(index)}
-                style={{
-                  width: '100%',
-                  padding: '18px 20px',
-                  background: 'transparent',
-                  border: 'none',
-                  textAlign: 'left',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  fontSize: '16px',
-                  fontWeight: '600',
-                  color: '#111827'
-                }}
-              >
-                <span>{faq.question}</span>
-                <span style={{
-                  fontSize: '20px',
-                  transition: 'transform 0.3s',
-                  transform: expandedSection === index ? 'rotate(180deg)' : 'rotate(0deg)'
-                }}>
-                  ▼
-                </span>
-              </button>
-              {expandedSection === index && (
-                <div style={{
-                  padding: '0 20px 18px 20px',
-                  fontSize: '15px',
-                  lineHeight: '1.7',
-                  color: '#4b5563'
-                }}>
-                  {faq.answer}
-                </div>
-              )}
-            </div>
-          ))}
+          {/* FAQ 1 */}
+          <div style={{
+            background: expandedSection === 0 ? '#f0f9ff' : '#f9fafb',
+            border: '1px solid #e5e7eb',
+            borderRadius: '8px',
+            marginBottom: '12px',
+            overflow: 'hidden',
+            transition: 'all 0.3s ease'
+          }}>
+            <button
+              onClick={() => toggleSection(0)}
+              style={{
+                width: '100%',
+                padding: '18px 20px',
+                background: 'transparent',
+                border: 'none',
+                textAlign: 'left',
+                cursor: 'pointer',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                fontSize: '16px',
+                fontWeight: '600',
+                color: '#111827'
+              }}
+            >
+              <span>How do I book an appointment?</span>
+              <span style={{
+                fontSize: '20px',
+                transition: 'transform 0.3s',
+                transform: expandedSection === 0 ? 'rotate(180deg)' : 'rotate(0deg)'
+              }}>
+                ▼
+              </span>
+            </button>
+            {expandedSection === 0 && (
+              <div style={{
+                padding: '0 20px 18px 20px',
+                fontSize: '15px',
+                lineHeight: '1.7',
+                color: '#4b5563'
+              }}>
+                To book an appointment, navigate to the 'Book Appointment' section on the homepage. Select your preferred doctor, choose an available time slot, fill in your details, and confirm your booking. You will receive a confirmation email with appointment details.
+              </div>
+            )}
+          </div>
+
+          {/* FAQ 2 */}
+          <div style={{
+            background: expandedSection === 1 ? '#f0f9ff' : '#f9fafb',
+            border: '1px solid #e5e7eb',
+            borderRadius: '8px',
+            marginBottom: '12px',
+            overflow: 'hidden',
+            transition: 'all 0.3s ease'
+          }}>
+            <button
+              onClick={() => toggleSection(1)}
+              style={{
+                width: '100%',
+                padding: '18px 20px',
+                background: 'transparent',
+                border: 'none',
+                textAlign: 'left',
+                cursor: 'pointer',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                fontSize: '16px',
+                fontWeight: '600',
+                color: '#111827'
+              }}
+            >
+              <span>Can I cancel or reschedule my appointment?</span>
+              <span style={{
+                fontSize: '20px',
+                transition: 'transform 0.3s',
+                transform: expandedSection === 1 ? 'rotate(180deg)' : 'rotate(0deg)'
+              }}>
+                ▼
+              </span>
+            </button>
+            {expandedSection === 1 && (
+              <div style={{
+                padding: '0 20px 18px 20px',
+                fontSize: '15px',
+                lineHeight: '1.7',
+                color: '#4b5563'
+              }}>
+                Yes, you can cancel or reschedule your appointment up to 24 hours before the scheduled time. Go to 'My Appointments' section, select the appointment, and choose either 'Cancel' or 'Reschedule' option.
+              </div>
+            )}
+          </div>
+
+          {/* FAQ 3 */}
+          <div style={{
+            background: expandedSection === 2 ? '#f0f9ff' : '#f9fafb',
+            border: '1px solid #e5e7eb',
+            borderRadius: '8px',
+            marginBottom: '12px',
+            overflow: 'hidden',
+            transition: 'all 0.3s ease'
+          }}>
+            <button
+              onClick={() => toggleSection(2)}
+              style={{
+                width: '100%',
+                padding: '18px 20px',
+                background: 'transparent',
+                border: 'none',
+                textAlign: 'left',
+                cursor: 'pointer',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                fontSize: '16px',
+                fontWeight: '600',
+                color: '#111827'
+              }}
+            >
+              <span>How do I access my medical records?</span>
+              <span style={{
+                fontSize: '20px',
+                transition: 'transform 0.3s',
+                transform: expandedSection === 2 ? 'rotate(180deg)' : 'rotate(0deg)'
+              }}>
+                ▼
+              </span>
+            </button>
+            {expandedSection === 2 && (
+              <div style={{
+                padding: '0 20px 18px 20px',
+                fontSize: '15px',
+                lineHeight: '1.7',
+                color: '#4b5563'
+              }}>
+                Log in to your patient portal and navigate to 'Medical Records' section. Here you can view, download, and share your medical history, test results, prescriptions, and treatment plans.
+              </div>
+            )}
+          </div>
+
+          {/* FAQ 4 */}
+          <div style={{
+            background: expandedSection === 3 ? '#f0f9ff' : '#f9fafb',
+            border: '1px solid #e5e7eb',
+            borderRadius: '8px',
+            marginBottom: '12px',
+            overflow: 'hidden',
+            transition: 'all 0.3s ease'
+          }}>
+            <button
+              onClick={() => toggleSection(3)}
+              style={{
+                width: '100%',
+                padding: '18px 20px',
+                background: 'transparent',
+                border: 'none',
+                textAlign: 'left',
+                cursor: 'pointer',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                fontSize: '16px',
+                fontWeight: '600',
+                color: '#111827'
+              }}
+            >
+              <span>What payment methods do you accept?</span>
+              <span style={{
+                fontSize: '20px',
+                transition: 'transform 0.3s',
+                transform: expandedSection === 3 ? 'rotate(180deg)' : 'rotate(0deg)'
+              }}>
+                ▼
+              </span>
+            </button>
+            {expandedSection === 3 && (
+              <div style={{
+                padding: '0 20px 18px 20px',
+                fontSize: '15px',
+                lineHeight: '1.7',
+                color: '#4b5563'
+              }}>
+                We accept all major credit/debit cards, UPI payments, net banking, and digital wallets. Payment can be made online during booking or at the hospital reception.
+              </div>
+            )}
+          </div>
+
+          {/* FAQ 5 */}
+          <div style={{
+            background: expandedSection === 4 ? '#f0f9ff' : '#f9fafb',
+            border: '1px solid #e5e7eb',
+            borderRadius: '8px',
+            marginBottom: '12px',
+            overflow: 'hidden',
+            transition: 'all 0.3s ease'
+          }}>
+            <button
+              onClick={() => toggleSection(4)}
+              style={{
+                width: '100%',
+                padding: '18px 20px',
+                background: 'transparent',
+                border: 'none',
+                textAlign: 'left',
+                cursor: 'pointer',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                fontSize: '16px',
+                fontWeight: '600',
+                color: '#111827'
+              }}
+            >
+              <span>How do I contact my doctor?</span>
+              <span style={{
+                fontSize: '20px',
+                transition: 'transform 0.3s',
+                transform: expandedSection === 4 ? 'rotate(180deg)' : 'rotate(0deg)'
+              }}>
+                ▼
+              </span>
+            </button>
+            {expandedSection === 4 && (
+              <div style={{
+                padding: '0 20px 18px 20px',
+                fontSize: '15px',
+                lineHeight: '1.7',
+                color: '#4b5563'
+              }}>
+                You can contact your doctor through the 'Message Doctor' feature in your patient portal. For urgent matters, please call our emergency helpline or visit the hospital directly.
+              </div>
+            )}
+          </div>
         </div>
 
-
-        <div style={{
-          marginBottom: '50px'
-        }}>
+        {/* Privacy & Security */}
+        <div style={{ marginBottom: '50px' }}>
           <h2 style={{
             fontSize: '26px',
             fontWeight: '600',
@@ -383,24 +493,6 @@ export default function Help_center() {
             marginBottom: '12px',
             marginTop: '20px'
           }}>
-            HIPAA Compliance
-          </h3>
-          <p style={{
-            fontSize: '16px',
-            lineHeight: '1.7',
-            color: '#4b5563',
-            marginBottom: '14px'
-          }}>
-            Our platform is fully compliant with HIPAA regulations, ensuring your health information remains private and secure. We never share your data without your explicit consent.
-          </p>
-
-          <h3 style={{
-            fontSize: '18px',
-            fontWeight: '600',
-            color: '#374151',
-            marginBottom: '12px',
-            marginTop: '20px'
-          }}>
             Account Security
           </h3>
           <ul style={{
@@ -414,93 +506,10 @@ export default function Help_center() {
             <li>Enable two-factor authentication for added security</li>
             <li>Never share your login credentials</li>
             <li>Log out after each session on shared devices</li>
-            <li>Report suspicious activity immediately</li>
           </ul>
         </div>
 
-
-        <div style={{
-          marginBottom: '50px'
-        }}>
-          <h2 style={{
-            fontSize: '26px',
-            fontWeight: '600',
-            color: '#111827',
-            marginBottom: '20px',
-            paddingBottom: '10px',
-            borderBottom: '2px solid #e5e7eb'
-          }}>
-            Terms & Conditions
-          </h2>
-
-          <h3 style={{
-            fontSize: '18px',
-            fontWeight: '600',
-            color: '#374151',
-            marginBottom: '12px',
-            marginTop: '20px'
-          }}>
-            User Responsibilities
-          </h3>
-          <ul style={{
-            fontSize: '16px',
-            lineHeight: '1.9',
-            color: '#4b5563',
-            paddingLeft: '20px',
-            marginBottom: '20px'
-          }}>
-            <li>Provide accurate and complete information</li>
-            <li>Arrive on time for appointments or notify in advance if unable to attend</li>
-            <li>Respect hospital staff and other patients</li>
-            <li>Follow prescribed treatment plans and medical advice</li>
-            <li>Keep your contact information up to date</li>
-          </ul>
-
-          <h3 style={{
-            fontSize: '18px',
-            fontWeight: '600',
-            color: '#374151',
-            marginBottom: '12px'
-          }}>
-            Cancellation Policy
-          </h3>
-          <ul style={{
-            fontSize: '16px',
-            lineHeight: '1.9',
-            color: '#4b5563',
-            paddingLeft: '20px',
-            marginBottom: '20px'
-          }}>
-            <li>Cancellations must be made at least 24 hours in advance</li>
-            <li>Late cancellations (less than 24 hours) may incur a fee</li>
-            <li>No-shows without prior notice may result in a full consultation charge</li>
-            <li>Repeated no-shows may affect your ability to book future appointments</li>
-          </ul>
-
-          <h3 style={{
-            fontSize: '18px',
-            fontWeight: '600',
-            color: '#374151',
-            marginBottom: '12px'
-          }}>
-            Payment Terms
-          </h3>
-          <ul style={{
-            fontSize: '16px',
-            lineHeight: '1.9',
-            color: '#4b5563',
-            paddingLeft: '20px',
-            margin: 0
-          }}>
-            <li>Payment is due at the time of service unless other arrangements are made</li>
-            <li>We accept insurance - please verify coverage before your appointment</li>
-            <li>Co-pays and deductibles must be paid at check-in</li>
-            <li>Payment plans are available for large bills upon request</li>
-            <li>All refunds will be processed within 7-10 business days</li>
-          </ul>
-        </div>
-
-
+        {/* Need More Help */}
         <div style={{
           background: '#f0f9ff',
           padding: '30px',

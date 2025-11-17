@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
 export default function Cold() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [readingProgress, setReadingProgress] = useState(0);
   const [viewCount, setViewCount] = useState(0);
   const [expandedSections, setExpandedSections] = useState({
     symptoms: true,
@@ -37,9 +35,6 @@ export default function Cold() {
       <nav style={{
         position: 'sticky',
         top: 0,
-        background: isScrolled ? 'rgba(255, 255, 255, 0.95)' : 'transparent',
-        backdropFilter: isScrolled ? 'blur(10px)' : 'none',
-        boxShadow: isScrolled ? '0 1px 3px rgba(0,0,0,0.1)' : 'none',
         transition: 'all 0.3s ease',
         zIndex: 999,
         padding: '16px 20px'
@@ -429,31 +424,6 @@ export default function Cold() {
           </p>
         </div>
       </div>
-
-      {/* Scroll to Top Button */}
-      {isScrolled && (
-        <button
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          style={{
-            position: 'fixed',
-            bottom: '30px',
-            right: '30px',
-            background: '#2563eb',
-            color: 'white',
-            border: 'none',
-            width: '50px',
-            height: '50px',
-            borderRadius: '25px',
-            fontSize: '20px',
-            cursor: 'pointer',
-            boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
-            transition: 'all 0.3s ease',
-            zIndex: 998
-          }}
-        >
-          ↑
-        </button>
-      )}
     </div>
   );
 }
