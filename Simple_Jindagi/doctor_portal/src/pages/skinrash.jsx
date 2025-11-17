@@ -459,6 +459,29 @@ export default function SkinRash() {
       </div>
 
       {/* Scroll to Top Button */}
+      {isScrolled && (
+        <button
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          style={{
+            position: 'fixed',
+            bottom: '30px',
+            right: '30px',
+            background: '#dc2626',
+            color: 'white',
+            border: 'none',
+            width: '50px',
+            height: '50px',
+            borderRadius: '25px',
+            fontSize: '20px',
+            cursor: 'pointer',
+            boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+            transition: 'all 0.3s ease',
+            zIndex: 998
+          }}
+        >
+          ↑
+        </button>
+      )}
     </div>
   );
 }
