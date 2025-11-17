@@ -29,6 +29,12 @@ header {
 	z-index: 1000;
 }
 
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
 nav {
 	display: flex;
 	justify-content: space-between;
