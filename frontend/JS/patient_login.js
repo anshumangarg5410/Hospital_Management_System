@@ -38,7 +38,9 @@ loginButton.addEventListener("click", async () => {
         const result = await response.json();
 
         if (result.success) {
-            // alert(result.message);
+            if (result.user) {
+                localStorage.setItem("hms_user", JSON.stringify(result.user));
+            }
             window.location.href = "../index.html";
         } else {
             alert(result.message);

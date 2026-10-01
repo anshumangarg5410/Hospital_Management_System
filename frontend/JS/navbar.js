@@ -18,6 +18,7 @@ async function loadNavbar() {
 
         const user = result.user || result;
         if (user && user.username) {
+            localStorage.setItem("hms_user", JSON.stringify(user));
             showUserProfile(user);
         } else {
             showLoginButton();
@@ -98,6 +99,7 @@ function logout(e) {
     
     if (!confirm("Are you sure you want to logout?")) return;
 
+    localStorage.removeItem("hms_user");
     fetch(`${backendLink}/logout`, { method: "POST" })
         .then(res => res.json())
         .then(data => {

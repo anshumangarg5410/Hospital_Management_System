@@ -81,18 +81,73 @@ async function loadCurrentUser() {
     const res = await fetch(`${BACKEND}/currentUser`);
     const json = await res.json();
     
-    if (!json.success) {
-      console.log("No logged in user:", json.message);
+    if (json.success && json.user) {
+      populateUser(json.user);
       return;
     }
-    
-    populateUser(json.user);
+
+    // Try auto-restoring session from localStorage if backend was restarted
+    const saved = localStorage.getItem("hms_user");
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        if (parsed.username && parsed.email) {
+          const relog = await fetch(`${BACKEND}/loginwithoutpassword`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username: parsed.username, email: parsed.email })
+          });
+          const relogJson = await relog.json();
+          if (relogJson.success && relogJson.user) {
+            populateUser(relogJson.user);
+            loadDashboardData();
+            return;
+          }
+        }
+      } catch (e) {
+        console.warn("Could not auto-restore session:", e);
+      }
+    }
+
+    // If still no user logged in
+    showNotLoggedInState();
   } catch (err) {
     console.error("Failed to load current user:", err);
+    showNotLoggedInState();
+  }
+}
+
+function showNotLoggedInState() {
+  setText("displayUserName", "Guest (Not Logged In)");
+  setText("patientIdText", "Please log in to view and edit your profile");
+  const avatarEl = document.querySelector(".user-avatar");
+  if (avatarEl) avatarEl.textContent = "?";
+
+  // Add banner in content wrapper if not present
+  if (!document.getElementById("loginBanner")) {
+    const contentWrapper = document.querySelector(".content-wrapper");
+    if (contentWrapper) {
+      const banner = document.createElement("div");
+      banner.id = "loginBanner";
+      banner.style.cssText = "background: #fff3cd; border: 1px solid #ffeeba; color: #856404; padding: 14px 20px; border-radius: 8px; margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center;";
+      banner.innerHTML = `
+        <div>
+          <strong>⚠️ You are currently not logged in.</strong>
+          <span style="display: block; font-size: 13px; margin-top: 2px;">Log in with your patient account to view your medical records and save profile settings.</span>
+        </div>
+        <a href="./patient_login_page.html" class="btn btn-primary" style="padding: 8px 16px; font-size: 14px; text-decoration: none; white-space: nowrap;">Log In</a>
+      `;
+      contentWrapper.insertBefore(banner, contentWrapper.firstChild);
+    }
   }
 }
 
 function populateUser(user) {
+  // Remove login banner if present
+  const banner = document.getElementById("loginBanner");
+  if (banner) banner.remove();
+
+  localStorage.setItem("hms_user", JSON.stringify(user));
 
   setText("displayUserName", user.name || user.username || "Patient");
   
@@ -113,7 +168,6 @@ function populateUser(user) {
     avatarEl.textContent = initials;
   }
 
-
   setValue("userName", user.name || "");
   setValue("userEmail", user.email || "");
   setValue("userPhone", user.phone || "");
@@ -121,24 +175,31 @@ function populateUser(user) {
   setValue("userBlood", user.bloodGroup || "");
   setValue("userAddress", user.address || "");
 
-
   document.body.dataset.currentUsername = user.username;
 }
 
 
 async function updateProfile() {
-  const username = document.body.dataset.currentUsername;
+  let username = document.body.dataset.currentUsername;
+  if (!username) {
+    const saved = localStorage.getItem("hms_user");
+    if (saved) {
+      try { username = JSON.parse(saved).username; } catch(e) {}
+    }
+  }
+
+  if (!username) {
+    alert("You are not logged in. Please log in first.");
+    window.location.href = "./patient_login_page.html";
+    return;
+  }
+
   const name = document.getElementById("userName")?.value?.trim();
   const email = document.getElementById("userEmail")?.value?.trim();
   const phone = document.getElementById("userPhone")?.value?.trim();
   const dob = document.getElementById("userDOB")?.value?.trim();
   const bloodGroup = document.getElementById("userBlood")?.value?.trim();
   const address = document.getElementById("userAddress")?.value?.trim();
-
-  if (!username) {
-    alert("No user loaded. Please login first.");
-    return;
-  }
 
   if (!name || !email) {
     alert("Name and email are required.");
@@ -168,7 +229,20 @@ async function updateProfile() {
 }
 
 async function changePassword() {
-  const username = document.body.dataset.currentUsername;
+  let username = document.body.dataset.currentUsername;
+  if (!username) {
+    const saved = localStorage.getItem("hms_user");
+    if (saved) {
+      try { username = JSON.parse(saved).username; } catch(e) {}
+    }
+  }
+
+  if (!username) {
+    alert("You are not logged in. Please log in first.");
+    window.location.href = "./patient_login_page.html";
+    return;
+  }
+
   const currentPassword = document.getElementById("currentPassword")?.value?.trim();
   const newPassword = document.getElementById("newPassword")?.value?.trim();
   const confirmPassword = document.getElementById("confirmPassword")?.value?.trim();
@@ -217,12 +291,12 @@ async function changePassword() {
 async function logout() {
   if (!confirm("Are you sure you want to logout?")) return;
   
+  localStorage.removeItem("hms_user");
   try {
     await fetch(`${BACKEND}/logout`, { method: "POST" });
     window.location.href = "../HTML/patient_login_page.html";
   } catch (err) {
     console.error("Logout error:", err);
-
     window.location.href = "../HTML/patient_login_page.html";
   }
 }
@@ -524,6 +598,14 @@ function formatDateTime(dateTimeStr) {
 document.addEventListener("DOMContentLoaded", () => {
   loadCurrentUser();
   loadDashboardData();
+
+  // Support ?tab=profile or ?tab=appointments etc. from URL navigation
+  const params = new URLSearchParams(window.location.search);
+  const tabParam = params.get('tab');
+  if (tabParam) {
+    const navBtn = document.querySelector(`.nav-item[onclick*="'${tabParam}'"]`);
+    showTab({ currentTarget: navBtn }, tabParam);
+  }
 });
 
 
