@@ -1,0 +1,152 @@
+{
+  "users": [
+    {
+      "name": "Anshuman Garg",
+      "username": "Anshuman",
+      "password": "why",
+      "email": "anshu_new@gmail.com",
+      "ID": 0,
+      "Designation": "Patient",
+      "appointments": [
+        {
+          "id": 1,
+          "doctor": "Dr. Renu",
+          "datetime": "2025-10-20T10:30",
+          "location": "Room 101",
+          "status": "Upcoming"
+        },
+        {
+          "id": 2,
+          "doctor": "Dr. Soham",
+          "datetime": "2025-10-21T14:00",
+          "location": "Room 102",
+          "status": "Completed"
+        }
+      ],
+      "prescriptions": [
+        {
+          "id": 1,
+          "doctor": "Dr. Renu",
+          "date": "2025-10-15",
+          "status": "Active",
+          "medicines": [
+            "Paracetamol",
+            "Vitamin D"
+          ]
+        }
+      ],
+      "orders": [
+        {
+          "id": 1,
+          "date": "2025-10-18",
+          "total": 450,
+          "status": "Delivered"
+        },
+        {
+          "id": 2,
+          "date": "2025-10-20",
+          "total": 438.5,
+          "status": "Processing",
+          "prescriptionId": 1,
+          "doctorName": "Dr. Renu",
+          "medicines": [
+            {
+              "name": "Paracetamol",
+              "instructions": "As directed by physician",
+              "price": 120
+            },
+            {
+              "name": "Vitamin D",
+              "instructions": "As directed by physician",
+              "price": 250
+            }
+          ],
+          "deliveryAddress": "asdasd",
+          "paymentMethod": "card",
+          "subtotal": 370,
+          "deliveryCharges": 50,
+          "tax": 18.5
+        }
+      ],
+      "reports": [
+        {
+          "id": 1,
+          "title": "Blood Test",
+          "date": "2025-10-10",
+          "status": "Available"
+        }
+      ],
+      "cart": [
+        {
+          "medicineId": 1,
+          "quantity": 1,
+          "addedAt": "2025-11-17T05:51:23.213Z"
+        }
+      ]
+    },
+    {
+      "name": "Soham",
+      "username": "Soham",
+      "password": "Something",
+      "email": "soham@gmail.com",
+      "ID": 1,
+      "Designation": "Patient",
+      "appointments": [],
+      "prescriptions": [],
+      "orders": [],
+      "reports": [],
+      "cart": [],
+      "phone": "sdfsfsdf",
+      "dob": "",
+      "bloodGroup": "",
+      "address": ""
+    },
+    {
+      "name": "Ria",
+      "username": "Ria",
+      "password": "something123",
+      "email": "ria@gmail.com",
+      "ID": 2,
+      "Designation": "Patient",
+      "appointments": [],
+      "prescriptions": [],
+      "orders": [],
+      "reports": [],
+      "cart": []
+    },
+    {
+      "name": "Dr. Renu",
+      "username": "Renu",
+      "password": "doctor123",
+      "email": "renu@gmail.com",
+      "ID": 3,
+      "Designation": "Doctor",
+      "appointments": [
+        {
+          "id": 1,
+          "patient": "Anshuman",
+          "datetime": "2025-10-20T10:30",
+          "location": "Room 101",
+          "status": "Upcoming"
+        }
+      ],
+      "prescriptions": [
+        {
+          "id": 1,
+          "patient": "Anshuman",
+          "date": "2025-10-15",
+          "status": "Active",
+          "medicines": [
+            "Paracetamol",
+            "Vitamin D"
+          ]
+        }
+      ],
+      "orders": [],
+      "reports": [],
+      "cart": []
+    }
+  ],
+  "login": 0,
+  "Current_User_Index": 0
+}

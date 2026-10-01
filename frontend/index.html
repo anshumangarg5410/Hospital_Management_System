@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HMS</title>
+    <link rel="icon" type="image/png" href="./Assets/mainlogo.png" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <link rel="stylesheet" href="./CSS/Landing_page.css" />
+  </head>
+  <body>
+    <!-- Navbar -->
+    <header>
+      <nav>
+        <a href="#" class="logo">
+          <div class="logo_pic"></div>
+          <span>HMS</span>
+        </a>
+
+        <ul class="nav-links">
+          <li class="here"><a href="#home">Home</a></li>
+          <li class="here"><a href="./HTML/about.html">About</a></li>
+          <li class="here"><a href="./HTML/contactpage.html">Contact</a></li>
+          <li class="here" id="authSection">
+            <a href="./HTML/user_sel.html" id="authLink">Login</a>
+          </li>
+
+          <li class="user-dropdown" id="userDropdown" style="display: none">
+            <div class="user-profile-nav">
+              <div class="user-avatar-small" id="navUserAvatar">U</div>
+              <span id="navUserName">User</span>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="dropdown-menu">
+              <a href="./HTML/user_portal.html" class="dropdown-item">
+                <i class="fas fa-user-circle"></i> My Portal
+              </a>
+              <a
+                href="./HTML/user_portal.html"
+                class="dropdown-item"
+              >
+                <i class="fas fa-calendar-check"></i> Appointments
+              </a>
+              <a
+                href="./HTML/user_portal.html"
+                class="dropdown-item"
+              >
+                <i class="fas fa-prescription"></i> Prescriptions
+              </a>
+              <a
+                href="./HTML/user_portal.html"
+                class="dropdown-item"
+              >
+                <i class="fas fa-cog"></i> Settings
+              </a>
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-item" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i> Logout
+              </a>
+            </div>
+          </li>
+        </ul>
+
+        <button class="mobile-menu">
+          <i class="fas fa-bars"></i>
+        </button>
+      </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+      <div class="hero-content">
+        <span class="hero-badge">
+          <a href="http://localhost:3001/nextgen_info"><i class="fas fa-star"></i> Next-Gen Healthcare Software</a>
+        </span>
+        <h1>Smarter Hospital Management for Better Care</h1>
+        <p>
+          Manage hospitals efficiently — from patient registration to advanced
+          reporting — with seamless digital solutions that transform healthcare
+          delivery.
+        </p>
+
+        <div class="search-container">
+          <div class="search-wrapper">
+            <i class="fas fa-search search-icon"></i>
+            <input
+              type="search"
+              class="search-input"
+              placeholder="Search for services, doctors, or treatments..."
+              autocomplete="off"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="image"></div>
+    </section>
+
+    <div style="height: 40px" id="services"></div>
+
+    <!-- Quick Options -->
+    <div class="Row-Title">
+      <p>Quick Options</p>
+    </div>
+
+    <section class="container">
+      <article class="row">
+        <figure class="col">
+          <a href="./HTML/shop_pharmacy.html">
+            <img src="./Assets/shop_pharmacy.webp" alt="Shop Pharmacy" />
+            <figcaption>Shop Pharmacy</figcaption>
+          </a>
+        </figure>
+        <figure class="col">
+          <a href="#home">
+            <img
+              src="./Assets/order_prescription.webp"
+              alt="Order Prescription"
+            />
+            <figcaption>Order Prescription</figcaption>
+          </a>
+        </figure>
+        <figure class="col">
+          <a href="/Assets/extraaaas/html/appointment3.html">
+            <img src="./Assets/Consult_Doctor.avif" alt="Book a Doctor" />
+            <figcaption>Book a Doctor</figcaption>
+          </a>
+        </figure>
+        <figure class="col">
+          <a href="./HTML/appointment3.html">
+            <img src="./Assets/instant_consultant.webp" alt="Instant Consult" />
+            <figcaption>Instant Consult</figcaption>
+          </a>
+        </figure>
+        <figure class="col">
+          <a href="./HTML/login_pat.html">
+            <img src="./Assets/records.webp" alt="My Records" />
+            <figcaption>My Records</figcaption>
+          </a>
+        </figure>
+        <figure class="col">
+          <a href="../HTML/optical_store.html">
+            <img src="./Assets/Optical.avif" alt="Optical Store" />
+            <figcaption>Optical Store</figcaption>
+          </a>
+        </figure>
+        <figure class="col">
+          <a href="#home">
+            <img src="./Assets/Offers.avif" alt="Exclusive Offers" />
+            <figcaption>Exclusive Offers</figcaption>
+          </a>
+        </figure>
+      </article>
+    </section>
+
+    <!-- Top Categories -->
+    <div class="Row-Title">
+      <p>Top Categories</p>
+    </div>
+
+    <section class="container">
+      <article class="row">
+        <figure class="col">
+          <a href="./HTML/top_deals.html">
+            <img src="./Assets/top_deals.avif" alt="Top Deals" />
+            <figcaption>Top Deals</figcaption>
+          </a>
+        </figure>
+
+        <figure class="col">
+          <a href="./HTML/back_to_routine.html">
+            <img src="./Assets/Back_to_Routine.avif" alt="Back to Routine" />
+            <figcaption>Back to Routine</figcaption>
+          </a>.
+        </figure>
+
+        <figure class="col">
+          <a href="./HTML/beauty.html">
+            <img src="./Assets/Beauty.avif" alt="Beauty" />
+            <figcaption>Beauty</figcaption>
+          </a>
+        </figure>
+
+        <figure class="col">
+          <a href="./HTML/mom_and_baby.html">
+            <img src="./Assets/mom_and_baby.avif" alt="Mom & Baby" />
+            <figcaption>Mom & Baby</figcaption>
+          </a>
+        </figure>
+
+        <figure class="col">
+          <a href="./HTML/nutrition.html">
+            <img src="./Assets/Nutrition_web.avif" alt="Nutrition" />
+            <figcaption>Nutrition</figcaption>
+          </a>
+        </figure>
+
+        <figure class="col">
+          <a href="./HTML/medical_essentials.html">
+            <img
+              src="./Assets/Medical_Essentials.avif"
+              alt="Medical Essentials"
+            />
+            <figcaption>Medical Essentials</figcaption>
+          </a>
+        </figure>
+
+        <figure class="col">
+          <a href="./HTML/most_clicked.html">
+            <img src="./Assets/Most_Clicked.avif" alt="Most Clicked" />
+            <figcaption>Most Clicked</figcaption>
+          </a>
+        </figure>
+      </article>
+    </section>
+
+    <!-- Offer Banner -->
+    <div class="Row-Title">
+      <img src="./Assets/Offerbanner.avif" alt="Special Offers" />
+    </div>
+
+    <!-- Brands in Spotlight -->
+    <div class="Row-Title">
+      <p>Brands In Spotlight</p>
+    </div>
+
+    <section class="container">
+      <article class="row">
+        <figure class="col">
+          <img src="./Assets/brand1.avif" alt="Brand 1" />
+        </figure>
+        <figure class="col">
+          <img src="./Assets/brand2.avif" alt="Brand 2" />
+        </figure>
+        <figure class="col">
+          <img src="./Assets/brand3.avif" alt="Brand 3" />
+        </figure>
+        <figure class="col">
+          <img src="./Assets/brand4.avif" alt="Brand 4" />
+        </figure>
+        <figure class="col">
+          <img src="./Assets/brand5.avif" alt="Brand 5" />
+        </figure>
+        <figure class="col">
+          <img src="./Assets/brand6.avif" alt="Brand 6" />
+        </figure>
+        <figure class="col">
+          <img src="./Assets/brand7.avif" alt="Brand 7" />
+        </figure>
+      </article>
+      <article class="row">
+        <figure class="col">
+          <img src="./Assets/brand1.avif" alt="Brand 1" />
+        </figure>
+        <figure class="col">
+          <img src="./Assets/brand2.avif" alt="Brand 2" />
+        </figure>
+        <figure class="col">
+          <img src="./Assets/brand3.avif" alt="Brand 3" />
+        </figure>
+        <figure class="col">
+          <img src="./Assets/brand4.avif" alt="Brand 4" />
+        </figure>
+        <figure class="col">
+          <img src="./Assets/brand5.avif" alt="Brand 5" />
+        </figure>
+        <figure class="col">
+          <img src="./Assets/brand6.avif" alt="Brand 6" />
+        </figure>
+        <figure class="col">
+          <img src="./Assets/brand7.avif" alt="Brand 7" />
+        </figure>
+      </article>
+    </section>
+
+    <!-- Health Conditions -->
+    <div class="Row-Title">
+      <p>We Got You Through This</p>
+    </div>
+
+    <section class="container">
+      <article class="row">
+        <a href="http://localhost:3001/cold"><figure class="col">
+          <img src="./Assets/Cold.avif" alt="Cold" />
+          <figcaption>Cold</figcaption>
+        </figure>
+        </a>
+        <a href="http://localhost:3001/skinrash">
+        <figure class="col">
+          <img src="./Assets/Skin_Rash.avif" alt="Skin Rash" />
+          <figcaption>Skin Rash</figcaption>
+        </figure>
+        </a>
+        <figure class="col">
+          <img src="./Assets/Sore_Throat.avif" alt="Sore Throat" />
+          <figcaption>Sore Throat</figcaption>
+        </figure>
+        <figure class="col">
+          <img src="./Assets/Joint_Pain.avif" alt="Joint Pain" />
+          <figcaption>Joint Pain</figcaption>
+        </figure>
+        <figure class="col">
+          <img src="./Assets/Chest_Pain.avif" alt="Chest Pain" />
+          <figcaption>Chest Pain</figcaption>
+        </figure>
+        <figure class="col">
+          <img src="./Assets/Fatigue.avif" alt="Fatigue" />
+          <figcaption>Fatigue</figcaption>
+        </figure>
+        <figure class="col">
+          <img src="./Assets/Headache.avif" alt="Headache" />
+          <figcaption>Headache</figcaption>
+        </figure>
+      </article>
+    </section>
+
+    <!-- Category Footer -->
+    <section class="category-footer">
+      <div class="category-container">
+        <div class="category-col">
+          <h4>Mother & Baby</h4>
+          <ul>
+            <li>Baby Diapering</li>
+            <li>Baby Bath & Skin Care</li>
+            <li>Baby Food & Supplements</li>
+            <li>Kids Food & Supplements</li>
+            <li>Moms & Maternity</li>
+            <li>Baby Medical Essentials</li>
+            <li>Baby Feeding Accessories</li>
+            <li>Baby Health & Safety</li>
+            <li>Baby Gear & Nursery</li>
+          </ul>
+        </div>
+
+        <div class="category-col">
+          <h4>Beauty</h4>
+          <ul>
+            <li>Skin Care</li>
+            <li>Sun Protection</li>
+            <li>Hair Care</li>
+            <li>Bath & Body Care</li>
+            <li>Fragrance</li>
+            <li>Make Up</li>
+            <li>Hand & Foot Care</li>
+            <li>Kits & Combos</li>
+            <li>Trending Skincare</li>
+          </ul>
+        </div>
+
+        <div class="category-col">
+          <h4>Personal Care</h4>
+          <ul>
+            <li>Dental Hygiene</li>
+            <li>Feminine Hygiene</li>
+            <li>Sexual Wellness</li>
+            <li>Hygiene Essentials</li>
+            <li>Hair Removal</li>
+            <li>Men's Grooming</li>
+            <li>Travel & Comfort</li>
+          </ul>
+        </div>
+
+        <div class="category-col">
+          <h4>Health & Wellness</h4>
+          <ul>
+            <li>Health Support</li>
+            <li>Vitamins</li>
+            <li>Minerals</li>
+            <li>Wellness & Lifestyle</li>
+            <li>Specialty Supplements</li>
+            <li>Gut Health</li>
+            <li>Sports Nutrition</li>
+            <li>Health Food</li>
+            <li>Shop by Women's Health</li>
+            <li>Shop by Men's Health</li>
+            <li>Shop by Nutrition Trends</li>
+          </ul>
+        </div>
+
+        <div class="category-col">
+          <h4>Medical Essentials</h4>
+          <ul>
+            <li>Cough & Fever</li>
+            <li>Cold & Flu</li>
+            <li>Pain Relief</li>
+            <li>Pharmacy Remedies</li>
+            <li>Digestive Remedies</li>
+            <li>First Aid</li>
+            <li>Medical Supplies</li>
+            <li>Specialist Remedies</li>
+          </ul>
+        </div>
+
+        <div class="category-col">
+          <h4>Equipment & Homecare</h4>
+          <ul>
+            <li>Health Monitors</li>
+            <li>Orthopedic Supports</li>
+            <li>Mobility Support</li>
+            <li>Bath & Shower Support</li>
+            <li>Homecare Bed & Accessories</li>
+            <li>Respiratory Care</li>
+            <li>Massagers</li>
+          </ul>
+        </div>
+
+        <div class="category-col">
+          <h4>Lifestyle & Fitness</h4>
+          <ul>
+            <li>Fitness & Exercise</li>
+            <li>Health Food & Beverages</li>
+            <li>Aromatherapy</li>
+            <li>Sleep & Relaxation</li>
+          </ul>
+        </div>
+
+        <div class="category-col">
+          <h4>Eye Care & Opticals</h4>
+          <ul>
+            <li>Sunglasses</li>
+            <li>Reading Glasses</li>
+            <li>Contact Lenses</li>
+            <li>Eye Care Accessories</li>
+            <li>Optical Frames</li>
+          </ul>
+        </div>
+
+        <div class="category-col">
+          <h4>Pet Care</h4>
+          <ul>
+            <li>Pet First Aid</li>
+            <li>Pet Supplements</li>
+            <li>Pet Grooming</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="category-bottom">
+        <div class="help-center">
+          <p>We're Always Here To Help</p>
+          <a href="http://localhost:3001/help"><button>Help Center</button></a>
+        </div>
+        <div class="social-links">
+          <span>Follow Us On:</span>
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-linkedin"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-container">
+        <div class="footer-section">
+          <h3>Hospital Management System</h3>
+          <p>
+            Providing 24/7 healthcare with the best doctors, modern facilities,
+            and patient-friendly services. Your health is our priority.
+          </p>
+        </div>
+
+        <div class="footer-section">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Departments</a></li>
+            <li><a href="#">Doctors</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h4>Contact Us</h4>
+          <p><strong>Address:</strong> 123 Health Street, New Delhi, India</p>
+          <p><strong>Phone:</strong> +91 98765 43210</p>
+          <p><strong>Email:</strong> info@hospital.com</p>
+        </div>
+
+        <div class="footer-section">
+          <h4>Emergency</h4>
+          <p>Helpline: <strong>102 / 108</strong></p>
+          <p>24/7 Ambulance and Emergency Support</p>
+          <div class="social-icons">
+            <a href="#"><img src="./Assets/facebook.jpeg" alt="Facebook" /></a>
+            <a href="#"><img src="./Assets/twitter.png" alt="Twitter" /></a>
+            <a href="#"><img src="./Assets/linkedin.png" alt="LinkedIn" /></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2025 Hospital Management System | All Rights Reserved</p>
+      </div>
+    </footer>
+
+    <!-- <script src="/JS/navbar.js"></script> -->
+    <script src="./JS/landing_page.js"></script>
+  </body>
+</html>
