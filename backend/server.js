@@ -147,25 +147,97 @@ app.get("/currentUser", (req, res) => {
 // ---------------------------------------------------------
 // Patient Data (Appointments, Reports, Orders, Prescriptions)
 // ---------------------------------------------------------
-function getUserData(key) {
+function getUserData(key, username) {
   const data = readJSON(patientsFile, { users: [] });
-  if (Current_User_Index !== null) {
+  if (username) {
+    const user = data.users.find(u => u.username === username);
+    if (user && user[key]) return user[key];
+  }
+  if (Current_User_Index !== null && data.users[Current_User_Index]) {
     return data.users[Current_User_Index][key] || [];
+  }
+  if (data.users.length > 0 && data.users[0][key]) {
+    return data.users[0][key] || [];
   }
   return [];
 }
 
 app.get("/appointments", (req, res) =>
-  res.json({ success: true, appointments: getUserData("appointments") })
+  res.json({ success: true, appointments: getUserData("appointments", req.query.username) })
 );
+
+app.post("/appointments", (req, res) => {
+  const data = readJSON(patientsFile, { users: [] });
+  let userIndex = Current_User_Index;
+  if (req.body.username) {
+    const idx = data.users.findIndex(u => u.username === req.body.username);
+    if (idx !== -1) userIndex = idx;
+  }
+  if (userIndex === null || !data.users[userIndex]) {
+    userIndex = 0;
+  }
+  if (!data.users[userIndex]) {
+    return res.json({ success: false, message: "No user found" });
+  }
+
+  const user = data.users[userIndex];
+  if (!Array.isArray(user.appointments)) user.appointments = [];
+
+  const newAppointment = {
+    id: user.appointments.length > 0 ? Math.max(...user.appointments.map(a => a.id || 0)) + 1 : 1,
+    doctor: req.body.doctor || "Dr. Soham Sood",
+    datetime: req.body.datetime || new Date().toISOString().slice(0, 16),
+    location: req.body.location || "Room 101",
+    status: req.body.status || "Upcoming",
+    department: req.body.department || "General Medicine"
+  };
+
+  user.appointments.unshift(newAppointment);
+  writeJSON(patientsFile, data);
+
+  res.json({ success: true, message: "Appointment booked successfully", appointment: newAppointment });
+});
+
 app.get("/prescriptions", (req, res) =>
-  res.json({ success: true, prescriptions: getUserData("prescriptions") })
+  res.json({ success: true, prescriptions: getUserData("prescriptions", req.query.username) })
 );
+
+app.post("/prescriptions", (req, res) => {
+  const data = readJSON(patientsFile, { users: [] });
+  let userIndex = Current_User_Index;
+  if (req.body.username) {
+    const idx = data.users.findIndex(u => u.username === req.body.username);
+    if (idx !== -1) userIndex = idx;
+  }
+  if (userIndex === null || !data.users[userIndex]) {
+    userIndex = 0;
+  }
+  if (!data.users[userIndex]) {
+    return res.json({ success: false, message: "No user found" });
+  }
+
+  const user = data.users[userIndex];
+  if (!Array.isArray(user.prescriptions)) user.prescriptions = [];
+
+  const newPrescription = {
+    id: user.prescriptions.length > 0 ? Math.max(...user.prescriptions.map(p => p.id || 0)) + 1 : 1,
+    doctor: req.body.doctor || "Prescription Order",
+    date: req.body.date || new Date().toISOString().split("T")[0],
+    status: req.body.status || "Pending Verification",
+    medicines: req.body.medicines || ["Uploaded Prescription"]
+  };
+
+  user.prescriptions.unshift(newPrescription);
+  writeJSON(patientsFile, data);
+
+  res.json({ success: true, message: "Prescription submitted successfully", prescription: newPrescription });
+});
+
 app.get("/orders", (req, res) =>
-  res.json({ success: true, orders: getUserData("orders") })
+  res.json({ success: true, orders: getUserData("orders", req.query.username) })
 );
 app.get("/reports", (req, res) =>
-  res.json({ success: true, reports: getUserData("reports") })
+  res.json({ success: true, reports: getUserData("reports", req.query.username) })
 );
 
 // ---------------------------------------------------------

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Appointment</title>
+		<link rel="stylesheet" href="../CSS/appointment3.css" />
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
+			integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer" />
+					<link rel="icon" type="image/png" href="../Assets/mainlogo.png" />
+	</head>
+	<body>
+		<main>
+			<div class="main">
+				<div class="main_head">
+					<p>Book Appointment</p>
+					<i class="fa-regular fa-circle-xmark"></i>
+				</div>
+				<ul class="row">
+					<ul class="subrow">
+						<!-- Doctor selection -->
+						<li class="doctor_selection common_selection">
+							<label for="doctor">Doctor</label>
+							<select name="doctors" id="doctor">
+								<option value="sohamSood">Dr. Soham Sood</option>
+								<option value="riaGupta">Dr. Ria Gupta</option>
+								<option value="parthSohal">Dr. Parth Sohal</option>
+								<option value="renuSingh">Dr. Renu Singh</option>
+							</select>
+						</li>
+
+						<!-- Category selection -->
+						<li class="hygeine_selection common_selection">
+							<label for="category">Category</label>
+							<select name="category" id="category">
+								<option value="cardiology">Cardiology</option>
+								<option value="orthopedic">Orthopedic</option>
+								<option value="dermatology">Dermatology</option>
+								<option value="pediatrics">Pediatrics</option>
+								<option value="neurology">Neurology</option>
+								<option value="gynecology">Gynecology</option>
+							</select>
+						</li>
+					</ul>
+				</ul>
+
+				<ul class="row">
+					<ul class="subrow">
+						<li class="doctor_selection common_selection">
+							<label for="doctor">Date</label>
+							<input type="date" class="date_option" />
+						</li>
+
+						<li class="hygeine_selection common_selection time">
+							<label for="hygeine">From</label>
+							<select name="Hygeine ">
+								<option value="08:00">8:00 AM</option>
+								<option value="09:00">9:00 AM</option>
+								<option value="10:00">10:00 AM</option>
+								<option value="11:00">11:00 AM</option>
+								<option value="12:00">12:00 PM</option>
+							</select>
+						</li>
+
+						<li class="hygeine_selection common_selection time">
+							<label for="hygeine">To</label>
+							<select name="Hygeine time">
+								<option value="08:00">8:00 AM</option>
+								<option value="09:00">9:00 AM</option>
+								<option value="10:00">10:00 AM</option>
+								<option value="11:00">11:00 AM</option>
+								<option value="12:00">12:00 PM</option>
+							</select>
+						</li>
+					</ul>
+				</ul>
+
+				<ul class="row">
+					<ul class="subrow">
+						<li class="duration common_selection">
+							<label for="doctor">Duration</label>
+							<ul class="minutes">
+								<li class="single_minute first">30 Min</li>
+								<li class="single_minute second">15 Min</li>
+								<li class="single_minute third">60 Min</li>
+							</ul>
+						</li>
+					</ul>
+				</ul>
+
+				<ul class="row">
+					<ul class="subrow">
+						<li class="doctor_selection common_selection">
+							<label for="treatment">Treatment</label>
+							<select name="treatment" id="treatment">
+								<option value="General Consultation">General Consultation</option>
+								<option value="Routine Health Checkup">Routine Health Checkup</option>
+								<option value="Follow-up Visit">Follow-up Visit</option>
+								<option value="Urgent Consultation">Urgent Consultation</option>
+							</select>
+						</li>
+					</ul>
+				</ul>
+
+				<div class="low_head">
+					<ul class="low_row">
+						<li class="cancel" id="cancelBtn" style="cursor: pointer;">Cancel</li>
+
+						<li class="create" id="createBtn" style="cursor: pointer;">Create</li>
+					</ul>
+				</div>
+			</div>
+		</main>
+		<script>
+			document.addEventListener("DOMContentLoaded", () => {
+				const BACKEND = "http://localhost:3000";
+
+				// Pre-select today's date
+				const dateInput = document.querySelector(".date_option");
+				if (dateInput && !dateInput.value) {
+					dateInput.value = new Date().toISOString().split("T")[0];
+				}
+
+				// Close/Cancel button
+				const closeBtn = document.querySelector(".main_head i");
+				const cancelBtn = document.getElementById("cancelBtn");
+				const goBack = () => {
+					if (window.history.length > 1) {
+						window.history.back();
+					} else {
+						window.location.href = "../index.html";
+					}
+				};
+				if (closeBtn) closeBtn.addEventListener("click", goBack);
+				if (cancelBtn) cancelBtn.addEventListener("click", goBack);
+
+				// Minute selections
+				const minuteBtns = document.querySelectorAll(".single_minute");
+				minuteBtns.forEach(btn => {
+					btn.style.cursor = "pointer";
+					btn.addEventListener("click", () => {
+						minuteBtns.forEach(b => b.style.outline = "none");
+						btn.style.outline = "2px solid #2563eb";
+					});
+				});
+
+				// Create button
+				const createBtn = document.getElementById("createBtn");
+				if (createBtn) {
+					createBtn.addEventListener("click", async () => {
+						const docSelect = document.getElementById("doctor");
+						const catSelect = document.getElementById("category");
+						const treatSelect = document.getElementById("treatment");
+						const timeSelect = document.querySelector('select[name="Hygeine "]');
+
+						const docName = docSelect ? docSelect.options[docSelect.selectedIndex].text : "Dr. Soham Sood";
+						const department = catSelect ? catSelect.options[catSelect.selectedIndex].text : "General";
+						const treatment = treatSelect ? treatSelect.value : "General Consultation";
+						const date = dateInput ? dateInput.value : new Date().toISOString().split("T")[0];
+						const time = timeSelect ? timeSelect.value : "10:00";
+
+						// Get user username if logged in
+						let loggedInUser = null;
+						try {
+							loggedInUser = JSON.parse(localStorage.getItem("hms_user") || sessionStorage.getItem("loggedInUser") || "null");
+						} catch (e) {}
+						const username = loggedInUser?.username || "Anshuman";
+
+						try {
+							await fetch(`${BACKEND}/appointments`, {
+								method: "POST",
+								headers: { "Content-Type": "application/json" },
+								body: JSON.stringify({
+									doctor: docName,
+									datetime: `${date}T${time}`,
+									location: "Room 101, Main Wing",
+									status: "Upcoming",
+									department: department,
+									treatment: treatment,
+									username: username
+								})
+							});
+						} catch (err) {
+							console.warn("Could not reach backend to save appointment:", err);
+						}
+
+						alert(`Appointment successfully scheduled with ${docName} on ${date} at ${time}!\nRedirecting to your dashboard...`);
+						window.location.href = "./user_portal.html?tab=appointments";
+					});
+				}
+			});
+		</script>
+	</body>
+</html>

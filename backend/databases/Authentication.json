@@ -9,6 +9,14 @@
       "Designation": "Patient",
       "appointments": [
         {
+          "id": 3,
+          "doctor": "Dr. Soham Sood",
+          "datetime": "2026-10-02T10:00",
+          "location": "Room 101",
+          "status": "Upcoming",
+          "department": "General Medicine"
+        },
+        {
           "id": 1,
           "doctor": "Dr. Renu",
           "datetime": "2025-10-20T10:30",
@@ -24,6 +32,15 @@
         }
       ],
       "prescriptions": [
+        {
+          "id": 2,
+          "doctor": "Prescription Upload",
+          "date": "2026-10-01",
+          "status": "Pending Verification",
+          "medicines": [
+            "Blood_Test_Prescription.pdf"
+          ]
+        },
         {
           "id": 1,
           "doctor": "Dr. Renu",
@@ -81,8 +98,17 @@
           "medicineId": 1,
           "quantity": 1,
           "addedAt": "2025-11-17T05:51:23.213Z"
+        },
+        {
+          "medicineId": 3,
+          "quantity": 1,
+          "addedAt": "2026-10-01T10:30:24.846Z"
         }
-      ]
+      ],
+      "phone": "",
+      "dob": "",
+      "bloodGroup": "",
+      "address": ""
     },
     {
       "name": "Soham",

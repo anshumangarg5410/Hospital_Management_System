@@ -82,7 +82,7 @@
 
           <div class="patient-box">
             <h3>Patient</h3>
-            <p>Guest</p>
+            <p id="patientNameDisplay">Guest</p>
           </div>
 
           <div class="disclaimer">
@@ -100,7 +100,7 @@
               <p>
                 Get a prescription by consulting with our doctors online/in-person
               </p>
-              <a href="#">Request Consultation</a>
+              <a href="./appointment3.html">Request Consultation</a>
             </div>
           </div>
         </div>
@@ -116,11 +116,11 @@
               <div class="upload-box-top">
                 <div>
                   <h4>Prescription</h4>
-                  <p>(Mandatory)</p>
+                  <p id="prescStatus">(Mandatory)</p>
                 </div>
                 <label class="upload-btn">
-                  <i class="fa-solid fa-upload"></i> Upload
-                  <input type="file" hidden />
+                  <i class="fa-solid fa-upload"></i> <span id="prescBtnText">Upload</span>
+                  <input type="file" id="prescFile" hidden accept="image/*,.pdf" />
                 </label>
               </div>
               <div class="upload-note">
@@ -138,11 +138,11 @@
                     Claim Form
                     <i class="fa-solid fa-circle-info info-icon"></i>
                   </h4>
-                  <p>(Optional)</p>
+                  <p id="claimStatus">(Optional)</p>
                 </div>
                 <label class="upload-btn">
-                  <i class="fa-solid fa-upload"></i> Upload
-                  <input type="file" hidden />
+                  <i class="fa-solid fa-upload"></i> <span id="claimBtnText">Upload</span>
+                  <input type="file" id="claimFile" hidden accept="image/*,.pdf" />
                 </label>
               </div>
             </div>
@@ -155,19 +155,107 @@
                     Diagnostic Report
                     <i class="fa-solid fa-circle-info info-icon"></i>
                   </h4>
-                  <p>(Optional)</p>
+                  <p id="diagStatus">(Optional)</p>
                 </div>
                 <label class="upload-btn">
-                  <i class="fa-solid fa-upload"></i> Upload
-                  <input type="file" hidden />
+                  <i class="fa-solid fa-upload"></i> <span id="diagBtnText">Upload</span>
+                  <input type="file" id="diagFile" hidden accept="image/*,.pdf" />
                 </label>
               </div>
             </div>
 
-            <button class="continue-btn" disabled>Continue</button>
+            <button class="continue-btn" id="continueBtn" disabled style="cursor: pointer;">Continue</button>
           </div>
         </div>
       </div>
     </section>
+    <script src="../JS/navbar.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // Load patient name from localStorage
+        const saved = localStorage.getItem("hms_user");
+        if (saved) {
+          try {
+            const user = JSON.parse(saved);
+            const nameEl = document.getElementById("patientNameDisplay");
+            if (nameEl && (user.name || user.username)) {
+              nameEl.textContent = user.name || user.username;
+            }
+          } catch(e) {}
+        }
+
+        const prescInput = document.getElementById("prescFile");
+        const continueBtn = document.getElementById("continueBtn");
+        const prescStatus = document.getElementById("prescStatus");
+        const prescBtnText = document.getElementById("prescBtnText");
+
+        if (prescInput) {
+          prescInput.addEventListener("change", () => {
+            if (prescInput.files && prescInput.files[0]) {
+              const fileName = prescInput.files[0].name;
+              prescStatus.textContent = `✓ ${fileName}`;
+              prescStatus.style.color = "green";
+              prescBtnText.textContent = "Change";
+              if (continueBtn) {
+                continueBtn.disabled = false;
+                continueBtn.style.opacity = "1";
+              }
+            }
+          });
+        }
+
+        const claimInput = document.getElementById("claimFile");
+        if (claimInput) {
+          claimInput.addEventListener("change", () => {
+            if (claimInput.files && claimInput.files[0]) {
+              document.getElementById("claimStatus").textContent = `✓ ${claimInput.files[0].name}`;
+              document.getElementById("claimStatus").style.color = "green";
+              document.getElementById("claimBtnText").textContent = "Change";
+            }
+          });
+        }
+
+        const diagInput = document.getElementById("diagFile");
+        if (diagInput) {
+          diagInput.addEventListener("change", () => {
+            if (diagInput.files && diagInput.files[0]) {
+              document.getElementById("diagStatus").textContent = `✓ ${diagInput.files[0].name}`;
+              document.getElementById("diagStatus").style.color = "green";
+              document.getElementById("diagBtnText").textContent = "Change";
+            }
+          });
+        }
+
+        if (continueBtn) {
+          continueBtn.addEventListener("click", async () => {
+            const fileName = prescInput?.files?.[0]?.name || "Prescription_Document.pdf";
+            let loggedInUser = null;
+            try {
+              loggedInUser = JSON.parse(localStorage.getItem("hms_user") || sessionStorage.getItem("loggedInUser") || "null");
+            } catch(e) {}
+            const username = loggedInUser?.username || "Anshuman";
+
+            try {
+              await fetch("http://localhost:3000/prescriptions", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  doctor: "Dr. Consultation / Prescription Upload",
+                  date: new Date().toISOString().split("T")[0],
+                  status: "Pending Verification",
+                  medicines: [fileName],
+                  username: username
+                })
+              });
+            } catch (err) {
+              console.warn("Could not reach backend to save prescription:", err);
+            }
+
+            alert("Prescription uploaded successfully! Our pharmacist will review it and process your order.\nRedirecting to your prescriptions tab...");
+            window.location.href = "./user_portal.html?tab=prescriptions";
+          });
+        }
+      });
+    </script>
   </body>
 </html>
