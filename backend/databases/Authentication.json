@@ -2,7 +2,7 @@
   "users": [
     {
       "name": "Anshuman Garg",
-      "username": "Anshuman",
+      "username": "upda",
       "password": "why",
       "email": "anshu_new@gmail.com",
       "ID": 0,
@@ -62,6 +62,21 @@
         }
       ],
       "orders": [
+        {
+          "id": 6,
+          "date": "2026-10-01",
+          "total": 22.99,
+          "status": "Processing",
+          "medicines": [
+            {
+              "name": "Optimum Nutrition (ON) Gold Standard 100% Whey",
+              "price": 22.99,
+              "instructions": "1 unit"
+            }
+          ],
+          "deliveryAddress": "Flat 402, Green Avenue, Sector 14, New Delhi",
+          "paymentMethod": "UPI"
+        },
         {
           "id": 5,
           "date": "2026-10-01",
@@ -163,7 +178,7 @@
         },
         {
           "medicineId": 3,
-          "quantity": 1,
+          "quantity": 3,
           "addedAt": "2026-10-01T10:30:24.846Z"
         }
       ],

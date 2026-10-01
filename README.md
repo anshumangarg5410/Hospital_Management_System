@@ -1,157 +1,165 @@
-# 🏥 Hospitality Management System (HMS)
+# 🏥 Hospital Management System (HMS)
+
+A full-stack Hospital Management System with an online pharmacy, appointment booking, prescription ordering, patient dashboard, and doctor portal.
+
+---
 
 ## 📁 Project Structure
 
 ```
 Hospital_Management_System/
-├── frontend/               # Client-side application
-│   ├── Assets/             # Images, icons, and static assets
-│   ├── CSS/                # Stylesheets for all pages
-│   ├── HTML/               # HTML pages (auth, portals, services, cart, etc.)
-│   ├── JS/                 # Client scripts and API integrations
-│   ├── data/               # Static fallback data (medicines catalog)
-│   ├── doctor_portal/      # Doctor Portal & symptom info (React SPA)
-│   ├── index.html          # Main landing page
-│   ├── layout.html         # Base layout template
-│   └── package.json        # Frontend scripts and dependencies
+├── frontend/                   # Client-side (HTML, CSS, JS)
+│   ├── index.html              # Landing page
+│   ├── HTML/                   # All HTML pages
+│   │   ├── login_pat.html          # Patient login / register
+│   │   ├── user_portal.html        # Patient dashboard (auth-protected)
+│   │   ├── order_prescription.html # Upload & order prescription (auth-protected)
+│   │   ├── medicine.html           # Browse medicines
+│   │   ├── cart.html               # Shopping cart
+│   │   ├── purchase_now.html       # Checkout / purchase
+│   │   ├── appointment3.html       # Book an appointment
+│   │   ├── instant_consult.html    # Instant doctor consultation
+│   │   ├── doctor_portal.html      # Doctor portal entry
+│   │   ├── contactpage.html        # Contact / emergency info
+│   │   ├── help.html               # Help center
+│   │   └── ...                     # Other category pages
+│   ├── CSS/                    # Stylesheets
+│   ├── JS/                     # Client-side scripts
+│   │   ├── navbar.js               # Shared navbar & auth state
+│   │   ├── Landing_page.js         # Landing page interactions
+│   │   ├── shop_pharmacy.js        # Pharmacy / cart logic
+│   │   ├── patient_login.js        # Auth flow (login / register)
+│   │   └── user_portal.js          # Patient dashboard tabs
+│   ├── Assets/                 # Images and icons
+│   └── data/                   # Static fallback data
 │
-├── backend/                # Server-side application
-│   ├── databases/          # JSON database files (auth, doctors, medicines, reviews)
-│   ├── server.js           # Main Express server and API endpoints
-│   ├── index.js            # Compatibility entrypoint
-│   └── package.json        # Backend scripts and dependencies
+├── backend/                    # Server-side (Node.js / Express)
+│   ├── server.js               # Main Express API server
+│   ├── index.js                # Entrypoint alias
+│   └── databases/              # JSON flat-file databases
+│       ├── Authentication.json     # Users, orders, prescriptions, appointments
+│       ├── medicines.json          # Medicine catalog
+│       ├── doctor.json             # Doctor profiles
+│       ├── reviews.json            # Patient reviews
+│       └── searchData.json         # Search index data
 │
-├── archive/                # Archived experimental iterations
-│   ├── Mentos_Jindagi/     # Experimental Vite + React + MongoDB prototype
-│   └── react/              # Experimental CRA prototype
-│
-├── README.md               # Project documentation
-└── .gitignore              # Git ignore rules
+├── vercel.json                 # Vercel deployment config
+└── README.md
 ```
 
-## 🚀 Running the Project
+---
 
-### 1. Backend Server
+## 🚀 Getting Started
+
+### Prerequisites
+- **Node.js** v18+ and **npm**
+
+### 1. Start the Backend API
+
 ```bash
 cd backend
-npm start
-# Server starts at http://localhost:3000
+npm install
+npm run dev       # Starts on http://localhost:3000
 ```
 
-### 2. Frontend
-Open `frontend/index.html` using **Live Server** (configured for port 3001), or run:
+> Uses `nodemon` for auto-reload on file changes.
+
+### 2. Start the Frontend
+
 ```bash
 cd frontend
-npm run dev
-# Server starts at http://localhost:3001
+npm install
+npm run dev       # Serves on http://localhost:3001
 ```
 
-### 3. Doctor Portal (React App)
-```bash
-cd frontend/doctor_portal
-npm start
-# Runs at http://localhost:3001
-```
+> Uses the `serve` package to host the static frontend.
+
+### 3. Open the App
+
+Navigate to **http://localhost:3001** in your browser.
 
 ---
 
-### Deployed Links:
-Backend: https://hospitality-management-system-xdyy.onrender.com <br>
-All Current Users List: https://hospitality-management-system-xdyy.onrender.com/users <br>
-All Reviews: https://hospitality-management-system-xdyy.onrender.com/reviews
+## 🔐 Authentication
 
+- Session is stored in **`localStorage`** under the key `hms_user`.
+- The backend tracks the active session via a global `Current_User_Index`.
+- **Protected pages** (Patient Dashboard, Order Prescription) redirect unauthenticated users to the login page with a contextual notice.
+- After login, users are automatically redirected back to the page they were trying to access.
 
-# 🏥 Hospital Management Website Page Structure
+### Test Credentials
 
-## 🔷 Navbar 
-
-| Item | Purpose |
-|--------------------|-------------------------------------------------------------------------|
-| **Home** | Back to the landing page |
-| **Services** | Overview of all services (OPD, Pharmacy, Lab, etc.) |
-| **Appointments** | Direct link to the appointment booking flow |
-| **Medicine Store** | Opens online pharmacy section |
-| **Lab Tests** | Book diagnostic tests / packages |
-| **About Us** | Info about hospital, team, history, mission |
-| **Contact / Help** | Helpline numbers, email, FAQs, support |
-| **Login/Register** | Patient login & account creation |
-
-**After Login:** Replace `Login/Register` with `Dashboard` / `Logout`.
-
-## 1. Home Page
-- Hero section with tagline: **“??”**
-- Quick action buttons:
-  - 🩺 Book Appointment  
-  - 💊 Buy Medicines  
-  - 🧪 Lab Tests / Diagnostics  
-  - 📞 Emergency Contact  
-- About the hospital and testimonials
+Check `backend/databases/Authentication.json` for existing users. You can register a new account directly from the **Login / Register** page.
 
 ---
 
-## 2. Services Page
-- List of available services:
-  - OPD (out patient department)
-  - Pharmacy (Online Medicine Store)
-  - Surgery Packages
-  - Tele‑consultation
-  - Ambulance / Emergency
+## 🌐 API Endpoints (Backend — port 3000)
 
-Each service card → **Learn More / Proceed**
-
----
-
-## 3. Medicine Shop Page
-- Search bar: _“Search for medicines…”_
-- Categories: Pain Relief, Diabetes, Baby Care, etc.
-- **Add to Cart → Checkout → Payment → Order Confirmation**
-
----
-
-## 4. Appointment Booking Flow
-**Step 1:** Select Department (Cardiology, Neurology, Orthopedics,…)
-
-**Step 2:** Choose Doctor (Doctor profile cards)
-
-**Step 3:** Book Slot
-- Select Date
-- Select Time
-- Fill Patient Details
-- Confirm Booking ✅
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/users` | List all users |
+| `POST` | `/login` | Authenticate a user |
+| `POST` | `/register` | Register a new user |
+| `POST` | `/logout` | Log out current user |
+| `GET` | `/getUserData` | Get current user's profile & records |
+| `GET` | `/medicines` | Get full medicines catalog |
+| `GET` | `/doctors` | Get all doctor profiles |
+| `GET` | `/reviews` | Get patient reviews |
+| `POST` | `/addToCart` | Add item to cart |
+| `GET` | `/getCart` | Get current user's cart |
+| `DELETE` | `/removeFromCart` | Remove item from cart |
+| `POST` | `/placeOrder` | Place an order |
+| `POST` | `/uploadPrescription` | Upload a prescription |
+| `POST` | `/bookAppointment` | Book a doctor appointment |
+| `GET` | `/search` | Search medicines/doctors |
 
 ---
 
-## 5. Lab Tests Booking
-- Search test (e.g., “CBC Test”)
-- Popular Packages (Full Body Check, Thyroid, Sugar etc.)
-- **Book Now → Select Date → Patient Details → Confirm**
+## 🖥️ Key Pages
+
+| Page | URL | Auth Required |
+|------|-----|---------------|
+| Landing Page | `/` | ❌ |
+| Medicine Shop | `/HTML/medicine.html` | ❌ |
+| Shopping Cart | `/HTML/cart.html` | ❌ |
+| Checkout | `/HTML/purchase_now.html` | ✅ |
+| Order Prescription | `/HTML/order_prescription.html` | ✅ |
+| Patient Dashboard | `/HTML/user_portal.html` | ✅ |
+| Book Appointment | `/HTML/appointment3.html` | ❌ |
+| Instant Consult | `/HTML/instant_consult.html` | ❌ |
+| Doctor Portal | `/HTML/doctor_portal.html` | ✅ (Doctor) |
+| Help Center | `/HTML/help.html` | ❌ |
+| Contact | `/HTML/contactpage.html` | ❌ |
 
 ---
 
-## 6. Patient Dashboard (after login)
-- My Appointments
-- My Medicine Orders
-- Profile / Address
-- Reports / Prescriptions Download
+## 🗄️ Database
+
+The project uses **JSON flat files** as its database (no external DB required).
+
+| File | Contents |
+|------|----------|
+| `Authentication.json` | User accounts, appointments, prescriptions, orders, reports |
+| `medicines.json` | Medicine catalog with categories, prices, images |
+| `doctor.json` | Doctor profiles with specializations |
+| `reviews.json` | Patient testimonials / reviews |
 
 ---
 
-## 7. Contact / Emergency Page
-- 24×7 Helpline Numbers
-- Ambulance Hotline
-- Google Map Location
+## 🚢 Deployment
+
+- **Backend** deployed on [Render](https://render.com):
+  `https://hospitality-management-system-xdyy.onrender.com`
+- **Frontend** can be deployed as a static site (Vercel, Netlify, etc.)
 
 ---
 
-### ✅ Summary
-| Section         | Description                                 |
-|----------------|----------------------------------------------|
-| Appointment     | OPD, Doctors, Slot Booking                   |
-| Pharmacy        | Buy Medicines / Healthcare Products          |
-| Diagnostics     | Book Tests / View Reports                    |
+## 🛠️ Tech Stack
 
-Every main section follows this pattern → **Browse → Select → Fill Info → Confirm**
-
----
-
-
+| Layer | Technology |
+|-------|------------|
+| Frontend | HTML5, CSS3, Vanilla JavaScript |
+| Backend | Node.js, Express.js |
+| Database | JSON flat files (no SQL/MongoDB needed) |
+| Dev Server | `nodemon` (backend), `serve` (frontend) |
+| Deployment | Render (backend), Vercel (frontend) |
