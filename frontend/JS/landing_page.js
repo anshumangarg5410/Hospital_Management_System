@@ -15,12 +15,15 @@ async function loadNavbar() {
 
         const user = result.user || result;
         if (user && user.username) {
+            localStorage.setItem("hms_user", JSON.stringify(user));
             showUserProfile(user);
         } else {
+            localStorage.removeItem("hms_user");
             showLoginButton();
         }
     } catch (err) {
         console.error("Error fetching login status:", err);
+        localStorage.removeItem("hms_user");
         showLoginButton();
     }
 }
@@ -371,27 +374,59 @@ function initializeSearch() {
     loadSearchData();
 }
 
+function setupProtectedLinks() {
+    const prescLink = document.getElementById("orderPrescriptionLink");
+    const recordsLink = document.getElementById("myRecordsLink");
+
+    const checkIsLoggedIn = () => {
+        try {
+            const saved = localStorage.getItem("hms_user");
+            if (saved) {
+                const parsed = JSON.parse(saved);
+                return !!(parsed && (parsed.username || parsed.email));
+            }
+        } catch(e) {}
+        return false;
+    };
+
+    if (prescLink) {
+        prescLink.addEventListener("click", (e) => {
+            if (!checkIsLoggedIn()) {
+                e.preventDefault();
+                sessionStorage.setItem("hms_auth_notice", "login_required_prescription");
+                sessionStorage.setItem("hms_redirect", "order_prescription.html");
+                window.location.href = "./HTML/patient_login_page.html?redirect=order_prescription.html&msg=login_required_prescription";
+            }
+        });
+    }
+
+    if (recordsLink) {
+        recordsLink.addEventListener("click", (e) => {
+            if (!checkIsLoggedIn()) {
+                e.preventDefault();
+                sessionStorage.setItem("hms_auth_notice", "login_required_records");
+                sessionStorage.setItem("hms_redirect", "user_portal.html?tab=reports");
+                window.location.href = "./HTML/patient_login_page.html?redirect=user_portal.html%3Ftab%3Dreports&msg=login_required_records";
+            }
+        });
+    }
+}
 
 document.addEventListener("DOMContentLoaded", () => {
-
     loadNavbar();
-    
-
     setupMobileMenu();
     setupMobileDropdown();
     setupNavItemClicks();
     setupOutsideClick();
     setupResizeHandler();
 
-
     const logoutBtn = document.getElementById("logoutBtn");
     if (logoutBtn) {
         logoutBtn.addEventListener("click", logout);
     }
 
-
     initializeSearch();
+    setupProtectedLinks();
 });
-
 
 window.logout = logout;

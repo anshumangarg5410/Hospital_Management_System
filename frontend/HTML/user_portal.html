@@ -6,7 +6,27 @@
     <title>Patient Portal - Hospital Management System</title>
     <link rel="stylesheet" href="../CSS/user_portal.css">
 </head>
-<body>
+<body class="auth-locked">
+    <!-- AUTHENTICATION REQUIRED GUARD SCREEN -->
+    <div id="authLockedScreen" class="auth-locked-screen" style="display: flex;">
+        <div class="auth-locked-card">
+            <div class="auth-locked-icon">🔒</div>
+            <h2>Patient Portal Access Restricted</h2>
+            <p>
+                To protect patient privacy, your health dashboard, medical records, prescriptions, and appointments are only accessible to logged-in patients.
+            </p>
+            <div class="auth-locked-actions">
+                <a id="authLoginRedirectBtn" href="./patient_login_page.html?redirect=user_portal.html&msg=login_required_records" class="btn-auth-primary">
+                    Log In to Your Account
+                </a>
+                <a href="../index.html" class="btn-auth-secondary">
+                    Return to Home
+                </a>
+            </div>
+            <p class="auth-redirect-hint">Redirecting to login in <span id="countdownSec">2</span>s...</p>
+        </div>
+    </div>
+
     <!-- Sidebar -->
     <div class="sidebar">
         <div class="logo">
@@ -44,10 +64,10 @@
             </div>
             <div class="user-profile">
                 <div class="user-info">
-                    <h3 id="displayUserName">John Doe</h3>
-                    <p id="patientIdText">Patient ID: PAT-2024-1234</p>
+                    <h3 id="displayUserName">Loading...</h3>
+                    <p id="patientIdText">Patient ID: ...</p>
                 </div>
-                <div class="user-avatar">JD</div>
+                <div class="user-avatar">--</div>
             </div>
         </div>
 
@@ -59,22 +79,22 @@
                 <div class="stats-row">
                     <div class="stat-card">
                         <div class="stat-label">Upcoming</div>
-                        <div class="stat-value" id="statAppointments">3</div>
+                        <div class="stat-value" id="statAppointments">0</div>
                         <div class="stat-subtext">Appointments</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-label">Total</div>
-                        <div class="stat-value" id="statPrescriptions">12</div>
+                        <div class="stat-value" id="statPrescriptions">0</div>
                         <div class="stat-subtext">Prescriptions</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-label">Pending</div>
-                        <div class="stat-value" id="statOrders">2</div>
+                        <div class="stat-value" id="statOrders">0</div>
                         <div class="stat-subtext">Medicine Orders</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-label">Available</div>
-                        <div class="stat-value" id="statReports">8</div>
+                        <div class="stat-value" id="statReports">0</div>
                         <div class="stat-subtext">Medical Reports</div>
                     </div>
                 </div>
@@ -133,12 +153,66 @@
 
             <!-- Reports Tab -->
             <div id="reports" class="tab-content">
-                <div class="section-header">
-                    <h2 class="section-title">Medical Reports</h2>
-                    <p class="section-subtitle">Access your lab results and reports</p>
+                <div class="section-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+                    <div>
+                        <h2 class="section-title">Medical Records & Reports</h2>
+                        <p class="section-subtitle">Access, download, and manage your clinical diagnostic reports</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="openUploadReportModal()" style="display: flex; align-items: center; gap: 8px;">
+                        <span>+</span> Upload Medical Record
+                    </button>
                 </div>
                 <div id="reportsList">
                     <!-- Reports will be loaded dynamically -->
+                </div>
+            </div>
+
+            <!-- Upload Report Modal -->
+            <div id="uploadReportModal" class="modal-overlay">
+                <div class="modal-card">
+                    <div class="modal-header">
+                        <h3>Upload Medical Report</h3>
+                        <button class="modal-close-btn" onclick="closeUploadReportModal()">&times;</button>
+                    </div>
+                    <form id="uploadReportForm" onsubmit="event.preventDefault(); submitNewReport();">
+                        <div class="form-group" style="margin-bottom: 16px;">
+                            <label class="form-label" for="reportTitle">Report Name / Test Type</label>
+                            <input type="text" class="form-control" id="reportTitle" placeholder="e.g. Complete Blood Count (CBC), Chest X-Ray" required>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 16px;">
+                            <label class="form-label" for="reportDoctor">Doctor / Laboratory</label>
+                            <input type="text" class="form-control" id="reportDoctor" placeholder="e.g. Dr. Soham Sood / Central Diagnostics" value="HMS Clinical Labs">
+                        </div>
+                        <div class="form-group" style="margin-bottom: 16px;">
+                            <label class="form-label" for="reportDate">Report Date</label>
+                            <input type="date" class="form-control" id="reportDate" required>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 20px;">
+                            <label class="form-label" for="reportFile">Select File (PDF, PNG, JPG)</label>
+                            <input type="file" class="form-control" id="reportFile" accept=".pdf,image/*">
+                        </div>
+                        <div style="display: flex; gap: 12px; justify-content: flex-end;">
+                            <button type="button" class="btn btn-outline" onclick="closeUploadReportModal()">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Save & Upload</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- View Report Modal -->
+            <div id="viewReportModal" class="modal-overlay">
+                <div class="modal-card" style="max-width: 680px;">
+                    <div class="modal-header">
+                        <h3 id="modalReportTitle">Diagnostic Lab Report</h3>
+                        <button class="modal-close-btn" onclick="closeViewReportModal()">&times;</button>
+                    </div>
+                    <div id="modalReportContent">
+                        <!-- Populated by JS -->
+                    </div>
+                    <div style="display: flex; gap: 12px; justify-content: flex-end; margin-top: 20px;">
+                        <button class="btn btn-outline" onclick="closeViewReportModal()">Close</button>
+                        <button class="btn btn-primary" id="modalPrintBtn" onclick="printCurrentReport()">Print / Download PDF</button>
+                    </div>
                 </div>
             </div>
 

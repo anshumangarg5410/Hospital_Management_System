@@ -156,9 +156,6 @@ function getUserData(key, username) {
   if (Current_User_Index !== null && data.users[Current_User_Index]) {
     return data.users[Current_User_Index][key] || [];
   }
-  if (data.users.length > 0 && data.users[0][key]) {
-    return data.users[0][key] || [];
-  }
   return [];
 }
 
@@ -236,9 +233,77 @@ app.post("/prescriptions", (req, res) => {
 app.get("/orders", (req, res) =>
   res.json({ success: true, orders: getUserData("orders", req.query.username) })
 );
+
+app.post("/orders", (req, res) => {
+  const data = readJSON(patientsFile, { users: [] });
+  let userIndex = Current_User_Index;
+  if (req.body.username) {
+    const idx = data.users.findIndex(u => u.username === req.body.username);
+    if (idx !== -1) userIndex = idx;
+  }
+  if (userIndex === null || !data.users[userIndex]) {
+    userIndex = 0;
+  }
+  if (!data.users[userIndex]) {
+    return res.json({ success: false, message: "No user found" });
+  }
+
+  const user = data.users[userIndex];
+  if (!Array.isArray(user.orders)) user.orders = [];
+
+  const newOrder = {
+    id: user.orders.length > 0 ? Math.max(...user.orders.map(o => o.id || 0)) + 1 : 1,
+    date: req.body.date || new Date().toISOString().split("T")[0],
+    total: Number(req.body.total) || 25.49,
+    status: "Processing",
+    medicines: req.body.medicines || [
+      { name: "Optimum Nutrition 100% Whey", price: 18.39, instructions: "Daily dietary supplement" }
+    ],
+    deliveryAddress: req.body.deliveryAddress || "123 Health Street, New Delhi",
+    paymentMethod: req.body.paymentMethod || "UPI"
+  };
+
+  user.orders.unshift(newOrder);
+  writeJSON(patientsFile, data);
+
+  res.json({ success: true, message: "Order placed successfully", order: newOrder });
+});
 app.get("/reports", (req, res) =>
   res.json({ success: true, reports: getUserData("reports", req.query.username) })
 );
+
+app.post("/reports", (req, res) => {
+  const data = readJSON(patientsFile, { users: [] });
+  let userIndex = Current_User_Index;
+  if (req.body.username) {
+    const idx = data.users.findIndex(u => u.username === req.body.username);
+    if (idx !== -1) userIndex = idx;
+  }
+  if (userIndex === null || !data.users[userIndex]) {
+    userIndex = 0;
+  }
+  if (!data.users[userIndex]) {
+    return res.json({ success: false, message: "No user found" });
+  }
+
+  const user = data.users[userIndex];
+  if (!Array.isArray(user.reports)) user.reports = [];
+
+  const newReport = {
+    id: user.reports.length > 0 ? Math.max(...user.reports.map(r => r.id || 0)) + 1 : 1,
+    title: req.body.title || "Diagnostic Lab Report",
+    date: req.body.date || new Date().toISOString().split("T")[0],
+    status: req.body.status || "Available",
+    doctor: req.body.doctor || "Dr. Soham Sood",
+    type: req.body.type || "Laboratory",
+    summary: req.body.summary || "All clinical parameters within standard physiological range."
+  };
+
+  user.reports.unshift(newReport);
+  writeJSON(patientsFile, data);
+
+  res.json({ success: true, message: "Report uploaded successfully", report: newReport });
+});
 
 // ---------------------------------------------------------
 // Update User

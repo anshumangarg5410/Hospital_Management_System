@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HMS | Exclusive Health Offers & Mega Deals</title>
+    <link rel="icon" type="image/png" href="../Assets/mainlogo.png" />
+    <link rel="stylesheet" href="../CSS/order_prescription.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <style>
+      :root {
+        --primary: #10724a;
+        --primary-light: #e8f5ee;
+        --accent-orange: #ea580c;
+        --border: #e2e8f0;
+      }
+      body {
+        background-color: #f8fafc;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        color: #1e293b;
+        margin: 0;
+      }
+      .offers-hero {
+        background: linear-gradient(135deg, #ea580c 0%, #c2410c 50%, #7c2d12 100%);
+        color: white;
+        padding: 50px 20px;
+        text-align: center;
+      }
+      .offers-hero h1 {
+        font-size: 2.3rem;
+        font-weight: 800;
+        margin: 0 0 10px;
+      }
+      .offers-hero p {
+        font-size: 1.1rem;
+        opacity: 0.95;
+        max-width: 600px;
+        margin: 0 auto 20px;
+      }
+      .timer-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(0, 0, 0, 0.3);
+        padding: 8px 18px;
+        border-radius: 50px;
+        font-weight: 700;
+        font-size: 0.95rem;
+      }
+      .container {
+        max-width: 1120px;
+        margin: -30px auto 60px;
+        padding: 0 20px;
+        position: relative;
+        z-index: 10;
+      }
+      .coupons-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 18px;
+        margin-bottom: 40px;
+      }
+      .coupon-card {
+        background: white;
+        border-radius: 16px;
+        padding: 20px;
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+        border: 2px dashed #fed7aa;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .coupon-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+      }
+      .coupon-code {
+        font-size: 1.25rem;
+        font-weight: 800;
+        color: var(--accent-orange);
+        letter-spacing: 1px;
+      }
+      .coupon-badge {
+        background: #ffedd5;
+        color: #9a3412;
+        padding: 4px 8px;
+        border-radius: 8px;
+        font-size: 0.75rem;
+        font-weight: 700;
+      }
+      .copy-btn {
+        width: 100%;
+        margin-top: 14px;
+        padding: 10px;
+        border-radius: 8px;
+        border: 1px solid var(--accent-orange);
+        background: #fff7ed;
+        color: var(--accent-orange);
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .copy-btn:hover {
+        background: var(--accent-orange);
+        color: white;
+      }
+      .section-title {
+        font-size: 1.6rem;
+        font-weight: 800;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .deals-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 20px;
+      }
+      .deal-card {
+        background: white;
+        border-radius: 16px;
+        padding: 20px;
+        box-shadow: 0 10px 25px -5px rgba(0,0,0,0.06);
+        border: 1px solid var(--border);
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+      .deal-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 20px 30px -10px rgba(0,0,0,0.12);
+      }
+      .deal-img {
+        width: 100%;
+        height: 160px;
+        object-fit: contain;
+        margin-bottom: 14px;
+      }
+      .deal-badge {
+        background: #ef4444;
+        color: white;
+        padding: 3px 8px;
+        border-radius: 6px;
+        font-size: 0.75rem;
+        font-weight: 800;
+        align-self: flex-start;
+        margin-bottom: 8px;
+      }
+      .deal-name {
+        font-weight: 700;
+        font-size: 1rem;
+        margin-bottom: 6px;
+        color: #1e293b;
+      }
+      .deal-pricing {
+        margin: 10px 0 16px;
+        display: flex;
+        align-items: baseline;
+        gap: 8px;
+      }
+      .deal-price {
+        font-size: 1.25rem;
+        font-weight: 800;
+        color: var(--primary);
+      }
+      .deal-mrp {
+        color: #94a3b8;
+        text-decoration: line-through;
+        font-size: 0.9rem;
+      }
+      .buy-deal-btn {
+        margin-top: auto;
+        padding: 12px;
+        border-radius: 10px;
+        background: var(--primary);
+        color: white;
+        border: none;
+        font-weight: 700;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        text-decoration: none;
+        transition: background 0.2s;
+      }
+      .buy-deal-btn:hover {
+        background: #0d5c3a;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <nav>
+        <a href="../index.html" class="logo">
+          <div class="logo_pic"></div>
+          <span>HMS</span>
+        </a>
+
+        <ul class="nav-links">
+          <li class="here"><a href="../index.html">Home</a></li>
+          <li class="here"><a href="./about.html">About</a></li>
+          <li class="here"><a href="./shop_pharmacy.html">Pharmacy</a></li>
+          <li class="here"><a href="./contactpage.html">Contact</a></li>
+          <li class="here" id="authSection">
+            <a href="./user_sel.html" id="authLink">Login</a>
+          </li>
+
+          <li class="user-dropdown" id="userDropdown" style="display: none">
+            <div class="user-profile-nav">
+              <div class="user-avatar-small" id="navUserAvatar">U</div>
+              <span id="navUserName">User</span>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="dropdown-menu">
+              <a href="./user_portal.html" class="dropdown-item">
+                <i class="fas fa-user-circle"></i> My Portal
+              </a>
+              <a href="./user_portal.html?tab=medicines" class="dropdown-item">
+                <i class="fas fa-box"></i> My Orders
+              </a>
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-item" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i> Logout
+              </a>
+            </div>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Hero -->
+    <section class="offers-hero">
+      <div class="timer-badge">
+        <i class="fas fa-stopwatch"></i> Flash Sale Ends in: <span id="countdown">04h 32m 19s</span>
+      </div>
+      <h1 style="margin-top: 14px;">Exclusive Healthcare Offers</h1>
+      <p>Save Up to 60% on branded medicines, diagnostic packages, and daily essentials.</p>
+    </section>
+
+    <!-- Main Container -->
+    <main class="container">
+      <!-- Coupon Cards -->
+      <div class="coupons-grid">
+        <div class="coupon-card">
+          <div>
+            <div class="coupon-header">
+              <span class="coupon-code">HEALTH60</span>
+              <span class="coupon-badge">FLAT 60% OFF</span>
+            </div>
+            <p style="margin: 0; font-size: 0.9rem; color: #64748b;">
+              Valid on all medicines and fitness essentials above ₹199.
+            </p>
+          </div>
+          <button class="copy-btn" onclick="copyCoupon('HEALTH60', this)">
+            <i class="far fa-copy"></i> Copy Code
+          </button>
+        </div>
+
+        <div class="coupon-card">
+          <div>
+            <div class="coupon-header">
+              <span class="coupon-code">LAB50</span>
+              <span class="coupon-badge">50% OFF</span>
+            </div>
+            <p style="margin: 0; font-size: 0.9rem; color: #64748b;">
+              Full Body Health Checkup & Diagnostic Blood Profiles.
+            </p>
+          </div>
+          <button class="copy-btn" onclick="copyCoupon('LAB50', this)">
+            <i class="far fa-copy"></i> Copy Code
+          </button>
+        </div>
+
+        <div class="coupon-card">
+          <div>
+            <div class="coupon-header">
+              <span class="coupon-code">FREECARE</span>
+              <span class="coupon-badge">100% FREE</span>
+            </div>
+            <p style="margin: 0; font-size: 0.9rem; color: #64748b;">
+              First instant video consultation with a certified doctor.
+            </p>
+          </div>
+          <button class="copy-btn" onclick="copyCoupon('FREECARE', this)">
+            <i class="far fa-copy"></i> Copy Code
+          </button>
+        </div>
+      </div>
+
+      <!-- Mega Deals Grid -->
+      <div class="section-title">
+        <i class="fas fa-fire" style="color: #ef4444;"></i> Flash Deals (Up to 60% OFF)
+      </div>
+
+      <div class="deals-grid">
+        <!-- Deal 1 -->
+        <div class="deal-card">
+          <span class="deal-badge">60% OFF</span>
+          <img src="../Assets/50-vitaboost-moisturizer-with-vitamin-b-c-and-e-for-daily-skin-original-imaghmev47dwbhs5.webp" class="deal-img" alt="Whey Protein" />
+          <div class="deal-name">Optimum Nutrition (ON) Gold Standard Whey (2 lbs)</div>
+          <p style="font-size: 0.85rem; color: #64748b; margin: 0;">24g Pure Protein, 5.5g BCAAs</p>
+          <div class="deal-pricing">
+            <span class="deal-price">₹18.39</span>
+            <span class="deal-mrp">₹45.99</span>
+          </div>
+          <a href="./purchase_now.html?name=Optimum+Nutrition+Whey+Protein&price=18.39" class="buy-deal-btn">
+            ⚡ Buy Now
+          </a>
+        </div>
+
+        <!-- Deal 2 -->
+        <div class="deal-card">
+          <span class="deal-badge">60% OFF</span>
+          <img src="../Assets/brand1.avif" class="deal-img" alt="BP Monitor" />
+          <div class="deal-name">Omron HEM 7120 Digital BP Monitor</div>
+          <p style="font-size: 0.85rem; color: #64748b; margin: 0;">IntelliSense Upper Arm Accuracy</p>
+          <div class="deal-pricing">
+            <span class="deal-price">₹11.59</span>
+            <span class="deal-mrp">₹28.99</span>
+          </div>
+          <a href="./purchase_now.html?name=Omron+HEM+7120+BP+Monitor&price=11.59" class="buy-deal-btn">
+            ⚡ Buy Now
+          </a>
+        </div>
+
+        <!-- Deal 3 -->
+        <div class="deal-card">
+          <span class="deal-badge">60% OFF</span>
+          <img src="../Assets/brand2.avif" class="deal-img" alt="Chyawanprash" />
+          <div class="deal-name">Dabur Chyawanprash 1kg Immunity Booster</div>
+          <p style="font-size: 0.85rem; color: #64748b; margin: 0;">2x Immunity with Amla & Herbs</p>
+          <div class="deal-pricing">
+            <span class="deal-price">₹3.99</span>
+            <span class="deal-mrp">₹9.99</span>
+          </div>
+          <a href="./purchase_now.html?name=Dabur+Chyawanprash+1kg&price=3.99" class="buy-deal-btn">
+            ⚡ Buy Now
+          </a>
+        </div>
+
+        <!-- Deal 4 -->
+        <div class="deal-card">
+          <span class="deal-badge">60% OFF</span>
+          <img src="../Assets/brand3.avif" class="deal-img" alt="Glucometer" />
+          <div class="deal-name">Accu-Chek Instant Blood Glucose Kit</div>
+          <p style="font-size: 0.85rem; color: #64748b; margin: 0;">Target Range Indicator with 10 Strips</p>
+          <div class="deal-pricing">
+            <span class="deal-price">₹9.99</span>
+            <span class="deal-mrp">₹24.99</span>
+          </div>
+          <a href="./purchase_now.html?name=Accu-Chek+Instant+Glucometer&price=9.99" class="buy-deal-btn">
+            ⚡ Buy Now
+          </a>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-container">
+        <div class="footer-section">
+          <h3>Hospital Management System</h3>
+          <p>Providing the most affordable and genuine healthcare solutions 24/7.</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 Hospital Management System | All Rights Reserved</p>
+      </div>
+    </footer>
+
+    <script src="../JS/navbar.js"></script>
+    <script>
+      function copyCoupon(code, btn) {
+        navigator.clipboard.writeText(code).then(() => {
+          const original = btn.innerHTML;
+          btn.innerHTML = `<i class="fas fa-check"></i> Copied!`;
+          btn.style.background = "#10724a";
+          btn.style.color = "white";
+          setTimeout(() => {
+            btn.innerHTML = original;
+            btn.style.background = "#fff7ed";
+            btn.style.color = "#ea580c";
+          }, 2000);
+        });
+      }
+
+      // Countdown Timer
+      let totalSeconds = 4 * 3600 + 32 * 60 + 19;
+      setInterval(() => {
+        totalSeconds = Math.max(0, totalSeconds - 1);
+        const h = String(Math.floor(totalSeconds / 3600)).padStart(2, '0');
+        const m = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, '0');
+        const s = String(totalSeconds % 60).padStart(2, '0');
+        const el = document.getElementById("countdown");
+        if (el) el.textContent = `${h}h ${m}m ${s}s`;
+      }, 1000);
+    </script>
+  </body>
+</html>

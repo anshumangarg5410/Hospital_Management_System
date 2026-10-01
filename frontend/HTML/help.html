@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HMS | Help Center & Support</title>
+    <link rel="icon" type="image/png" href="../Assets/mainlogo.png" />
+    <link rel="stylesheet" href="../CSS/order_prescription.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <style>
+      :root {
+        --primary: #10724a;
+        --primary-light: #e8f5ee;
+        --border: #e2e8f0;
+      }
+      body {
+        background-color: #f8fafc;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        color: #1e293b;
+        margin: 0;
+      }
+      .help-hero {
+        background: linear-gradient(135deg, #0d5c3a 0%, #10724a 100%);
+        color: white;
+        padding: 60px 20px;
+        text-align: center;
+      }
+      .help-hero h1 {
+        font-size: 2.4rem;
+        margin: 0 0 10px;
+        font-weight: 800;
+      }
+      .help-hero p {
+        font-size: 1.1rem;
+        opacity: 0.9;
+        margin: 0 auto 24px;
+        max-width: 600px;
+      }
+      .search-box-help {
+        max-width: 540px;
+        margin: 0 auto;
+        display: flex;
+        background: white;
+        border-radius: 50px;
+        padding: 6px 10px 6px 20px;
+        box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+      }
+      .search-box-help input {
+        flex: 1;
+        border: none;
+        outline: none;
+        font-size: 1rem;
+        color: #1e293b;
+      }
+      .search-box-help button {
+        background: var(--primary);
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 50px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+      .container {
+        max-width: 1080px;
+        margin: -30px auto 60px;
+        padding: 0 20px;
+        position: relative;
+        z-index: 10;
+      }
+      .topics-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 20px;
+        margin-bottom: 40px;
+      }
+      .topic-card {
+        background: white;
+        border-radius: 16px;
+        padding: 24px;
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+        border: 1px solid var(--border);
+        text-decoration: none;
+        color: inherit;
+        transition: all 0.2s ease;
+        display: flex;
+        flex-direction: column;
+      }
+      .topic-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 20px 35px -10px rgba(16, 114, 74, 0.15);
+        border-color: var(--primary);
+      }
+      .topic-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 12px;
+        background: var(--primary-light);
+        color: var(--primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.4rem;
+        margin-bottom: 16px;
+      }
+      .topic-title {
+        font-size: 1.15rem;
+        font-weight: 700;
+        margin-bottom: 8px;
+      }
+      .topic-desc {
+        color: #64748b;
+        font-size: 0.9rem;
+        line-height: 1.5;
+      }
+      .contact-banner {
+        background: white;
+        border-radius: 20px;
+        padding: 32px;
+        box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.06);
+        border: 1px solid var(--border);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+      .contact-btn {
+        padding: 14px 28px;
+        border-radius: 12px;
+        background: var(--primary);
+        color: white;
+        text-decoration: none;
+        font-weight: 700;
+        transition: background 0.2s;
+      }
+      .contact-btn:hover {
+        background: #0d5c3a;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <nav>
+        <a href="../index.html" class="logo">
+          <div class="logo_pic"></div>
+          <span>HMS</span>
+        </a>
+
+        <ul class="nav-links">
+          <li class="here"><a href="../index.html">Home</a></li>
+          <li class="here"><a href="./about.html">About</a></li>
+          <li class="here"><a href="./shop_pharmacy.html">Pharmacy</a></li>
+          <li class="here"><a href="./contactpage.html">Contact</a></li>
+          <li class="here" id="authSection">
+            <a href="./user_sel.html" id="authLink">Login</a>
+          </li>
+
+          <li class="user-dropdown" id="userDropdown" style="display: none">
+            <div class="user-profile-nav">
+              <div class="user-avatar-small" id="navUserAvatar">U</div>
+              <span id="navUserName">User</span>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="dropdown-menu">
+              <a href="./user_portal.html" class="dropdown-item">
+                <i class="fas fa-user-circle"></i> My Portal
+              </a>
+              <a href="./user_portal.html?tab=appointments" class="dropdown-item">
+                <i class="fas fa-calendar-check"></i> Appointments
+              </a>
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-item" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i> Logout
+              </a>
+            </div>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Hero -->
+    <section class="help-hero">
+      <h1>We're Always Here To Help</h1>
+      <p>Search solutions, track appointments and medicine deliveries, or connect directly with our support team.</p>
+      <div class="search-box-help">
+        <input type="text" placeholder="How can we assist you today? (e.g. track order, doctor consult)" />
+        <button onclick="window.location.href='./contactpage.html'">Search</button>
+      </div>
+    </section>
+
+    <!-- Topics Grid -->
+    <main class="container">
+      <div class="topics-grid">
+        <a href="./user_portal.html?tab=medicines" class="topic-card">
+          <div class="topic-icon"><i class="fas fa-box"></i></div>
+          <div class="topic-title">Orders & Deliveries</div>
+          <div class="topic-desc">Track real-time shipment status, manage deliveries, and view invoices.</div>
+        </a>
+
+        <a href="./appointment3.html" class="topic-card">
+          <div class="topic-icon"><i class="fas fa-calendar-check"></i></div>
+          <div class="topic-title">Doctor Appointments</div>
+          <div class="topic-desc">Book consultations, reschedule slots, or request clinical follow-ups.</div>
+        </a>
+
+        <a href="./user_portal.html?tab=reports" class="topic-card">
+          <div class="topic-icon"><i class="fas fa-file-medical"></i></div>
+          <div class="topic-title">Medical Records</div>
+          <div class="topic-desc">Access validated laboratory reports, diagnostic PDFs, and upload records.</div>
+        </a>
+
+        <a href="./instant_consult.html" class="topic-card">
+          <div class="topic-icon"><i class="fas fa-video"></i></div>
+          <div class="topic-title">Instant Consultations</div>
+          <div class="topic-desc">Connect with on-duty physicians within 60 seconds for triage and e-prescriptions.</div>
+        </a>
+      </div>
+
+      <!-- Contact Banner -->
+      <div class="contact-banner">
+        <div>
+          <h3 style="margin: 0 0 8px; font-size: 1.3rem;">Still need assistance?</h3>
+          <p style="margin: 0; color: #64748b;">Our clinical support team and helplines are active 24/7 to help you.</p>
+        </div>
+        <div style="display: flex; gap: 12px; align-items: center;">
+          <a href="tel:102" style="color: #10724a; font-weight: 700; text-decoration: none;">📞 102 / 108</a>
+          <a href="./contactpage.html" class="contact-btn">Contact Support Team</a>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-container">
+        <div class="footer-section">
+          <h3>Hospital Management System</h3>
+          <p>Providing 24/7 healthcare and emergency support for patients and families.</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 Hospital Management System | All Rights Reserved</p>
+      </div>
+    </footer>
+
+    <script src="../JS/navbar.js"></script>
+  </body>
+</html>

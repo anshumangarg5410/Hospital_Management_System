@@ -14,6 +14,30 @@ const passwordInputRegister = document.querySelectorAll("#patient_register_passw
 // const backendLink = "https://hospitality-management-system-xdyy.onrender.com";
 const backendLink = "http://localhost:3000";
 
+document.addEventListener("DOMContentLoaded", () => {
+    const params = new URLSearchParams(window.location.search);
+    const msg = params.get("msg") || sessionStorage.getItem("hms_auth_notice");
+    const noticeEl = document.getElementById("loginAuthNotice");
+    const noticeText = document.getElementById("loginAuthNoticeText");
+
+    if (noticeEl && noticeText && msg) {
+        if (msg === "login_required_records") {
+            noticeText.textContent = "Please log in to view your medical records and patient dashboard.";
+            noticeEl.style.display = "block";
+        } else if (msg === "login_required_prescription") {
+            noticeText.textContent = "Please log in to upload prescriptions and order medicines.";
+            noticeEl.style.display = "block";
+        } else if (msg === "login_required_portal") {
+            noticeText.textContent = "Patient authentication required to access personal medical data.";
+            noticeEl.style.display = "block";
+        } else if (msg === "login_required") {
+            noticeText.textContent = "Please log in with your patient account to continue.";
+            noticeEl.style.display = "block";
+        }
+        sessionStorage.removeItem("hms_auth_notice");
+    }
+});
+
 loginButton.addEventListener("click", async () => {
     const username = usernameInputLogin.value.trim();
     const password = passwordInputLogin.value.trim();
@@ -41,7 +65,21 @@ loginButton.addEventListener("click", async () => {
             if (result.user) {
                 localStorage.setItem("hms_user", JSON.stringify(result.user));
             }
-            window.location.href = "../index.html";
+            const params = new URLSearchParams(window.location.search);
+            const redirectTarget = params.get("redirect") || sessionStorage.getItem("hms_redirect");
+            sessionStorage.removeItem("hms_redirect");
+            if (redirectTarget) {
+                // If it's a relative path or local target
+                if (redirectTarget.startsWith("http://") || redirectTarget.startsWith("https://")) {
+                    window.location.href = redirectTarget;
+                } else if (redirectTarget.startsWith("../") || redirectTarget.startsWith("./")) {
+                    window.location.href = redirectTarget;
+                } else {
+                    window.location.href = `./${redirectTarget}`;
+                }
+            } else {
+                window.location.href = "../index.html";
+            }
         } else {
             alert(result.message);
         }

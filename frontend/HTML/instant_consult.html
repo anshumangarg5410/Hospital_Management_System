@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HMS | Instant Doctor Consultation</title>
+    <link rel="icon" type="image/png" href="../Assets/mainlogo.png" />
+    <link rel="stylesheet" href="../CSS/order_prescription.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <style>
+      :root {
+        --primary: #10724a;
+        --primary-light: #e8f5ee;
+        --secondary: #2563eb;
+        --text-dark: #1e293b;
+        --text-muted: #64748b;
+        --border: #e2e8f0;
+      }
+      body {
+        background-color: #f8fafc;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        color: var(--text-dark);
+      }
+      .consult-hero {
+        background: linear-gradient(135deg, #0d5c3a 0%, #10724a 50%, #1e3a8a 100%);
+        color: white;
+        padding: 50px 20px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+      .consult-hero h1 {
+        font-size: 2.4rem;
+        font-weight: 800;
+        margin-bottom: 12px;
+      }
+      .consult-hero p {
+        font-size: 1.1rem;
+        opacity: 0.92;
+        max-width: 650px;
+        margin: 0 auto 24px;
+      }
+      .live-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(8px);
+        padding: 8px 18px;
+        border-radius: 50px;
+        font-size: 0.95rem;
+        font-weight: 600;
+      }
+      .live-dot {
+        width: 10px;
+        height: 10px;
+        background: #22c55e;
+        border-radius: 50px;
+        box-shadow: 0 0 10px #22c55e;
+        animation: pulseDot 1.5s infinite;
+      }
+      @keyframes pulseDot {
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50% { opacity: 0.5; transform: scale(1.2); }
+      }
+      .consult-container {
+        max-width: 1080px;
+        margin: -30px auto 60px;
+        padding: 0 20px;
+        position: relative;
+        z-index: 10;
+      }
+      .doctors-strip {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+        margin-bottom: 30px;
+      }
+      .doc-card {
+        background: white;
+        border-radius: 16px;
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+        border: 2px solid transparent;
+        transition: all 0.2s ease;
+        cursor: pointer;
+      }
+      .doc-card:hover, .doc-card.selected {
+        border-color: var(--primary);
+        transform: translateY(-3px);
+        box-shadow: 0 15px 30px -5px rgba(16, 114, 74, 0.15);
+      }
+      .doc-avatar {
+        width: 58px;
+        height: 58px;
+        border-radius: 50%;
+        background: var(--primary-light);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        color: var(--primary);
+        font-weight: bold;
+        flex-shrink: 0;
+      }
+      .doc-info h4 {
+        margin: 0 0 4px;
+        font-size: 1.05rem;
+      }
+      .doc-info p {
+        margin: 0 0 6px;
+        font-size: 0.85rem;
+        color: var(--text-muted);
+      }
+      .doc-tag {
+        font-size: 0.75rem;
+        background: #dcfce7;
+        color: #15803d;
+        padding: 3px 8px;
+        border-radius: 12px;
+        font-weight: 600;
+      }
+      .intake-card {
+        background: white;
+        border-radius: 20px;
+        padding: 36px;
+        box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.08);
+      }
+      .section-heading {
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .symptom-chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 28px;
+      }
+      .symptom-chip {
+        padding: 10px 18px;
+        border-radius: 50px;
+        background: #f1f5f9;
+        border: 1px solid #e2e8f0;
+        cursor: pointer;
+        font-size: 0.95rem;
+        font-weight: 500;
+        transition: all 0.2s;
+        user-select: none;
+      }
+      .symptom-chip:hover {
+        background: #e2e8f0;
+      }
+      .symptom-chip.active {
+        background: var(--primary-light);
+        border-color: var(--primary);
+        color: var(--primary);
+        font-weight: 600;
+      }
+      .mode-selection {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        margin-bottom: 28px;
+      }
+      .mode-box {
+        border: 2px solid var(--border);
+        border-radius: 14px;
+        padding: 18px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        transition: all 0.2s;
+      }
+      .mode-box:hover {
+        border-color: #cbd5e1;
+      }
+      .mode-box.active {
+        border-color: var(--primary);
+        background: #f0fdf4;
+      }
+      .mode-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 10px;
+        background: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.3rem;
+        color: var(--primary);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      }
+      .connect-btn {
+        width: 100%;
+        padding: 16px;
+        border-radius: 12px;
+        background: #10724a;
+        color: white;
+        font-size: 1.15rem;
+        font-weight: 700;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        box-shadow: 0 10px 20px rgba(16, 114, 74, 0.3);
+        transition: all 0.2s;
+      }
+      .connect-btn:hover {
+        background: #0d5c3a;
+        transform: translateY(-2px);
+      }
+
+      /* Live Room View */
+      #telehealthRoom {
+        display: none;
+        background: white;
+        border-radius: 20px;
+        padding: 24px;
+        box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+      }
+      .room-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 16px;
+        border-bottom: 1px solid var(--border);
+        margin-bottom: 20px;
+      }
+      .room-layout {
+        display: grid;
+        grid-template-columns: 1.4fr 1fr;
+        gap: 24px;
+      }
+      @media (max-width: 860px) {
+        .room-layout { grid-template-columns: 1fr; }
+        .mode-selection { grid-template-columns: 1fr; }
+      }
+      .video-feed-box {
+        background: #0f172a;
+        border-radius: 16px;
+        height: 380px;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        overflow: hidden;
+      }
+      .doctor-video-avatar {
+        width: 110px;
+        height: 110px;
+        border-radius: 50%;
+        background: #334155;
+        border: 4px solid #22c55e;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+        margin-bottom: 14px;
+        animation: pulseDoctor 2s infinite;
+      }
+      @keyframes pulseDoctor {
+        0%, 100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4); }
+        50% { box-shadow: 0 0 0 16px rgba(34, 197, 94, 0); }
+      }
+      .patient-pip {
+        position: absolute;
+        bottom: 16px;
+        right: 16px;
+        width: 100px;
+        height: 75px;
+        background: #1e293b;
+        border-radius: 8px;
+        border: 2px solid white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.8rem;
+      }
+      .video-controls {
+        position: absolute;
+        bottom: 16px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 12px;
+      }
+      .control-btn {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-size: 1.1rem;
+        transition: background 0.2s;
+      }
+      .control-btn:hover { background: rgba(255, 255, 255, 0.4); }
+      .control-btn.end-btn { background: #ef4444; }
+      .control-btn.end-btn:hover { background: #dc2626; }
+      .chat-box {
+        display: flex;
+        flex-direction: column;
+        height: 380px;
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        overflow: hidden;
+      }
+      .chat-messages {
+        flex: 1;
+        padding: 16px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        background: #f8fafc;
+      }
+      .msg {
+        max-width: 80%;
+        padding: 10px 14px;
+        border-radius: 12px;
+        font-size: 0.9rem;
+        line-height: 1.4;
+      }
+      .msg.doc {
+        background: white;
+        border: 1px solid var(--border);
+        align-self: flex-start;
+      }
+      .msg.user {
+        background: #10724a;
+        color: white;
+        align-self: flex-end;
+      }
+      .chat-input-bar {
+        padding: 12px;
+        background: white;
+        border-top: 1px solid var(--border);
+        display: flex;
+        gap: 8px;
+      }
+      .chat-input-bar input {
+        flex: 1;
+        padding: 10px 14px;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        outline: none;
+      }
+      .chat-input-bar button {
+        padding: 10px 16px;
+        background: #10724a;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+      }
+      .prescription-banner {
+        margin-top: 24px;
+        padding: 20px;
+        background: #f0fdf4;
+        border: 1px solid #bbf7d0;
+        border-radius: 14px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <nav>
+        <a href="../index.html" class="logo">
+          <div class="logo_pic"></div>
+          <span>HMS</span>
+        </a>
+
+        <ul class="nav-links">
+          <li class="here"><a href="../index.html">Home</a></li>
+          <li class="here"><a href="./about.html">About</a></li>
+          <li class="here"><a href="./contactpage.html">Contact</a></li>
+          <li class="here" id="authSection">
+            <a href="./user_sel.html" id="authLink">Login</a>
+          </li>
+
+          <li class="user-dropdown" id="userDropdown" style="display: none">
+            <div class="user-profile-nav">
+              <div class="user-avatar-small" id="navUserAvatar">U</div>
+              <span id="navUserName">User</span>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="dropdown-menu">
+              <a href="./user_portal.html" class="dropdown-item">
+                <i class="fas fa-user-circle"></i> My Portal
+              </a>
+              <a href="./user_portal.html?tab=appointments" class="dropdown-item">
+                <i class="fas fa-calendar-check"></i> Appointments
+              </a>
+              <a href="./user_portal.html?tab=reports" class="dropdown-item">
+                <i class="fas fa-file-medical"></i> My Records
+              </a>
+              <a href="./user_portal.html?tab=prescriptions" class="dropdown-item">
+                <i class="fas fa-prescription"></i> Prescriptions
+              </a>
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-item" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i> Logout
+              </a>
+            </div>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Hero -->
+    <section class="consult-hero">
+      <div class="live-badge">
+        <span class="live-dot"></span> 4 Doctors Online Right Now
+      </div>
+      <h1 style="margin-top: 14px;">Instant Doctor Consultation</h1>
+      <p>Connect live via high-definition video or chat with certified physicians in under 60 seconds. No waiting queues.</p>
+    </section>
+
+    <!-- Main Content Container -->
+    <main class="consult-container">
+      <!-- Doctors Strip -->
+      <div class="doctors-strip">
+        <div class="doc-card selected" onclick="selectDoctor('Dr. Soham Sood', 'MBBS, MD (General Medicine)', this)">
+          <div class="doc-avatar">👨‍⚕️</div>
+          <div class="doc-info">
+            <h4>Dr. Soham Sood</h4>
+            <p>General Medicine • 8 yrs exp</p>
+            <span class="doc-tag">🟢 Available Now</span>
+          </div>
+        </div>
+        <div class="doc-card" onclick="selectDoctor('Dr. Ria Gupta', 'MBBS, DCH (Pediatrics)', this)">
+          <div class="doc-avatar" style="background: #fdf2f8; color: #db2777;">👩‍⚕️</div>
+          <div class="doc-info">
+            <h4>Dr. Ria Gupta</h4>
+            <p>Family & Pediatrics • 6 yrs exp</p>
+            <span class="doc-tag">🟢 Available Now</span>
+          </div>
+        </div>
+        <div class="doc-card" onclick="selectDoctor('Dr. Renu Singh', 'MBBS, MD (Internal Health)', this)">
+          <div class="doc-avatar" style="background: #eff6ff; color: #2563eb;">👩‍⚕️</div>
+          <div class="doc-info">
+            <h4>Dr. Renu Singh</h4>
+            <p>Cardiology & Wellness • 12 yrs exp</p>
+            <span class="doc-tag">🟢 Available Now</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Intake Form Card -->
+      <div class="intake-card" id="intakeCard">
+        <div class="section-heading">
+          <i class="fas fa-heartbeat" style="color: #10724a;"></i> 1. Select Chief Symptoms / Health Need
+        </div>
+        <div class="symptom-chips" id="symptomChips">
+          <div class="symptom-chip active" onclick="toggleSymptom(this)">🤒 Fever / High Temperature</div>
+          <div class="symptom-chip" onclick="toggleSymptom(this)">🤧 Cold & Persistent Cough</div>
+          <div class="symptom-chip" onclick="toggleSymptom(this)">🤕 Migraine / Severe Headache</div>
+          <div class="symptom-chip" onclick="toggleSymptom(this)">🤢 Stomach Ache / Acidity</div>
+          <div class="symptom-chip" onclick="toggleSymptom(this)">🧴 Skin Allergy / Rash</div>
+          <div class="symptom-chip" onclick="toggleSymptom(this)">💊 Prescription Refill</div>
+          <div class="symptom-chip" onclick="toggleSymptom(this)">🩺 General Routine Advice</div>
+        </div>
+
+        <div class="section-heading">
+          <i class="fas fa-video" style="color: #10724a;"></i> 2. Choose Consultation Format
+        </div>
+        <div class="mode-selection">
+          <div class="mode-box active" id="modeVideo" onclick="selectMode('video')">
+            <div class="mode-icon"><i class="fas fa-video"></i></div>
+            <div>
+              <strong style="display:block; margin-bottom: 2px;">HD Video Call (Recommended)</strong>
+              <small style="color: var(--text-muted);">Face-to-face examination with licensed physician</small>
+            </div>
+          </div>
+          <div class="mode-box" id="modeChat" onclick="selectMode('chat')">
+            <div class="mode-icon"><i class="fas fa-comments"></i></div>
+            <div>
+              <strong style="display:block; margin-bottom: 2px;">Live Interactive Chat</strong>
+              <small style="color: var(--text-muted);">Fast, discrete messaging & digital prescriptions</small>
+            </div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 28px;">
+          <div>
+            <label style="display: block; font-weight: 600; margin-bottom: 6px;">Patient Name</label>
+            <input type="text" id="patientNameInput" style="width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px;" value="Anshuman Garg" />
+          </div>
+          <div>
+            <label style="display: block; font-weight: 600; margin-bottom: 6px;">Patient Age / Gender</label>
+            <input type="text" id="patientAgeInput" style="width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px;" value="24 yrs • Male" />
+          </div>
+        </div>
+
+        <button class="connect-btn" onclick="startInstantConsultation()">
+          <i class="fas fa-bolt"></i> Connect with Doctor Now (Instant Telehealth)
+        </button>
+        <p style="text-align: center; color: var(--text-muted); font-size: 0.85rem; margin-top: 14px;">
+          🔒 256-bit encrypted • Emergency helpline: <strong>102 / 108</strong>
+        </p>
+      </div>
+
+      <!-- Live Room View -->
+      <div id="telehealthRoom">
+        <div class="room-header">
+          <div>
+            <h3 id="roomDocName" style="margin: 0 0 4px; font-size: 1.3rem;">Dr. Soham Sood</h3>
+            <span style="color: #16a34a; font-size: 0.9rem; font-weight: 600;">● Live Consultation Connected</span>
+          </div>
+          <div style="text-align: right;">
+            <div id="callTimer" style="font-size: 1.2rem; font-weight: 700; color: #1e293b;">00:15</div>
+            <small style="color: #64748b;">Session Active</small>
+          </div>
+        </div>
+
+        <div class="room-layout">
+          <!-- Video Box -->
+          <div class="video-feed-box" id="videoBox">
+            <div class="doctor-video-avatar">👨‍⚕️</div>
+            <h4 id="videoDocTitle" style="margin: 0 0 4px;">Dr. Soham Sood</h4>
+            <p style="font-size: 0.85rem; opacity: 0.8; margin: 0;">Speaking with Patient...</p>
+
+            <div class="patient-pip">
+              <span>You (Cam On)</span>
+            </div>
+
+            <div class="video-controls">
+              <button class="control-btn" title="Toggle Mic" onclick="this.classList.toggle('active')"><i class="fas fa-microphone"></i></button>
+              <button class="control-btn" title="Toggle Camera" onclick="this.classList.toggle('active')"><i class="fas fa-video"></i></button>
+              <button class="control-btn end-btn" title="End Consult" onclick="endConsultation()"><i class="fas fa-phone-slash"></i></button>
+            </div>
+          </div>
+
+          <!-- Chat Box -->
+          <div class="chat-box">
+            <div class="chat-messages" id="chatMessages">
+              <div class="msg doc">
+                <strong>Dr. Soham Sood:</strong><br />
+                Hello! I'm Dr. Soham. I've reviewed your symptoms. How long have you felt this way, and are you having any high fever or chills?
+              </div>
+            </div>
+            <div class="chat-input-bar">
+              <input type="text" id="chatInput" placeholder="Type your reply to doctor..." onkeydown="if(event.key==='Enter') sendChatMessage()" />
+              <button onclick="sendChatMessage()"><i class="fas fa-paper-plane"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Generated Prescription Section -->
+        <div class="prescription-banner">
+          <div>
+            <h4 style="margin: 0 0 4px; color: #15803d; font-size: 1.1rem;">
+              <i class="fas fa-file-prescription"></i> E-Prescription Generated by Doctor
+            </h4>
+            <p style="margin: 0; font-size: 0.9rem; color: #166534;" id="prescDetails">
+              Prescribed: Paracetamol 650mg (1-0-1), Vitamin C 500mg, Hydration recovery.
+            </p>
+          </div>
+          <div style="display: flex; gap: 10px;">
+            <button class="btn btn-primary" onclick="savePrescriptionToAccount()" style="padding: 10px 18px; background: #15803d; color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer;">
+              💾 Save to My Records
+            </button>
+            <button class="btn btn-outline" onclick="window.location.href='./shop_pharmacy.html'" style="padding: 10px 18px; border: 1px solid #15803d; color: #15803d; background: white; border-radius: 8px; font-weight: 600; cursor: pointer;">
+              🛒 Order Medicines
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" style="margin-top: 60px;">
+      <div class="footer-container">
+        <div class="footer-section">
+          <h3>Hospital Management System</h3>
+          <p>Instant Telehealth Services providing rapid clinical triage and e-prescriptions 24/7.</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 Hospital Management System | All Rights Reserved</p>
+      </div>
+    </footer>
+
+    <script src="../JS/navbar.js"></script>
+    <script>
+      let selectedDoctor = "Dr. Soham Sood";
+      let consultMode = "video";
+      let timerInterval = null;
+      let seconds = 0;
+
+      function selectDoctor(name, spec, el) {
+        selectedDoctor = name;
+        document.querySelectorAll('.doc-card').forEach(c => c.classList.remove('selected'));
+        el.classList.add('selected');
+        document.getElementById('roomDocName').textContent = name;
+        document.getElementById('videoDocTitle').textContent = name;
+      }
+
+      function toggleSymptom(el) {
+        el.classList.toggle('active');
+      }
+
+      function selectMode(mode) {
+        consultMode = mode;
+        document.getElementById('modeVideo').classList.toggle('active', mode === 'video');
+        document.getElementById('modeChat').classList.toggle('active', mode === 'chat');
+      }
+
+      function startInstantConsultation() {
+        const btn = document.querySelector('.connect-btn');
+        btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Matching with ${selectedDoctor}...`;
+        btn.disabled = true;
+
+        setTimeout(() => {
+          document.getElementById('intakeCard').style.display = 'none';
+          document.getElementById('telehealthRoom').style.display = 'block';
+          window.scrollTo({ top: 300, behavior: 'smooth' });
+
+          // Start call timer
+          seconds = 0;
+          timerInterval = setInterval(() => {
+            seconds++;
+            const mins = String(Math.floor(seconds / 60)).padStart(2, '0');
+            const secs = String(seconds % 60).padStart(2, '0');
+            document.getElementById('callTimer').textContent = `${mins}:${secs}`;
+          }, 1000);
+
+          // Doctor follow up in chat
+          setTimeout(() => {
+            const chatMessages = document.getElementById('chatMessages');
+            const msg = document.createElement('div');
+            msg.className = 'msg doc';
+            msg.innerHTML = `<strong>${selectedDoctor}:</strong><br />I see your symptoms. I am writing you an instant relief prescription right now. Make sure to stay hydrated!`;
+            chatMessages.appendChild(msg);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+          }, 4000);
+        }, 1500);
+      }
+
+      function sendChatMessage() {
+        const input = document.getElementById('chatInput');
+        const text = input.value.trim();
+        if (!text) return;
+
+        const chatMessages = document.getElementById('chatMessages');
+        const userMsg = document.createElement('div');
+        userMsg.className = 'msg user';
+        userMsg.textContent = text;
+        chatMessages.appendChild(userMsg);
+        input.value = '';
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+
+        setTimeout(() => {
+          const docMsg = document.createElement('div');
+          docMsg.className = 'msg doc';
+          docMsg.innerHTML = `<strong>${selectedDoctor}:</strong><br />Understood. I have updated your medical notes and prescription accordingly. Take the medications as advised.`;
+          chatMessages.appendChild(docMsg);
+          chatMessages.scrollTop = chatMessages.scrollHeight;
+        }, 1200);
+      }
+
+      function endConsultation() {
+        if (confirm("Are you sure you want to end this consultation?")) {
+          clearInterval(timerInterval);
+          alert("Consultation completed! Your session summary and prescription have been generated.");
+          savePrescriptionToAccount();
+        }
+      }
+
+      async function savePrescriptionToAccount() {
+        let username = "Anshuman";
+        try {
+          const u = JSON.parse(localStorage.getItem("hms_user") || "{}");
+          if (u.username) username = u.username;
+        } catch(e) {}
+
+        try {
+          await fetch("http://localhost:3000/prescriptions", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              doctor: `${selectedDoctor} (Instant Telehealth)`,
+              date: new Date().toISOString().split("T")[0],
+              status: "Active",
+              medicines: ["Paracetamol 650mg (1-0-1)", "Vitamin C 500mg (Daily)", "ORS Hydration Salt"],
+              username: username
+            })
+          });
+        } catch(e) {
+          console.warn("Could not save prescription to backend:", e);
+        }
+
+        alert("Prescription has been added to your Health Records! Redirecting to your portal...");
+        window.location.href = "./user_portal.html?tab=prescriptions";
+      }
+
+      // Pre-fill user name if logged in
+      document.addEventListener("DOMContentLoaded", () => {
+        try {
+          const u = JSON.parse(localStorage.getItem("hms_user") || "{}");
+          if (u.name || u.username) {
+            document.getElementById("patientNameInput").value = u.name || u.username;
+          }
+        } catch(e) {}
+      });
+    </script>
+  </body>
+</html>

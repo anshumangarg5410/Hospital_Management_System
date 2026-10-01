@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HMS | Purchase Now - Secure Checkout</title>
+    <link rel="icon" type="image/png" href="../Assets/mainlogo.png" />
+    <link rel="stylesheet" href="../CSS/order_prescription.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <style>
+      :root {
+        --primary: #10724a;
+        --primary-hover: #0c5738;
+        --primary-light: #e8f5ee;
+        --secondary: #2563eb;
+        --text-dark: #1e293b;
+        --text-muted: #64748b;
+        --border: #e2e8f0;
+        --card-bg: #ffffff;
+      }
+      body {
+        background-color: #f1f5f9;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        color: var(--text-dark);
+        margin: 0;
+        padding: 0;
+      }
+      .checkout-header {
+        background: linear-gradient(135deg, #10724a 0%, #0d5c3a 100%);
+        color: white;
+        padding: 30px 20px;
+        text-align: center;
+      }
+      .checkout-header h1 {
+        margin: 0 0 8px;
+        font-size: 1.8rem;
+        font-weight: 700;
+      }
+      .checkout-header p {
+        margin: 0;
+        opacity: 0.9;
+        font-size: 0.95rem;
+      }
+      .checkout-container {
+        max-width: 1100px;
+        margin: -20px auto 60px;
+        padding: 0 20px;
+        display: grid;
+        grid-template-columns: 1.6fr 1fr;
+        gap: 24px;
+        position: relative;
+        z-index: 10;
+      }
+      @media (max-width: 860px) {
+        .checkout-container {
+          grid-template-columns: 1fr;
+        }
+      }
+      .card {
+        background: var(--card-bg);
+        border-radius: 16px;
+        padding: 24px;
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+        margin-bottom: 20px;
+        border: 1px solid var(--border);
+      }
+      .card-title {
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: var(--text-dark);
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .card-title i {
+        color: var(--primary);
+      }
+      .item-row {
+        display: flex;
+        gap: 16px;
+        align-items: center;
+        padding: 16px 0;
+        border-bottom: 1px solid var(--border);
+      }
+      .item-img {
+        width: 70px;
+        height: 70px;
+        object-fit: contain;
+        background: #f8fafc;
+        border-radius: 10px;
+        padding: 6px;
+        border: 1px solid var(--border);
+      }
+      .item-details {
+        flex: 1;
+      }
+      .item-name {
+        font-weight: 600;
+        font-size: 1rem;
+        margin-bottom: 4px;
+      }
+      .item-sub {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        margin-bottom: 6px;
+      }
+      .item-price {
+        font-weight: 700;
+        color: var(--primary);
+        font-size: 1.1rem;
+      }
+      .item-price del {
+        color: var(--text-muted);
+        font-size: 0.9rem;
+        margin-right: 6px;
+        font-weight: normal;
+      }
+      .qty-control {
+        display: flex;
+        align-items: center;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        overflow: hidden;
+      }
+      .qty-btn {
+        background: #f8fafc;
+        border: none;
+        padding: 6px 12px;
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: bold;
+      }
+      .qty-btn:hover {
+        background: #e2e8f0;
+      }
+      .qty-val {
+        padding: 6px 12px;
+        font-weight: 600;
+        min-width: 20px;
+        text-align: center;
+      }
+      .address-box {
+        background: #f8fafc;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 16px;
+        font-size: 0.95rem;
+        position: relative;
+      }
+      .edit-addr-btn {
+        position: absolute;
+        top: 14px;
+        right: 14px;
+        background: none;
+        border: none;
+        color: var(--primary);
+        font-weight: 600;
+        cursor: pointer;
+        font-size: 0.85rem;
+      }
+      .payment-methods {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .pay-option {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 14px 18px;
+        border: 2px solid var(--border);
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+      .pay-option:hover {
+        border-color: #cbd5e1;
+      }
+      .pay-option.selected {
+        border-color: var(--primary);
+        background: var(--primary-light);
+      }
+      .pay-option input[type="radio"] {
+        accent-color: var(--primary);
+        width: 18px;
+        height: 18px;
+      }
+      .pay-icon {
+        font-size: 1.4rem;
+        color: var(--primary);
+      }
+      .bill-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 12px;
+        font-size: 0.95rem;
+        color: #475569;
+      }
+      .bill-row.total {
+        border-top: 1px dashed var(--border);
+        padding-top: 14px;
+        margin-top: 14px;
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--text-dark);
+      }
+      .savings-tag {
+        background: #dcfce7;
+        color: #15803d;
+        border-radius: 8px;
+        padding: 10px 14px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 16px;
+      }
+      .place-order-btn {
+        width: 100%;
+        padding: 16px;
+        border-radius: 12px;
+        background: var(--primary);
+        color: white;
+        font-size: 1.15rem;
+        font-weight: 700;
+        border: none;
+        cursor: pointer;
+        box-shadow: 0 10px 20px rgba(16, 114, 74, 0.25);
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 20px;
+      }
+      .place-order-btn:hover {
+        background: var(--primary-hover);
+        transform: translateY(-2px);
+      }
+      .promo-group {
+        display: flex;
+        gap: 8px;
+        margin-top: 12px;
+      }
+      .promo-group input {
+        flex: 1;
+        padding: 10px 14px;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        text-transform: uppercase;
+        font-weight: 600;
+      }
+      .promo-group button {
+        padding: 10px 18px;
+        background: var(--text-dark);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      /* Custom Order Placed Popup (Modal) */
+      .popup-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(15, 23, 42, 0.7);
+        backdrop-filter: blur(6px);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        padding: 20px;
+      }
+      .popup-overlay.active {
+        display: flex;
+      }
+      .order-popup-card {
+        background: white;
+        border-radius: 24px;
+        max-width: 520px;
+        width: 100%;
+        padding: 36px 30px;
+        text-align: center;
+        box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.3);
+        position: relative;
+        animation: popIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      }
+      @keyframes popIn {
+        from {
+          opacity: 0;
+          transform: scale(0.85) translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1) translateY(0);
+        }
+      }
+      .celebration-circle {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #22c55e, #10724a);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.5rem;
+        margin: 0 auto 20px;
+        box-shadow: 0 10px 25px rgba(34, 197, 94, 0.4);
+        animation: bounceIcon 0.8s ease;
+      }
+      @keyframes bounceIcon {
+        0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+        40% { transform: translateY(-12px); }
+        60% { transform: translateY(-6px); }
+      }
+      .popup-title {
+        font-size: 1.6rem;
+        font-weight: 800;
+        color: var(--text-dark);
+        margin: 0 0 8px;
+      }
+      .popup-subtitle {
+        color: var(--text-muted);
+        font-size: 0.95rem;
+        margin: 0 0 24px;
+      }
+      .order-receipt-summary {
+        background: #f8fafc;
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 18px;
+        text-align: left;
+        margin-bottom: 24px;
+        font-size: 0.9rem;
+      }
+      .receipt-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 8px;
+      }
+      .receipt-row:last-child {
+        margin-bottom: 0;
+      }
+      .receipt-label {
+        color: var(--text-muted);
+      }
+      .receipt-val {
+        font-weight: 600;
+        color: var(--text-dark);
+      }
+      .popup-actions {
+        display: flex;
+        gap: 12px;
+      }
+      .popup-btn {
+        flex: 1;
+        padding: 14px;
+        border-radius: 12px;
+        font-weight: 700;
+        font-size: 0.95rem;
+        cursor: pointer;
+        border: none;
+        transition: all 0.2s;
+        text-align: center;
+        text-decoration: none;
+      }
+      .popup-btn.primary {
+        background: var(--primary);
+        color: white;
+      }
+      .popup-btn.primary:hover {
+        background: var(--primary-hover);
+      }
+      .popup-btn.secondary {
+        background: #f1f5f9;
+        color: var(--text-dark);
+        border: 1px solid var(--border);
+      }
+      .popup-btn.secondary:hover {
+        background: #e2e8f0;
+      }
+      .close-popup-x {
+        position: absolute;
+        top: 18px;
+        right: 20px;
+        background: none;
+        border: none;
+        font-size: 1.4rem;
+        color: var(--text-muted);
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <nav>
+        <a href="../index.html" class="logo">
+          <div class="logo_pic"></div>
+          <span>HMS</span>
+        </a>
+
+        <ul class="nav-links">
+          <li class="here"><a href="../index.html">Home</a></li>
+          <li class="here"><a href="./about.html">About</a></li>
+          <li class="here"><a href="./shop_pharmacy.html">Pharmacy</a></li>
+          <li class="here"><a href="./contactpage.html">Contact</a></li>
+          <li class="here" id="authSection">
+            <a href="./user_sel.html" id="authLink">Login</a>
+          </li>
+
+          <li class="user-dropdown" id="userDropdown" style="display: none">
+            <div class="user-profile-nav">
+              <div class="user-avatar-small" id="navUserAvatar">U</div>
+              <span id="navUserName">User</span>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="dropdown-menu">
+              <a href="./user_portal.html" class="dropdown-item">
+                <i class="fas fa-user-circle"></i> My Portal
+              </a>
+              <a href="./user_portal.html?tab=medicines" class="dropdown-item">
+                <i class="fas fa-box"></i> My Orders
+              </a>
+              <a href="./user_portal.html?tab=appointments" class="dropdown-item">
+                <i class="fas fa-calendar-check"></i> Appointments
+              </a>
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-item" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i> Logout
+              </a>
+            </div>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Header Banner -->
+    <div class="checkout-header">
+      <h1>⚡ Express Purchase & Checkout</h1>
+      <p>Guaranteed 100% Genuine Healthcare Products • Superfast 24h Delivery</p>
+    </div>
+
+    <!-- Main Checkout Container -->
+    <div class="checkout-container">
+      <!-- Left Column -->
+      <div class="col-left">
+        <!-- Selected Items Card -->
+        <div class="card">
+          <div class="card-title">
+            <i class="fas fa-shopping-bag"></i> 1. Items in Your Order
+          </div>
+
+          <div class="item-row">
+            <img src="../Assets/50-vitaboost-moisturizer-with-vitamin-b-c-and-e-for-daily-skin-original-imaghmev47dwbhs5.webp" alt="Medicine Item" class="item-img" id="productImg" />
+            <div class="item-details">
+              <div class="item-name" id="productTitle">Optimum Nutrition (ON) Gold Standard 100% Whey</div>
+              <div class="item-sub" id="productDesc">24g Protein, 5.5g BCAA • Double Rich Chocolate, 2 lbs</div>
+              <div class="item-price">
+                <del id="mrpText">₹45.99</del>
+                <span id="sellingPriceText">₹22.99</span>
+                <span style="font-size: 0.8rem; background: #fee2e2; color: #dc2626; padding: 2px 6px; border-radius: 4px; margin-left: 8px;">50% OFF</span>
+              </div>
+            </div>
+            <div class="qty-control">
+              <button class="qty-btn" onclick="changeQty(-1)">-</button>
+              <span class="qty-val" id="qtyVal">1</span>
+              <button class="qty-btn" onclick="changeQty(1)">+</button>
+            </div>
+          </div>
+
+          <!-- Add-on Essentials -->
+          <div style="margin-top: 16px; padding: 12px; background: #f8fafc; border-radius: 10px; font-size: 0.9rem;">
+            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+              <input type="checkbox" id="addonCheck" onchange="toggleAddon()" />
+              <span>Add <strong>Paracetamol 650mg Strip</strong> (+₹2.50) for routine fever/pain care</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Delivery Address Card -->
+        <div class="card">
+          <div class="card-title">
+            <i class="fas fa-map-marker-alt"></i> 2. Delivery Address
+          </div>
+          <div class="address-box">
+            <button class="edit-addr-btn" onclick="editAddress()"><i class="fas fa-pen"></i> Edit</button>
+            <div id="addressDisplay">
+              <strong>Anshuman Garg</strong> • <span id="displayPhone">+91 98765 43210</span><br />
+              <span id="displayStreet">Flat 402, Green Avenue, Sector 14</span><br />
+              <span id="displayCity">New Delhi, Delhi - 110001</span>
+            </div>
+            <div id="addressEditForm" style="display: none; margin-top: 10px;">
+              <input type="text" id="editName" value="Anshuman Garg" style="width: 100%; padding: 8px; margin-bottom: 8px; border: 1px solid #cbd5e1; border-radius: 6px;" placeholder="Full Name" />
+              <input type="text" id="editPhone" value="+91 98765 43210" style="width: 100%; padding: 8px; margin-bottom: 8px; border: 1px solid #cbd5e1; border-radius: 6px;" placeholder="Mobile Number" />
+              <input type="text" id="editStreet" value="Flat 402, Green Avenue, Sector 14, New Delhi - 110001" style="width: 100%; padding: 8px; margin-bottom: 8px; border: 1px solid #cbd5e1; border-radius: 6px;" placeholder="Street Address" />
+              <button class="btn btn-primary" onclick="saveAddress()" style="padding: 6px 14px; background: var(--primary); color: white; border: none; border-radius: 6px; cursor: pointer;">Save Address</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Payment Method Card -->
+        <div class="card">
+          <div class="card-title">
+            <i class="fas fa-credit-card"></i> 3. Select Payment Method
+          </div>
+          <div class="payment-methods">
+            <label class="pay-option selected" onclick="selectPay(this, 'UPI')">
+              <input type="radio" name="payment" value="UPI" checked />
+              <div class="pay-icon"><i class="fas fa-qrcode"></i></div>
+              <div>
+                <strong>UPI / Instant Payment (GPay, PhonePe, Paytm)</strong>
+                <div style="font-size: 0.85rem; color: var(--text-muted);">Fast, safe zero-fee checkout</div>
+              </div>
+            </label>
+            <label class="pay-option" onclick="selectPay(this, 'Card')">
+              <input type="radio" name="payment" value="Card" />
+              <div class="pay-icon"><i class="fas fa-credit-card"></i></div>
+              <div>
+                <strong>Credit / Debit Card (Visa, MasterCard, RuPay)</strong>
+                <div style="font-size: 0.85rem; color: var(--text-muted);">Encrypted bank gateway</div>
+              </div>
+            </label>
+            <label class="pay-option" onclick="selectPay(this, 'COD')">
+              <input type="radio" name="payment" value="Cash on Delivery" />
+              <div class="pay-icon"><i class="fas fa-money-bill-wave"></i></div>
+              <div>
+                <strong>Cash on Delivery (COD)</strong>
+                <div style="font-size: 0.85rem; color: var(--text-muted);">Pay when your medicines arrive at doorstep</div>
+              </div>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Price Summary -->
+      <div class="col-right">
+        <div class="card" style="position: sticky; top: 20px;">
+          <div class="card-title">
+            <i class="fas fa-receipt"></i> Payment Summary
+          </div>
+
+          <div class="bill-row">
+            <span>Item Price (MRP)</span>
+            <span id="billMrp">₹45.99</span>
+          </div>
+          <div class="bill-row" style="color: #16a34a;">
+            <span>Buy Now Offer (50% OFF)</span>
+            <span id="billDiscount">-₹23.00</span>
+          </div>
+          <div class="bill-row">
+            <span>Delivery Charges</span>
+            <span style="color: #16a34a; font-weight: 600;"><del style="color: #94a3b8; margin-right: 4px;">₹50</del> FREE</span>
+          </div>
+          <div class="bill-row">
+            <span>Add-on Essentials</span>
+            <span id="billAddon">₹0.00</span>
+          </div>
+          <div class="bill-row" id="promoRow" style="display: none; color: #16a34a;">
+            <span>Coupon Discount (HEALTH60)</span>
+            <span id="billPromo">-₹5.00</span>
+          </div>
+          <div class="bill-row total">
+            <span>Total Payable</span>
+            <span id="billTotal" style="color: var(--primary);">₹22.99</span>
+          </div>
+
+          <div class="savings-tag">
+            <i class="fas fa-tag"></i>
+            <span>You save <strong id="savingsText">₹23.00</strong> on this healthcare order!</span>
+          </div>
+
+          <!-- Coupon Box -->
+          <div style="margin-top: 20px;">
+            <label style="font-size: 0.85rem; font-weight: 600; color: var(--text-dark);">Have a Promo Code?</label>
+            <div class="promo-group">
+              <input type="text" id="couponInput" placeholder="Try HEALTH60" value="HEALTH60" />
+              <button onclick="applyCoupon()">Apply</button>
+            </div>
+            <small id="couponFeedback" style="display: block; margin-top: 4px; color: #16a34a; font-weight: 600;"></small>
+          </div>
+
+          <button class="place-order-btn" id="placeOrderBtn" onclick="triggerPlaceOrder()">
+            <i class="fas fa-lock"></i>
+            <span id="orderBtnText">Place Order • ₹22.99</span>
+          </button>
+
+          <div style="text-align: center; margin-top: 14px; font-size: 0.8rem; color: var(--text-muted);">
+            <i class="fas fa-shield-alt" style="color: var(--primary);"></i> 100% Genuine Medicines • Pharmacist Verified
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CUSTOM ORDER PLACED POPUP (MODAL) -->
+    <div class="popup-overlay" id="orderPlacedPopup">
+      <div class="order-popup-card">
+        <button class="close-popup-x" onclick="closeOrderPopup()">&times;</button>
+        <div class="celebration-circle">🎉</div>
+        <h2 class="popup-title">Order Placed Successfully!</h2>
+        <p class="popup-subtitle">
+          Your medicine order has been confirmed. Our licensed pharmacist is preparing your package.
+        </p>
+
+        <div class="order-receipt-summary">
+          <div class="receipt-row">
+            <span class="receipt-label">Order Number:</span>
+            <span class="receipt-val" id="popOrderId">#HMS-ORD-91823</span>
+          </div>
+          <div class="receipt-row">
+            <span class="receipt-label">Estimated Delivery:</span>
+            <span class="receipt-val" style="color: #16a34a;">Tomorrow by 4:00 PM</span>
+          </div>
+          <div class="receipt-row">
+            <span class="receipt-label">Ordered Item:</span>
+            <span class="receipt-val" id="popItemName">Optimum Nutrition 100% Whey</span>
+          </div>
+          <div class="receipt-row">
+            <span class="receipt-label">Payment Mode:</span>
+            <span class="receipt-val" id="popPayMode">UPI (Verified)</span>
+          </div>
+          <div class="receipt-row" style="border-top: 1px dashed var(--border); padding-top: 8px; margin-top: 8px;">
+            <span class="receipt-label">Total Amount Paid:</span>
+            <span class="receipt-val" id="popTotal" style="color: var(--primary); font-size: 1.05rem;">₹22.99</span>
+          </div>
+        </div>
+
+        <div class="popup-actions">
+          <a href="./user_portal.html?tab=medicines" class="popup-btn primary">
+            📦 Track in My Orders
+          </a>
+          <a href="./shop_pharmacy.html" class="popup-btn secondary">
+            🛒 Continue Shopping
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <script src="../JS/navbar.js"></script>
+    <script>
+      let qty = 1;
+      let unitMrp = 45.99;
+      let unitSelling = 22.99;
+      let addonPrice = 0;
+      let promoDiscount = 0;
+      let paymentMethod = "UPI";
+
+      // Read URL parameters if user clicked a specific product
+      document.addEventListener("DOMContentLoaded", () => {
+        const params = new URLSearchParams(window.location.search);
+        const nameParam = params.get("name");
+        const priceParam = params.get("price");
+        const imgParam = params.get("img");
+
+        if (nameParam) {
+          document.getElementById("productTitle").textContent = nameParam;
+          document.getElementById("productDesc").textContent = "Healthcare & Diagnostic Supply";
+        }
+        if (priceParam) {
+          const p = parseFloat(priceParam) || 22.99;
+          unitSelling = p;
+          unitMrp = p * 2; // Simulated 50% discount
+          document.getElementById("mrpText").textContent = `₹${unitMrp.toFixed(2)}`;
+          document.getElementById("sellingPriceText").textContent = `₹${unitSelling.toFixed(2)}`;
+        }
+        if (imgParam) {
+          document.getElementById("productImg").src = imgParam;
+        }
+
+        // Try reading user info
+        try {
+          const u = JSON.parse(localStorage.getItem("hms_user") || "{}");
+          if (u.name || u.username) {
+            document.getElementById("addressDisplay").innerHTML = `
+              <strong>${u.name || u.username}</strong> • <span id="displayPhone">${u.phone || '+91 98765 43210'}</span><br />
+              <span id="displayStreet">${u.address || 'Flat 402, Green Avenue, Sector 14'}</span><br />
+              <span id="displayCity">New Delhi, Delhi - 110001</span>
+            `;
+          }
+        } catch(e) {}
+
+        recalculate();
+      });
+
+      function changeQty(delta) {
+        qty = Math.max(1, qty + delta);
+        document.getElementById("qtyVal").textContent = qty;
+        recalculate();
+      }
+
+      function toggleAddon() {
+        const isChecked = document.getElementById("addonCheck").checked;
+        addonPrice = isChecked ? 2.50 : 0;
+        recalculate();
+      }
+
+      function selectPay(el, method) {
+        document.querySelectorAll(".pay-option").forEach(o => o.classList.remove("selected"));
+        el.classList.add("selected");
+        paymentMethod = method;
+      }
+
+      function applyCoupon() {
+        const code = document.getElementById("couponInput").value.trim().toUpperCase();
+        if (code === "HEALTH60" || code === "BUYNOW") {
+          promoDiscount = 5.00;
+          document.getElementById("promoRow").style.display = "flex";
+          document.getElementById("couponFeedback").textContent = `✓ Coupon ${code} applied successfully! Extra ₹5.00 OFF`;
+        } else {
+          promoDiscount = 0;
+          document.getElementById("promoRow").style.display = "none";
+          document.getElementById("couponFeedback").textContent = "Invalid code. Try HEALTH60";
+          document.getElementById("couponFeedback").style.color = "#dc2626";
+        }
+        recalculate();
+      }
+
+      function recalculate() {
+        const totalMrp = (unitMrp * qty);
+        const totalSelling = (unitSelling * qty);
+        const baseDiscount = totalMrp - totalSelling;
+        const finalTotal = Math.max(1, totalSelling + addonPrice - promoDiscount);
+        const totalSavings = baseDiscount + promoDiscount;
+
+        document.getElementById("billMrp").textContent = `₹${totalMrp.toFixed(2)}`;
+        document.getElementById("billDiscount").textContent = `-₹${baseDiscount.toFixed(2)}`;
+        document.getElementById("billAddon").textContent = `₹${addonPrice.toFixed(2)}`;
+        document.getElementById("billTotal").textContent = `₹${finalTotal.toFixed(2)}`;
+        document.getElementById("savingsText").textContent = `₹${totalSavings.toFixed(2)}`;
+        document.getElementById("orderBtnText").textContent = `Place Order • ₹${finalTotal.toFixed(2)}`;
+      }
+
+      function editAddress() {
+        document.getElementById("addressDisplay").style.display = "none";
+        document.getElementById("addressEditForm").style.display = "block";
+      }
+
+      function saveAddress() {
+        const name = document.getElementById("editName").value;
+        const phone = document.getElementById("editPhone").value;
+        const street = document.getElementById("editStreet").value;
+
+        document.getElementById("addressDisplay").innerHTML = `
+          <strong>${name}</strong> • <span id="displayPhone">${phone}</span><br />
+          <span id="displayStreet">${street}</span>
+        `;
+        document.getElementById("addressDisplay").style.display = "block";
+        document.getElementById("addressEditForm").style.display = "none";
+      }
+
+      async function triggerPlaceOrder() {
+        const btn = document.getElementById("placeOrderBtn");
+        btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Processing Order...`;
+        btn.disabled = true;
+
+        const finalTotal = document.getElementById("billTotal").textContent.replace("₹", "");
+        const productName = document.getElementById("productTitle").textContent;
+        const randomOrderId = `#HMS-ORD-${Math.floor(10000 + Math.random() * 90000)}`;
+
+        let username = "Anshuman";
+        try {
+          const u = JSON.parse(localStorage.getItem("hms_user") || "{}");
+          if (u.username) username = u.username;
+        } catch(e) {}
+
+        // Send order to backend
+        try {
+          await fetch("http://localhost:3000/orders", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              total: parseFloat(finalTotal),
+              paymentMethod: paymentMethod,
+              medicines: [
+                { name: productName, price: parseFloat(finalTotal), instructions: "1 unit" }
+              ],
+              deliveryAddress: "Flat 402, Green Avenue, Sector 14, New Delhi",
+              username: username
+            })
+          });
+        } catch(e) {
+          console.warn("Could not save to backend:", e);
+        }
+
+        // Show Custom Order Placed Popup
+        setTimeout(() => {
+          btn.innerHTML = `<i class="fas fa-lock"></i> <span id="orderBtnText">Place Order • ₹${finalTotal}</span>`;
+          btn.disabled = false;
+
+          document.getElementById("popOrderId").textContent = randomOrderId;
+          document.getElementById("popItemName").textContent = `${qty}x ${productName}`;
+          document.getElementById("popPayMode").textContent = `${paymentMethod} (Confirmed)`;
+          document.getElementById("popTotal").textContent = `₹${finalTotal}`;
+
+          document.getElementById("orderPlacedPopup").classList.add("active");
+        }, 800);
+      }
+
+      function closeOrderPopup() {
+        document.getElementById("orderPlacedPopup").classList.remove("active");
+      }
+    </script>
+  </body>
+</html>

@@ -9,8 +9,92 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     />
+    <style>
+      body.auth-locked .upload-page {
+        display: none !important;
+      }
+      .prescription-auth-lock {
+        display: none;
+        min-height: 80vh;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 20px;
+        background: #f8fafc;
+      }
+      body.auth-locked .prescription-auth-lock {
+        display: flex !important;
+      }
+      .auth-lock-card {
+        background: #ffffff;
+        max-width: 500px;
+        width: 100%;
+        padding: 44px 32px;
+        border-radius: 16px;
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+        text-align: center;
+      }
+      .auth-lock-badge {
+        font-size: 2.8rem;
+        background: #e8f5ee;
+        width: 76px;
+        height: 76px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        margin: 0 auto 20px;
+      }
+      .auth-lock-card h2 {
+        font-size: 1.55rem;
+        color: #1e293b;
+        margin-bottom: 12px;
+        font-weight: 700;
+      }
+      .auth-lock-card p {
+        color: #64748b;
+        font-size: 0.95rem;
+        line-height: 1.55;
+        margin-bottom: 24px;
+      }
+      .lock-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .btn-lock-login {
+        background: #10724a;
+        color: #ffffff;
+        padding: 13px 20px;
+        border-radius: 8px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: background 0.2s;
+      }
+      .btn-lock-login:hover {
+        background: #0d5c3a;
+      }
+      .btn-lock-home {
+        background: #f1f5f9;
+        color: #475569;
+        padding: 13px 20px;
+        border-radius: 8px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: background 0.2s;
+      }
+      .btn-lock-home:hover {
+        background: #e2e8f0;
+      }
+      .lock-redirect-timer {
+        margin-top: 18px !important;
+        font-size: 0.85rem !important;
+        color: #94a3b8 !important;
+        margin-bottom: 0 !important;
+      }
+    </style>
   </head>
-  <body>
+  <body class="auth-locked">
     <!-- Header -->
     <header>
       <nav>
@@ -67,6 +151,26 @@
         </button>
       </nav>
     </header>
+
+    <!-- AUTHENTICATION REQUIRED GUARD SCREEN FOR PRESCRIPTION -->
+    <div id="prescriptionAuthLocked" class="prescription-auth-lock">
+      <div class="auth-lock-card">
+        <div class="auth-lock-badge">🔒</div>
+        <h2>Prescription Service Requires Login</h2>
+        <p>
+          In compliance with medical guidelines, prescription medicine orders and document uploads are exclusively available to authenticated patients.
+        </p>
+        <div class="lock-actions">
+          <a id="prescLoginBtn" href="./patient_login_page.html?redirect=order_prescription.html&msg=login_required_prescription" class="btn-lock-login">
+            Log In to Order Prescription
+          </a>
+          <a href="../index.html" class="btn-lock-home">
+            Return to Home
+          </a>
+        </div>
+        <p class="lock-redirect-timer">Redirecting to login in <span id="prescCountdown">2</span>s...</p>
+      </div>
+    </div>
 
     <!-- Prescription Upload Section -->
     <section class="upload-page">
@@ -171,18 +275,64 @@
     </section>
     <script src="../JS/navbar.js"></script>
     <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        // Load patient name from localStorage
-        const saved = localStorage.getItem("hms_user");
-        if (saved) {
+      async function checkPrescriptionAuth() {
+        let user = null;
+        try {
+          const res = await fetch("http://localhost:3000/currentUser");
+          const json = await res.json();
+          if (json.success && json.user) {
+            user = json.user;
+          }
+        } catch(e) {}
+
+        if (!user) {
           try {
-            const user = JSON.parse(saved);
-            const nameEl = document.getElementById("patientNameDisplay");
-            if (nameEl && (user.name || user.username)) {
-              nameEl.textContent = user.name || user.username;
+            const saved = localStorage.getItem("hms_user");
+            if (saved) {
+              const parsed = JSON.parse(saved);
+              if (parsed && parsed.username) user = parsed;
             }
           } catch(e) {}
         }
+
+        if (!user || !user.username) {
+          document.body.classList.add("auth-locked");
+          sessionStorage.setItem("hms_auth_notice", "login_required_prescription");
+          sessionStorage.setItem("hms_redirect", "order_prescription.html");
+
+          const targetUrl = `./patient_login_page.html?redirect=order_prescription.html&msg=login_required_prescription`;
+          const loginBtn = document.getElementById("prescLoginBtn");
+          if (loginBtn) loginBtn.href = targetUrl;
+
+          let count = 2;
+          const countEl = document.getElementById("prescCountdown");
+          const interval = setInterval(() => {
+            count--;
+            if (countEl) countEl.textContent = count;
+            if (count <= 0) {
+              clearInterval(interval);
+              window.location.href = targetUrl;
+            }
+          }, 1000);
+          return false;
+        }
+
+        document.body.classList.remove("auth-locked");
+        const lockedEl = document.getElementById("prescriptionAuthLocked");
+        if (lockedEl) lockedEl.style.display = "none";
+        const uploadPageEl = document.querySelector(".upload-page");
+        if (uploadPageEl) uploadPageEl.style.display = "block";
+
+        const nameEl = document.getElementById("patientNameDisplay");
+        if (nameEl && (user.name || user.username)) {
+          nameEl.textContent = user.name || user.username;
+        }
+        return true;
+      }
+
+      document.addEventListener("DOMContentLoaded", async () => {
+        const isAuth = await checkPrescriptionAuth();
+        if (!isAuth) return;
 
         const prescInput = document.getElementById("prescFile");
         const continueBtn = document.getElementById("continueBtn");
